@@ -1,12 +1,10 @@
 package wuji
 //
-//import (
-//	"testing"
-//)
+//import "testing"
 //
 //func TestFlattenTree(t *testing.T) {
 //	// 创建一个树
-//	aTree := &Tree{}
+//	aTree := &FullTree{}
 //	//->B
 //	a1 := &TreeItem{
 //		Label:     "a1(A1)",
@@ -25,10 +23,11 @@ package wuji
 //		FieldName: "a3",
 //		Type:      "3",
 //	}
-//	aTree.Items = append(aTree.Items,a1)
-//	aTree.Items = append(aTree.Items,a2)
-//	aTree.Items = append(aTree.Items,a3)
-//	bTree := &Tree{}
+//	aTree.Tree = append(aTree.Tree,a1)
+//	aTree.Tree = append(aTree.Tree,a2)
+//	aTree.Tree = append(aTree.Tree,a3)
+//
+//	bTree := &FullTree{}
 //	// ->D
 //	b1 := &TreeItem{
 //		Label:     "b1(B1)",
@@ -53,12 +52,13 @@ package wuji
 //		FieldName: "b4",
 //		Type:      "4",
 //	}
-//	bTree.Items = append(bTree.Items,b1)
-//	bTree.Items = append(bTree.Items,b2)
-//	bTree.Items = append(bTree.Items,b3)
-//	bTree.Items = append(bTree.Items,b4)
+//	bTree.Tree = append(bTree.Tree,b1)
+//	bTree.Tree = append(bTree.Tree,b2)
+//	bTree.Tree = append(bTree.Tree,b3)
+//	bTree.Tree = append(bTree.Tree,b4)
 //
-//	cTree := &Tree{}
+//
+//	cTree := &FullTree{}
 //	// ->B
 //	c1 := &TreeItem{
 //		Label:     "c1(C1)",
@@ -77,10 +77,11 @@ package wuji
 //		FieldName: "c3",
 //		Type:      "3",
 //	}
-//	cTree.Items = append(cTree.Items,c1)
-//	cTree.Items = append(cTree.Items,c2)
-//	cTree.Items = append(cTree.Items,c3)
-//	dTree := &Tree{}
+//	cTree.Tree = append(cTree.Tree,c1)
+//	cTree.Tree = append(cTree.Tree,c2)
+//	cTree.Tree = append(cTree.Tree,c3)
+//
+//	dTree := &FullTree{}
 //	//B->
 //	d1 := &TreeItem{
 //		Label:     "d1(D1)",
@@ -99,10 +100,12 @@ package wuji
 //		FieldName: "d3",
 //		Type:      "3",
 //	}
-//	dTree.Items = append(dTree.Items,d1)
-//	dTree.Items = append(dTree.Items,d2)
-//	dTree.Items = append(dTree.Items,d3)
-//	eTree := &Tree{}
+//
+//	dTree.Tree = append(dTree.Tree,d1)
+//	dTree.Tree = append(dTree.Tree,d2)
+//	dTree.Tree = append(dTree.Tree,d3)
+//
+//	eTree := &FullTree{}
 //	//A->
 //	e1 := &TreeItem{
 //		Label:     "e1(E1)",
@@ -115,9 +118,10 @@ package wuji
 //		FieldName: "e2",
 //		Type:      "2",
 //	}
-//	eTree.Items = append(eTree.Items,e1)
-//	eTree.Items = append(eTree.Items,e2)
-//	fTree := &Tree{}
+//
+//	eTree.Tree = append(eTree.Tree,e1)
+//	eTree.Tree = append(eTree.Tree,e2)
+//	fTree := &FullTree{}
 //	//->D
 //	f1 := &TreeItem{
 //		Label:     "f1(F1)",
@@ -130,8 +134,9 @@ package wuji
 //		FieldName: "f2",
 //		Type:      "2",
 //	}
-//	fTree.Items = append(fTree.Items,f1)
-//	fTree.Items = append(fTree.Items,f2)
+//
+//	fTree.Tree = append(fTree.Tree,f1)
+//	fTree.Tree = append(fTree.Tree,f2)
 //
 //	// A 的正向关联
 //	a1.Positive = bTree
@@ -144,51 +149,31 @@ package wuji
 //	f1.Positive = dTree
 //
 //	// B的反向关联
-//	bNegativeA := &Negative{
-//		Field:          "b2",
-//		RelationTreeID: "aTree",
-//		RelationField:  "a1",
-//		Nt:             aTree,
-//	}
-//	bNegativeD := &Negative{
-//		Field:          "b3",
-//		RelationTreeID: "cTree",
-//		RelationField:  "c1",
-//		Nt:             cTree,
-//	}
-//	bTree.Ns = append(bTree.Ns,bNegativeA)
-//	bTree.Ns = append(bTree.Ns,bNegativeD)
-//	// D 的反向关联
-//	dNegativeB := &Negative{
-//		Field:          "d1",
-//		RelationTreeID: "bTree",
-//		RelationField:  "b1",
-//		Nt:             bTree,
-//	}
+//	bNegativeA := Tree{}
+//	bNegativeA = aTree.Tree
+//	bNegativeD := dTree.Tree
+//	bTree.Negative = append(bTree.Negative,&bNegativeA)
+//	bTree.Negative = append(bTree.Negative,&bNegativeD)
 //
-//	dNegativeF := &Negative{
-//		Field:          "d2",
-//		RelationTreeID: "fTree",
-//		RelationField:  "f1",
-//		Nt:             fTree,
-//	}
-//	dTree.Ns = append(dTree.Ns,dNegativeB)
-//	dTree.Ns = append(dTree.Ns,dNegativeF)
+//	// D 的反向关联
+//
+//	dNegativeB := bTree.Tree
+//	dNegativeF := fTree.Tree
+//
+//	dTree.Negative = append(dTree.Negative,&dNegativeB)
+//	dTree.Negative = append(dTree.Negative,&dNegativeF)
+//
 //
 //	// E的反向关联
-//	eNegativeA := &Negative{
-//		Field:          "e1",
-//		RelationTreeID: "aTree",
-//		RelationField:  "a2",
-//		Nt:             aTree,
-//	}
-//	eTree.Ns = append(eTree.Ns,eNegativeA)
-//	aTree.SchemaID = "aTree"
-//	bTree.SchemaID = "bTree"
-//	cTree.SchemaID = "cTree"
-//	dTree.SchemaID = "dTree"
-//	eTree.SchemaID = "eTree"
-//	fTree.SchemaID = "fTree"
+//	eNegativeA := aTree.Tree
+//	eTree.Negative = append(eTree.Negative,&eNegativeA)
+//
+//	//aTree.SchemaID = "aTree"
+//	//bTree.SchemaID = "bTree"
+//	//cTree.SchemaID = "cTree"
+//	//dTree.SchemaID = "dTree"
+//	//eTree.SchemaID = "eTree"
+//	//fTree.SchemaID = "fTree"
 //
 //	dest := make(map[string]*TreeItem)
 //	flattenTree(dest,aTree,"")
@@ -199,5 +184,4 @@ package wuji
 //	}
 //
 //}
-//
 //

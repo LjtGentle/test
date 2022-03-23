@@ -12,13 +12,14 @@ func test() {
 	t := time.Now().Unix()
 	fmt.Println("t=",t)
 	h := sha256.New()
-	appid := 21
 		//"Qauth-User-Id": 123,
 		//"Qauth-User-Openid": "openid",
 		//"Qauth-User-Name": "name",
 		//"Qauth-User-Domain": "OA",
-		//"Qauth-timestamp": 12323123,
+		//"Qauth-timestamp": 1648000965,
 		//"Qauth-seq": "123456",
+		//"Qauth-sign": "fed9b567426dec4f33016c048f8e8c5a01a25036fb50b79767582ce8a35d9f0f",
+	appid := 21
 	appsecret := "bddf99dbd1a06d7a69d6c5da129b9b0e"
 	QauthSeq := "123456"
 	QauthTimestamp := t
@@ -35,8 +36,13 @@ func test() {
 
 }
 
+func test2() {
+	t := time.Now()
+	fmt.Println(t)
+}
+
 
 func main() {
-	test()
+	test2()
 
 }

@@ -1,27 +1,29 @@
 package wuji
 
+import "strings"
+
 type TreeItem struct {
 	Label string // 标签 name(desc）
 	FieldName string //字段名
 	Relative string
 	Absolute string
 	Positive *Tree
-	Relation string
+	Relation string //args 修改这个值
 	Type string
 }
 
 type Tree struct {
 	Items []*TreeItem
 	SchemaID string
-	Ns []*Negative
+	Ns []*Tree
 }
 
-type Negative struct {
-	Field string // 自己的字段
-	RelationTreeID string //关联的树id
-	RelationField string // 关联树的字段
-	Nt *Tree
-}
+//type Negative struct {
+//	Field string // 自己的字段
+//	RelationTreeID string //关联的树id
+//	RelationField string // 关联树的字段
+//	Nt *Tree
+//}
 //管理端勾选的应该时一个 []string
 
 
@@ -33,7 +35,8 @@ func flattenTree(dest map[string]*TreeItem,tree *Tree,prefix string, parent...*T
 			continue
 		}
 
-		key := prefix + "/P/" + tree.SchemaID
+		key := prefix + "/" + tree.SchemaID+"_"+item.FieldName
+		key = strings.TrimLeft(key,"/")
 		dest[key] = item
 		if item.Positive != nil {
 			parent = append(parent,item.Positive)
@@ -43,11 +46,11 @@ func flattenTree(dest map[string]*TreeItem,tree *Tree,prefix string, parent...*T
 	}
 	//对于反向的操作
 	for _,negative := range tree.Ns {
-		if isContain(negative.Nt,parent...){
+		if isContain(negative,parent...){
 			continue
 		}
-		key := prefix +"/N/" + tree.SchemaID
-		flattenTree(dest,negative.Nt,key,parent...)
+		key := prefix +"/" + tree.SchemaID
+		flattenTree(dest,negative,key,parent...)
 	}
 }
 
