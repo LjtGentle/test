@@ -64,7 +64,8 @@ func main() {
 
 		fileChan := make(chan *File,pictureChanMaxsize)
 		isDone := make(chan struct{}) //是否完成下载
-
+		var mu sync.Mutex
+		var sum = 0
 		for index, v := range urls {
 			wg.Add(1)
 			go func(v string,index int) {
@@ -94,14 +95,17 @@ func main() {
 				pos := strings.LastIndex(v,".")
 				f.Name = fmt.Sprintf("%d%s",index,v[pos:])
 				fileChan <- f
+				mu.Lock()
+				defer mu.Unlock()
+				sum ++
+				if sum ==len(urls) {
+					fmt.Println("发送结束信号")
+					isDone <- struct{}{}
+				}
 				//fmt.Println("下载图片成功 b=",string(buff))
 				fmt.Println("下载成功")
 			}(v,index)
-			if index == len(urls)-1 {
-				//最后一次
-				fmt.Println("发送结束信号")
-				isDone <- struct{}{}
-			}
+
 		}
 
 		//压缩打包
@@ -112,6 +116,8 @@ func main() {
 
 		zipwriter := zip.NewWriter(buf)
 		defer zipwriter.Close()
+
+		var mw sync.Mutex
 		for  {
 			flag := false
 			select {
@@ -120,6 +126,8 @@ func main() {
 				wg.Add(1)
 				go func(v *File) {
 					defer wg.Done()
+					mw.Lock()
+					defer mw.Unlock()
 					iowriter, err := zipwriter.Create(v.Name)
 					if err != nil {
 						fmt.Println("err false=", err)
@@ -136,12 +144,17 @@ func main() {
 				}(p)
 			case <-isDone:
 				// 收到结束信号
-				fmt.Println("收到结束信号")
-				for v:= range fileChan {
+				l := len(fileChan)
+				fmt.Println("收到结束信号,workChanLen=",l)
+				for l<0 {
+					l--
+					v := <-fileChan
 					fmt.Println("收到结束信号,但继续工作")
 					wg.Add(1)
 					go func(v *File) {
 						defer wg.Done()
+						mw.Lock()
+						defer mw.Unlock()
 						iowriter, err := zipwriter.Create(v.Name)
 						if err != nil {
 							fmt.Println("err false=", err)
@@ -157,6 +170,7 @@ func main() {
 						fmt.Println("1328466461")
 					}(v)
 				}
+				fmt.Println("结束for循环")
 				flag = true
 			default:
 				fmt.Println("睡一会")
@@ -168,7 +182,9 @@ func main() {
 			}
 
 		}
+		fmt.Println("等待线程结束.....")
 		wg.Wait()
+		fmt.Println("所有线程都结束")
 		c.Header("Content-Disposition", "attachment; filename="+zipFileName)
 		c.Header("Content-Transfer-Encoding", "binary")
 		bs := buf.Bytes()
