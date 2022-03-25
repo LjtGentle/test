@@ -201,7 +201,7 @@ func TestFlattenTree(t *testing.T) {
 	fTree.SchemaID = "fTree"
 
 	dest := make(map[string]*TreeItem)
-	flattenTree(dest, aTree, "")
+	flattenTree(dest, aTree, "",nil)
 	var i int
 	for k, v := range dest {
 		i++
