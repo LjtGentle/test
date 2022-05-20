@@ -18,8 +18,8 @@ type Req struct {
 }
 
 const (
-	TimeLayout = "2006/01/02/15:04:05"
-	TimeId     = "20060102150405"
+	TimeLayout         = "2006/01/02/15:04:05"
+	TimeId             = "20060102150405"
 	pictureChanMaxsize = 2
 )
 
@@ -41,6 +41,7 @@ func main() {
 
 	// 测试下载文件
 	r.GET("/upload_some_pic", func(c *gin.Context) {
+		var err error
 		var wg sync.WaitGroup
 		//url := "https://sy-1254960240.cos.ap-guangzhou.myqcloud.com/undefined/ingame/images/202009/20200917160412-968279.jpg,"+
 		//	"https://sy-1254960240.cos.ap-guangzhou.myqcloud.com/undefined/ingame/images/202009/20200917154019-160772.jpg," +
@@ -62,13 +63,13 @@ func main() {
 			Name    string
 		}
 
-		fileChan := make(chan *File,pictureChanMaxsize)
-		isDone := make(chan struct{}) //是否完成下载
-		var mu sync.Mutex
+		fileChan := make(chan *File, pictureChanMaxsize)
+		//isDone := make(chan struct{}) //是否完成下载
 		var sum = 0
 		for index, v := range urls {
 			wg.Add(1)
-			go func(v string,index int) {
+			sum++
+			go func(v string, index int) {
 
 				defer wg.Done()
 				res, err := http.Get(v)
@@ -92,19 +93,25 @@ func main() {
 				f := &File{
 					Content: buff,
 				}
-				pos := strings.LastIndex(v,".")
-				f.Name = fmt.Sprintf("%d%s",index,v[pos:])
+
+				pos := strings.LastIndex(v, ".")
+				f.Name = fmt.Sprintf("%d%s", index, v[pos:])
+				//c.Header("Content-Disposition", "attachment; filename="+f.Name)
+				//c.Header("Content-Transfer-Encoding", "chunked")
+				//c.Header("Content-Type", "application/octet-stream")
+				//c.Header("Cache-Control", "no-cache")
+				//
+				//w := bufio.NewWriter(c.Writer)
+				//_, err = w.Write(f.Content)
+				//if err != nil {
+				//	fmt_test.Println("writer err=",err)
+				//	return
+				//}
+				//w.Flush()
 				fileChan <- f
-				mu.Lock()
-				defer mu.Unlock()
-				sum ++
-				if sum ==len(urls) {
-					fmt.Println("发送结束信号")
-					isDone <- struct{}{}
-				}
-				//fmt.Println("下载图片成功 b=",string(buff))
+				//fmt_test.Println("下载图片成功 b=",string(buff))
 				fmt.Println("下载成功")
-			}(v,index)
+			}(v, index)
 
 		}
 
@@ -115,86 +122,118 @@ func main() {
 		buf := bytes.NewBuffer(nil)
 
 		zipwriter := zip.NewWriter(buf)
-		defer zipwriter.Close()
+		defer  func(err error) {
+			zipwriter.Close()
+			if err != nil {
+				fmt.Println("处理图片失败...")
+				return
+			}
+			bs := buf.Bytes()
+			_, err = c.Writer.Write(bs)
+			if err != nil {
+				fmt.Println("写入失败err=", err)
+				return
+			}
 
-		var mw sync.Mutex
-		for  {
-			flag := false
-			select {
-			case p := <-fileChan:
-				fmt.Println("收到工作的信号")
-				wg.Add(1)
-				go func(v *File) {
-					defer wg.Done()
-					mw.Lock()
-					defer mw.Unlock()
-					iowriter, err := zipwriter.Create(v.Name)
-					if err != nil {
-						fmt.Println("err false=", err)
+			fmt.Println("下载完毕")
+		}(err)
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			over := 0
+			for v := range fileChan {
+				//buf.Reset()
+				over++
+				iowriter, err := zipwriter.Create(v.Name)
+				if err != nil {
+					fmt.Println("err false=", err)
 
-					}
-					fmt.Println("len=",len(v.Content))
-					n, err := iowriter.Write(v.Content)
-					fmt.Println("n=",n)
-					if err != nil {
-						fmt.Println("err=", err)
-						return
-					}
-					fmt.Println("1328466461")
-				}(p)
-			case <-isDone:
-				// 收到结束信号
-				l := len(fileChan)
-				fmt.Println("收到结束信号,workChanLen=",l)
-				for l<0 {
-					l--
-					v := <-fileChan
-					fmt.Println("收到结束信号,但继续工作")
-					wg.Add(1)
-					go func(v *File) {
-						defer wg.Done()
-						mw.Lock()
-						defer mw.Unlock()
-						iowriter, err := zipwriter.Create(v.Name)
-						if err != nil {
-							fmt.Println("err false=", err)
-
-						}
-						fmt.Println("len=",len(v.Content))
-						n, err := iowriter.Write(v.Content)
-						fmt.Println("n=",n)
-						if err != nil {
-							fmt.Println("err=", err)
-							return
-						}
-						fmt.Println("1328466461")
-					}(v)
 				}
-				fmt.Println("结束for循环")
-				flag = true
-			default:
-				fmt.Println("睡一会")
-				time.Sleep(300*time.Millisecond)
-
+				fmt.Println("len=", len(v.Content))
+				n, err := iowriter.Write(v.Content)
+				fmt.Println("n=", n)
+				if err != nil {
+					fmt.Println("err=", err)
+					return
+				}
+				//zipwriter.Flush()
+				fmt.Println("压缩文件 name=",v.Name)
+				if over == sum {
+					break
+				}
 			}
-			if flag == true {
-				break
-			}
-
-		}
+		}()
+		//for  {
+		//	flag := false
+		//	select {
+		//	case p := <-fileChan:
+		//		fmt_test.Println("收到工作的信号")
+		//		wg.Add(1)
+		//		go func(v *File) {
+		//			defer wg.Done()
+		//			mw.Lock()
+		//			defer mw.Unlock()
+		//			iowriter, err := zipwriter.Create(v.Name)
+		//			if err != nil {
+		//				fmt_test.Println("err false=", err)
+		//
+		//			}
+		//			fmt_test.Println("len=",len(v.Content))
+		//			n, err := iowriter.Write(v.Content)
+		//			fmt_test.Println("n=",n)
+		//			if err != nil {
+		//				fmt_test.Println("err=", err)
+		//				return
+		//			}
+		//			fmt_test.Println("1328466461")
+		//		}(p)
+		//	case <-isDone:
+		//		// 收到结束信号
+		//		l := len(fileChan)
+		//		fmt_test.Println("收到结束信号,workChanLen=",l)
+		//		for l<0 {
+		//			l--
+		//			v := <-fileChan
+		//			fmt_test.Println("收到结束信号,但继续工作")
+		//			wg.Add(1)
+		//			go func(v *File) {
+		//				defer wg.Done()
+		//				mw.Lock()
+		//				defer mw.Unlock()
+		//				iowriter, err := zipwriter.Create(v.Name)
+		//				if err != nil {
+		//					fmt_test.Println("err false=", err)
+		//
+		//				}
+		//				fmt_test.Println("len=",len(v.Content))
+		//				n, err := iowriter.Write(v.Content)
+		//				fmt_test.Println("n=",n)
+		//				if err != nil {
+		//					fmt_test.Println("err=", err)
+		//					return
+		//				}
+		//				fmt_test.Println("1328466461")
+		//			}(v)
+		//		}
+		//		fmt_test.Println("结束for循环")
+		//		flag = true
+		//	default:
+		//		fmt_test.Println("睡一会")
+		//		time.Sleep(300*time.Millisecond)
+		//
+		//	}
+		//	if flag == true {
+		//		break
+		//	}
+		//
+		//}
 		fmt.Println("等待线程结束.....")
 		wg.Wait()
 		fmt.Println("所有线程都结束")
 		c.Header("Content-Disposition", "attachment; filename="+zipFileName)
-		c.Header("Content-Transfer-Encoding", "binary")
-		bs := buf.Bytes()
-		_, err := c.Writer.Write(bs)
-		if err != nil {
-			fmt.Println("写入失败err=",err)
-			return
-		}
-
-		fmt.Println("下载完毕")
+		c.Header("Content-Transfer-Encoding", "chunked")
+		c.Header("Content-Type", "application/octet-stream")
+		c.Header("Cache-Control", "no-cache")
 
 
 	})

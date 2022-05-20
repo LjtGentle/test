@@ -20,7 +20,7 @@ func test1() {
 	}
 	fmt.Printf("strSlice=%v\n", strSlice)
 	fmt.Printf("txt=%v\n", txt)
-	//fmt.Printf("strSlice[0]=%v\n",templateGetValue(strSlice[0]))
+	//fmt_test.Printf("strSlice[0]=%v\n",templateGetValue(strSlice[0]))
 	fmt.Println("len=", len(strSlice))
 }
 

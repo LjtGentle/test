@@ -47,19 +47,19 @@ func main () {
 	//	return
 	//}
 	//defer res.Body.Close()
-	//fmt.Println("code=",res.StatusCode)
+	//fmt_test.Println("code=",res.StatusCode)
 	//b, err := ioutil.ReadAll(res.Body)
 	//if err != nil {
-	//	fmt.Printf("read err=%+v\n",err)
+	//	fmt_test.Printf("read err=%+v\n",err)
 	//	return
 	//}
 	//var h *HostEquipmentRes
 	//err = json.Unmarshal(b, &h)
 	//if err != nil {
-	//	fmt.Printf("json err=(%+v\n)",err)
+	//	fmt_test.Printf("json err=(%+v\n)",err)
 	//	return
 	//}
-	//fmt.Printf("h=%+v\n",h)
+	//fmt_test.Printf("h=%+v\n",h)
 
 	var h *HostEquipmentRes
 	url := "http://apps.datamore.tencent-cloud.net/api/pkg_rules/result"

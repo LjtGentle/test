@@ -180,7 +180,7 @@ func test() {
 	fmt.Println("code=", code)
 	fmt.Printf("infos=%+v\n", infos)
 	//infoSlice := ParseAsSerializedJSONArray(infos)
-	//fmt.Printf("infoSlice=%+v\n",infoSlice)
+	//fmt_test.Printf("infoSlice=%+v\n",infoSlice)
 	h := &Host{
 		Date:       "20220317",
 		HeroID:     "106",
@@ -203,10 +203,10 @@ func test() {
 	//var h Host
 	//_, err = hostProxy.Get("", &h)
 	//if err != nil {
-	//	fmt.Printf("3333333333err=%+v\n", err)
+	//	fmt_test.Printf("3333333333err=%+v\n", err)
 	//	return
 	//}
-	//fmt.Printf("h=%+v\n", h)
+	//fmt_test.Printf("h=%+v\n", h)
 }
 
 func main() {
@@ -220,7 +220,7 @@ type MyAttributeSlice struct {
 func test2() {
 	str :="[{\"adjust_time\":\"2022-01-13T00:00:00Z\",\"attributes\":{\"attributes\":[{\"attribute\":\"被动-专精(张飞）\",\"desc\":\"【守护机关】和【崩裂践踏】释放后对附近的敌人持续造成法术伤害\\u003cbr\\u003e【守护机关】可对敌人造成物理伤害，自身获得护盾增加，但不再对队友生效\"},{\"attribute\":\"被动-力量进阶\",\"desc\":\"当额外物理攻击达到200时，【守护机关】和【崩裂践踏】命中后还可减少目标150物理防御\"},{\"attribute\":\"限制条件\",\"desc\":\"失去专精装效果后5分钟内不可再次购买\"}]},\"compound_url\":{\"compound_url\":[{\"equipment_id\":0}]},\"desc\":\"1111\",\"equip_id\":{\"desc\":\"\\u003cp\\u003e通过购买专精装，张飞可以将自己切换至进攻性方向。人形状态时，他的2技能将不再为队友提供护盾，但同时，2技能落地时会对周围敌人造成物理伤害。同时，人形状态与变身状态下，释放2技能后，还会对周围敌人持续造成魔法伤害。\\u003cbr\\u003e装备专精装的状态下，张飞的保护能力会有所降低，但是进攻能力与清兵能力都有提升，为偏好进攻的玩家，或者需要主动进攻、清兵的对局，提供了选择。\\u003c/p\\u003e\",\"equipment_id\":21713,\"hero_id\":{\"id\":171,\"name\":\"张飞\"},\"state\":{\"state\":[{\"state\":\"1\",\"start_time\":1641005608,\"end_time\":1703991208}]},\"sub_type\":\"3|7\",\"type\":2},\"equip_url\":\"https://wuji-1254960240.file.myqcloud.com/xy/ingame_sy/smoba/equipment_icon/web5fbe2dae-71a3-449b-fd7f-ae40b50821bc.png\",\"generality\":\"\",\"introduce\":\"\\u003cp\\u003e通过购买专精装，张飞可以将自己切换至进攻性方向。人形状态时，他的2技能将不再为队友提供护盾，但同时，2技能落地时会对周围敌人造成物理伤害。同时，人形状态与变身状态下，释放2技能后，还会对周围敌人持续造成魔法伤害。\\u003cbr\\u003e装备专精装的状态下，张飞的保护能力会有所降低，但是进攻能力与清兵能力都有提升，为偏好进攻的玩家，或者需要主动进攻、清兵的对局，提供了选择。\\u003c/p\\u003e\",\"name\":\"震军虎啸\",\"nature\":1,\"price\":2060,\"primary_details\":{\"primary\":{\"name\":\"虎啸\",\"price\":300,\"icon\":\"https://wuji-1254960240.file.myqcloud.com/xy/ingame_sy/webe2665ab9-425a-482a-892b-cf9807d78b97.png\",\"desc\":\"\",\"attributes\":[{\"attribute\":\"被动-专精(张飞)\",\"desc\":\"【守护机关】和【崩裂践踏】释放后对附近的敌人持续造成法术伤害\\u003cbr\\u003e【守护机关】可对敌人造成物理伤害，自身获得护盾增加，但不再对队友生效\"}]}},\"stage_id\":72,\"title\":\"张飞专精装上线\",\"version\":\"25\"},{\"adjust_time\":\"2022-01-17T00:00:00Z\",\"attributes\":[{\"name\":\"\",\"desc\":\"\"}],\"compound_url\":[{\"equip_id\":0}],\"desc\":\"222\",\"equip_id\":{\"desc\":\"\\u003cp\\u003e通过购买专精装，张飞可以将自己切换至进攻性方向。人形状态时，他的2技能将不再为队友提供护盾，但同时，2技能落地时会对周围敌人造成物理伤害。同时，人形状态与变身状态下，释放2技能后，还会对周围敌人持续造成魔法伤害。\\u003cbr\\u003e装备专精装的状态下，张飞的保护能力会有所降低，但是进攻能力与清兵能力都有提升，为偏好进攻的玩家，或者需要主动进攻、清兵的对局，提供了选择。\\u003c/p\\u003e\",\"equipment_id\":21713,\"hero_id\":{\"id\":171,\"name\":\"张飞\"},\"state\":{\"state\":[{\"state\":\"1\",\"start_time\":1641005608,\"end_time\":1703991208}]},\"sub_type\":\"3|7\",\"type\":2},\"equip_url\":\"https://wuji-1254960240.file.myqcloud.com/xy/ingame_sy/smoba/equipment_icon/web5fbe2dae-71a3-449b-fd7f-ae40b50821bc.png\",\"generality\":\"\",\"introduce\":\"\\u003cp\\u003enull\\u003c/p\\u003e\",\"name\":\"震军虎啸\",\"nature\":2,\"price\":2060,\"primary_details\":{\"primary\":{\"name\":\"虎啸\",\"price\":300,\"icon\":\"https://wuji-1254960240.file.myqcloud.com/xy/ingame_sy/webe2665ab9-425a-482a-892b-cf9807d78b97.png\",\"desc\":\"\",\"attributes\":[{\"attribute\":\"\",\"desc\":\"\"}]}},\"stage_id\":74,\"title\":null,\"version\":\"25\"}]"
 	//strs:= ParseAsSerializedJSONArray(str)
-	//fmt.Printf("strs=%+v\n",strs)
+	//fmt_test.Printf("strs=%+v\n",strs)
 	var as []WuJiResp
 	err := json.Unmarshal([]byte(str), &as)
 	if err != nil {

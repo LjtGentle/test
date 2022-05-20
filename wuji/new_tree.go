@@ -44,7 +44,13 @@ func flattenTree(dest map[string]*TreeItem, tree *Tree, prefix string, pParent [
 		dest[key] = item
 		if item.Positive != nil {
 			pParent = append(pParent, item.Positive)
+			for _, p:= range pParent {
+				fmt.Printf("parent=%+v\n",*p)
+			}
 			flattenTree(dest, item.Positive, key, pParent)
+			for _, p:= range pParent {
+				fmt.Printf("2parent=%+v\n",*p)
+			}
 		}
 
 	}

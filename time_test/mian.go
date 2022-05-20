@@ -1,7 +1,6 @@
 package main
 
 import (
-	"archive/zip"
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
@@ -38,7 +37,8 @@ func test() {
 }
 
 func test2() {
-	t := time.Now()
+	t := time.Now().Unix()
+	//1648608103
 	fmt.Println(t)
 }
 
@@ -53,11 +53,22 @@ func test3() {
 	fmt.Println("flag=", flag)
 	flag = st2.After(st1)
 	fmt.Println("flag=", flag)
-	zip.NewWriter()
+
 
 }
 
 func main() {
-	test3()
+	test4()
 
 }
+
+
+func test4() {
+	// 验证 1626940541412 是否是时间戳
+	// 1648608103 现在的时间戳
+	// 1648607913432  id   1648607913 432
+	timeStamp := 1648607913
+	t := time.Unix(int64(timeStamp),0)
+	fmt.Println("t=",t)
+}
+
