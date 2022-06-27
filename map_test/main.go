@@ -21,6 +21,9 @@ func test() {
 func main() {
 	test8()
 }
+func test9() {
+	testMap := map[string][]int
+}
 
 func test8() {
 	testMap := make(map[string]int)

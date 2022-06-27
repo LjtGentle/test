@@ -94,25 +94,26 @@ func (m *WujiSchema) TableName() string {
 
 // SchemaField
 type SchemaField struct {
-	ID              string        `json:"id"`
-	Name            string        `json:"name"`
-	Desc            string        `json:"desc"`
-	Type            int           `json:"type"`
-	Required        bool          `json:"required"`
-	Args            string        `json:"args"`
-	Maxlength       interface{}   `json:"maxlength"`
-	Pattern         string        `json:"pattern"`
-	Sort            interface{}   `json:"sort"`
-	Readonly        bool          `json:"readonly"`
-	Unique          bool          `json:"unique"`
-	NotAutoSpace    bool          `json:"notAutoSpace"`
-	IsHidden        bool          `json:"isHidden"`
-	Width           int           `json:"width"`
-	Triggers        string        `json:"triggers"`
-	Searchable      bool          `json:"searchable"`
-	DefaultOperator []interface{} `json:"defaultOperator"`
-	Score           int           `json:"score"`
-	Value           string             `json:"value,omitempty"`
+	ID              string             `json:"id"`
+	Name            string             `json:"name"`
+	Desc            string             `json:"desc"`
+	Type            FieldType          `json:"type"`
+	Required        bool               `json:"required"`
+	Args            string             `json:"args"`
+	Maxlength       interface{}        `json:"maxlength"`
+	Pattern         string             `json:"pattern"`
+	Sort            string             `json:"sort"`
+	Readonly        bool               `json:"readonly"`
+	Unique          bool               `json:"unique"`
+	NotAutoSpace    bool               `json:"notAutoSpace"`
+	IsHidden        bool               `json:"isHidden"`
+	Width           int                `json:"width"`
+	Triggers        string             `json:"triggers"`
+	Searchable      bool               `json:"searchable"`
+	DefaultOperator []interface{}      `json:"defaultOperator"`
+	ValueType       string             `json:"valueType"`
+	Score           int                `json:"score"`
+	Value           interface{}        `json:"value,omitempty"`
 	Input           *SchemaFieldInput  `json:"input,omitempty"`
 	Output          *SchemaFieldOutput `json:"output,omitempty"`
 }
@@ -223,13 +224,13 @@ func test03() {
 }
 
 func main() {
-	test04()
+	test03()
 }
 
 func test04() {
 	//o := new(WujiSchema)
 	//err := db.Where("_id = ?", "ingame_smoba:equipment").First(o).Error
-	o := make([]*WujiSchema,0)
+	o := make([]*WujiSchema, 0)
 	err := db.Find(&o).Error
 	if err != nil {
 		fmt.Printf("find err=%+v\n", err)

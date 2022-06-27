@@ -7,12 +7,18 @@ import (
 )
 
 func main() {
-	cronExpr := "* * * * * *" //每秒？
+	fmt.Println("come in main")
+	job()
+
+	fmt.Println("out of main")
+
+}
+func job () {
 	cron := cron.New()
-	cron.AddFunc(cronExpr, func() {
-		fmt.Println("秒 time=",time.Now())
+	cron.AddFunc("@every 1m", func() {
+		fmt.Println("@every 1m time=",time.Now())
 	})
-	cron.AddFunc("* * * * *", func() {
+	cron.AddFunc("g", func() {
 		fmt.Println("分 time=",time.Now())
 	})
 	cron.AddFunc("0 22,23 * * *", func() {

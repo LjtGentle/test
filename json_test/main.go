@@ -58,7 +58,7 @@ func testSlice() {
 func main() {
 	//test_map2()
 	//testSlice()
-	test4()
+	test5()
 	//classMap := make(map[int]string)
 	//add(classMap,1,"7")
 	//add(classMap,1,"8")
@@ -66,6 +66,40 @@ func main() {
 	//fmt_test.Printf("classMap=%+v\n",classMap)
 
 }
+
+type Stu struct {
+	Name string `json:"name"`
+	Age string `json:"age"`
+}
+
+type Student struct {
+	Name string `json:"name"`
+	Age string `json:"age"`
+	Address string `json:"address,omitempty"`
+}
+// test5 测试 小字段的结构体转大字段的结构体
+func test5() {
+	minStu := Stu{
+		Name: "Gentle",
+		Age:  "24",
+	}
+	data, err := json.Marshal(minStu)
+	if err != nil {
+		fmt.Println("1111111111err=",err)
+		return
+	}
+	var maxStu Student
+	err = json.Unmarshal(data, &maxStu)
+	if err != nil {
+		fmt.Println("2222222222222err=",err)
+		return
+	}
+	fmt.Printf("maxStu=%+v\n",maxStu)
+}
+
+
+
+
 type PageInfo struct {
 	Filter   uint32 `json:"filter"`
 	Page     uint32 `json:"page"`
