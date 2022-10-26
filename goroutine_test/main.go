@@ -4,7 +4,10 @@ import (
 	"context"
 	"fmt"
 	"golang.org/x/sync/semaphore"
+	"math"
 	"math/rand"
+	"runtime"
+	"sync"
 	"time"
 )
 
@@ -54,7 +57,113 @@ func test3() {
 
 }
 
+// test04 退出多个线程
+func test04() {
+	done := make(chan struct{}, 1)
+	var wg sync.WaitGroup
+	for i := 0; i < 3; i++ {
+		wg.Add(1)
+		go func(number int) {
+			defer wg.Done()
+			for {
+				select {
+				case <-done:
+					fmt.Printf("goroutine %d return..\n", number)
+					done <- struct{}{}
+					return
+				default:
+					fmt.Printf("goroutine %d sleep..\n", number)
+					time.Sleep(1 * time.Second)
+				}
+			}
+		}(i)
+	}
+	time.Sleep(2 * time.Second)
+	done <- struct{}{}
+
+	wg.Wait()
+	time.Sleep(2 * time.Second)
+	fmt.Println("123456")
+}
+
+func test05() {
+	// 无缓存出现死锁
+	done := make(chan struct{}, 0)
+	done <- struct{}{}
+	_ = <-done
+}
+
+func test06() {
+	// 关闭channel 达到多协程退出
+	done := make(chan struct{}, 1)
+	var wg sync.WaitGroup
+	for i := 0; i < 3; i++ {
+		wg.Add(1)
+		go func(number int) {
+			defer wg.Done()
+			for {
+				select {
+				case _, ok := <-done:
+					if !ok {
+						fmt.Printf("退出 %d\n", number)
+						return
+					}
+
+				default:
+					fmt.Printf("goroutine %d sleep..\n", number)
+					time.Sleep(1 * time.Second)
+				}
+			}
+		}(i)
+	}
+	time.Sleep(2 * time.Second)
+	close(done)
+	fmt.Println("关闭了chan")
+	wg.Wait()
+	time.Sleep(2 * time.Second)
+	fmt.Println("123456")
+}
+func test07() {
+	ctx := context.TODO()
+	ctx.Done()
+
+}
+
+// 控制线程的数量
+func test08() {
+	sem := semaphore.NewWeighted(10)
+	max := math.MaxInt64
+	for i := 0; i < max; i++ {
+		sem.Acquire(context.TODO(), 1)
+
+		go func() {
+			defer sem.Release(1)
+
+			fmt.Printf("i=%d,num=%d\n", i, runtime.NumGoroutine())
+		}()
+	}
+}
+
+// 模拟执行业务的 goroutine
+func doBusiness(ch chan bool, i int) {
+	fmt.Println("go func:", i, "goroutine count:", runtime.NumGoroutine())
+	<-ch
+}
+
+func test09() {
+	max_cnt := math.MaxInt64
+	// max_cnt := 10
+	fmt.Println(max_cnt)
+
+	ch := make(chan bool, 3)
+
+	for i := 0; i < max_cnt; i++ {
+		ch <- true
+		go doBusiness(ch, i)
+	}
+}
+
 func main() {
-	test3()
+	test08()
 
 }

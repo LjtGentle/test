@@ -15,7 +15,7 @@ func test1() {
 
 	strSlice := reg.FindAllString(txt, -1)
 	for _, v := range strSlice {
-		txt = strings.Replace(txt,v,"V73",-1)
+		txt = strings.Replace(txt, v, "V73", -1)
 
 	}
 	fmt.Printf("strSlice=%v\n", strSlice)
@@ -30,6 +30,14 @@ func templateGetValue(str string) string {
 	return string(b[2 : len(b)-1])
 }
 
+func test2() {
+
+	selector := "task"
+	match, _ := regexp.MatchString("^([a-z]+,)*[a-z]+$", selector)
+
+	fmt.Println(match)
+}
+
 func main() {
-	test1()
+	test2()
 }

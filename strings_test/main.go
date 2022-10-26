@@ -38,7 +38,19 @@ func test2() {
 }
 
 func main() {
-	test12()
+	test15()
+}
+
+func test15() {
+	specialStr := "\\" + "\""
+	fmt.Printf(specialStr)
+}
+
+//
+func test14() {
+	str := "hhhh\ngggg"
+	str = strings.ReplaceAll(str, "\n", "")
+	fmt.Println(str)
 }
 
 func test13() {

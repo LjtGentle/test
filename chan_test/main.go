@@ -51,6 +51,81 @@ func test2() {
 
 }
 
+type T struct {
+	ch   chan string
+	done chan struct{}
+}
+
+func new() *T {
+	return &T{
+		ch:   make(chan string, 10),
+		done: make(chan struct{}),
+	}
+}
+
+func (t *T) test3() {
+	//time.Sleep(2 * time.Second)
+	go func() {
+		i := 0
+		for {
+			i++
+			t.ch <- "hh"
+			time.Sleep(1 * time.Second)
+			if i > 20 {
+				break
+			}
+		}
+	}()
+
+	go func() {
+		for {
+			time.Sleep(15 * time.Second)
+			t.done <- struct{}{}
+		}
+	}()
+	select {}
+}
+
+func (t *T) test() {
+	defer fmt.Println("离开test")
+	i := 0
+	for {
+		select {
+		case str := <-t.ch:
+			i++
+			fmt.Printf("str=%s,time=%+v\n", str, time.Now())
+		case <-t.done:
+			fmt.Printf("get done time = %+v\n", time.Now())
+			for {
+				l := len(t.ch)
+				fmt.Println(l)
+				if l == 0 {
+					break
+				}
+				v := <-t.ch
+				fmt.Println(v)
+			}
+			fmt.Println("return")
+			return
+		default:
+			//fmt.Printf("default time=%+v\n", time.Now())
+			time.Sleep(500 * time.Millisecond)
+		}
+	}
+}
+
 func main() {
-	test2()
+	t := new()
+	go t.test3()
+	t.test()
+	ch := make(chan struct{})
+	ch <- struct{}{}
+	select {
+	case <-ch:
+		fmt.Println(111)
+	default:
+		fmt.Println(222)
+	}
+	fmt.Println("end of main")
+
 }

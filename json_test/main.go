@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"math/rand"
 	"strings"
 )
 
@@ -55,28 +56,77 @@ func testSlice() {
 	fmt.Printf("b=%s\n", string(b))
 }
 
+//type PageInfo struct {
+//	Filter   uint32 `json:"filter"`
+//	Page     uint32 `json:"page"`
+//	PageSize uint32 `json:"page_size"`
+//	Offset   uint32 `json:"-"`
+//}
+//
+//func test11() {
+//	str := `{\"filter\":1,\"page\":2,\"page_size\":10}`
+//	var p PageInfo
+//	if err := json.Unmarshal([]byte(str), &p); err != nil {
+//		fmt.Printf("错误的分页数据:%+v", err)
+//		return
+//	}
+//
+//}
+
 func main() {
 	//test_map2()
 	//testSlice()
-	test5()
+	//test5()
 	//classMap := make(map[int]string)
 	//add(classMap,1,"7")
 	//add(classMap,1,"8")
 	//add(classMap,2,"4")
 	//fmt_test.Printf("classMap=%+v\n",classMap)
+	//randString()
+	//jsonToStrings(`{"id":632257508,"distribute":{"channel":{"chan":1,"task":16,"stage":57}}}`)
+	test4()
+}
 
+func jsonToStrings(jsonStr string) {
+	var obj interface{}
+	json.Unmarshal([]byte(jsonStr), &obj)
+	fmt.Printf("obj=%+v\n", obj)
+}
+
+func test10() {
+	str := strings.ToLower("index.html")
+	fmt.Println("str=", str)
+}
+
+// 随机字符串
+func randString() {
+	for i := 0; i < 10; i++ {
+		i := rand.Int31()
+		fmt.Println("i=", i)
+	}
+}
+
+const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+func randStr(n int) string {
+	b := make([]byte, n)
+	for i := range b {
+		b[i] = letters[rand.Intn(len(letters))]
+	}
+	return string(b)
 }
 
 type Stu struct {
 	Name string `json:"name"`
-	Age string `json:"age"`
+	Age  string `json:"age"`
 }
 
 type Student struct {
-	Name string `json:"name"`
-	Age string `json:"age"`
+	Name    string `json:"name"`
+	Age     string `json:"age"`
 	Address string `json:"address,omitempty"`
 }
+
 // test5 测试 小字段的结构体转大字段的结构体
 func test5() {
 	minStu := Stu{
@@ -85,20 +135,17 @@ func test5() {
 	}
 	data, err := json.Marshal(minStu)
 	if err != nil {
-		fmt.Println("1111111111err=",err)
+		fmt.Println("1111111111err=", err)
 		return
 	}
 	var maxStu Student
 	err = json.Unmarshal(data, &maxStu)
 	if err != nil {
-		fmt.Println("2222222222222err=",err)
+		fmt.Println("2222222222222err=", err)
 		return
 	}
-	fmt.Printf("maxStu=%+v\n",maxStu)
+	fmt.Printf("maxStu=%+v\n", maxStu)
 }
-
-
-
 
 type PageInfo struct {
 	Filter   uint32 `json:"filter"`
@@ -111,40 +158,37 @@ func test4() {
 	var p PageInfo
 	str := "{\"filter\":1,\"page\":2,\"page_size\":20}"
 	if err := json.Unmarshal([]byte(str), &p); err != nil {
-		 fmt.Printf("错误的分页数据:%v\n", str)
+		fmt.Printf("错误的分页数据:%v\n", str)
 		return
 	}
-	fmt.Printf("p=%+v",p)
+	fmt.Printf("p=%+v", p)
 }
-
 
 // 删除某个下标
 func test3() {
-	is := []int{1,2,3,4,5,6,7}
+	is := []int{1, 2, 3, 4, 5, 6, 7}
 	intSlice := is[:]
-	fmt.Println("intSlice=",intSlice)
-	for k,v := range intSlice {
-		fmt.Printf("k=%d,v=%d\n",k,v)
+	fmt.Println("intSlice=", intSlice)
+	for k, v := range intSlice {
+		fmt.Printf("k=%d,v=%d\n", k, v)
 	}
 	// 删除下标为3的
 	index := 3
 	pre := intSlice[:index]
 	tail := intSlice[index+1:]
-	res := make([]int,0,10)
-	res = append(pre,tail...)
-	fmt.Println("res=",res)
-
+	res := make([]int, 0, 10)
+	res = append(pre, tail...)
+	fmt.Println("res=", res)
 
 }
-
 
 // json 转对象
 
 func test2() {
 	//str := "{\"primary\":{\"name\":\"重拳\",\"price\":452,\"icon\":\"https://wuji-1254960240.file.myqcloud.com/xy/ingame_sy/web4ea55d73-3374-4a63-bcc4-0aae6c0bf31c.png\",\"desc\":\"\",\"attributes\":[{\"attribute\":\"被动-专精（张飞）效果调整为：\",\"desc\":\"【守护机关】可以对目标区域敌人造成伤害，并附带50%减速持续1s，但无法再为队友提供护盾，【崩裂践踏】可额外对目标造成50%减速，持续1s\"}]}}"
 	str := "[{\\\"name\\\":\\\"被动-专精（张飞）效果调整为：\\\",\\\"desc\\\":\\\"【守护机关】可以对目标区域敌人造成伤害，并附带50%减速持续1s，但无法再为队友提供护盾，【崩裂践踏】可额外对目标造成50%减速，持续1s\\\"},{\\\"name\\\":\\\"被动-力量进阶效果调整为：\\\",\\\"desc\\\":\\\"额外物理攻击达到100时，释放【守护机关】和【崩裂践踏】后，会持续对周围造成法术灼烧伤害，并降低受到伤害的目标30%的输出\\\"}]"
-	str = strings.Replace(str,"\\","",-1)
-	fmt.Println("str=",str)
+	str = strings.Replace(str, "\\", "", -1)
+	fmt.Println("str=", str)
 	var obj interface{}
 	err := json.Unmarshal([]byte(str), &obj)
 	if err != nil {
@@ -156,6 +200,6 @@ func test2() {
 	if err != nil {
 		return
 	}
-	fmt.Println("b=",string(b))
+	fmt.Println("b=", string(b))
 
 }
