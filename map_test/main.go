@@ -19,10 +19,51 @@ func test() {
 }
 
 func main() {
-	test8()
+	test9()
 }
+
+// 测试指针的range问题
 func test9() {
-	testMap := map[string][]int
+	type People struct {
+		ID   int
+		Name string
+		Age  int
+	}
+	ps := make([]People, 0, 10)
+	psMap := make(map[int]*People)
+	psMap[1] = &People{
+		ID:   1,
+		Name: "111",
+		Age:  11,
+	}
+	psMap[2] = &People{
+		ID:   2,
+		Name: "222",
+		Age:  22,
+	}
+	psMap[3] = &People{
+		ID:   3,
+		Name: "333",
+		Age:  33,
+	}
+	for _, p := range psMap {
+		ps = append(ps, *p)
+	}
+	marshal, err := json.Marshal(ps)
+	if err != nil {
+		return
+	}
+	fmt.Printf("ps=%+v\n", string(marshal))
+
+	psMap2 := make(map[int]*People)
+	for _, v := range ps {
+		psMap2[v.ID] = &v
+	}
+	bytes, err := json.Marshal(psMap2)
+	if err != nil {
+		return
+	}
+	fmt.Printf("psMap2=%+v\n", string(bytes))
 }
 
 func test8() {

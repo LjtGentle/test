@@ -29,6 +29,6 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	fmt.Printf("cfg=%+v", cfg)
+	fmt.Printf("cfg=%+v\n", cfg.OsGame.OsGameTypes)
 	fmt.Println(time.Now().Unix())
 }

@@ -13,9 +13,13 @@ import (
 
 var db *gorm.DB
 
+func main() {
+	test06()
+}
+
 func init() {
 	var err error
-	conStr := "root:123456@(localhost)/wuji_core?charset=utf8mb4&parseTime=True&loc=Local"
+	conStr := "root:123456@(localhost)/test?charset=utf8mb4&parseTime=True&loc=Local"
 	db, err = gorm.Open(gMysql.Open(conStr), &gorm.Config{})
 	if err != nil {
 		panic(err)
@@ -24,16 +28,28 @@ func init() {
 }
 
 type Award struct {
-	Id        uint   `gorm:"column:id" json:"id"`
-	Bid       string `gorm:"column:bid" json:"bid"`
-	TypeID    uint   `gorm:"column:type_id" json:"type_id"`       // 期次ID
-	IsCustom  int    `gorm:"column:is_custom" json:"is_custom"`   // 奖项类型=0-默认奖项,1-自定义奖项
-	AwardType int    `gorm:"column:award_type" json:"award_type"` // 默认的奖项 未获奖：0，入围奖：1， 特别鼓励奖：2，人气设计奖：3， 最佳设计奖：4， 入围创意奖：5，人气创意奖：6，优秀创意奖：7，最佳创意奖：8
-	Name      string `gorm:"column:name" json:"name"`             // 奖项名称
+	Id        uint      `gorm:"column:id" json:"id"`
+	Bid       string    `gorm:"column:bid" json:"bid"`
+	TypeID    uint      `gorm:"column:type_id" json:"type_id"`       // 期次ID
+	IsCustom  int       `gorm:"column:is_custom" json:"is_custom"`   // 奖项类型=0-默认奖项,1-自定义奖项
+	AwardType int       `gorm:"column:award_type" json:"award_type"` // 默认的奖项 未获奖：0，入围奖：1， 特别鼓励奖：2，人气设计奖：3， 最佳设计奖：4， 入围创意奖：5，人气创意奖：6，优秀创意奖：7，最佳创意奖：8
+	Name      AwardName `gorm:"column:name" json:"name"`             // 奖项名称
 }
 
 func (m Award) TableName() string {
 	return "test.qa_award_smoba"
+}
+
+type AwardName struct {
+	MainName string `json:"main_name"`
+	SideName string `json:"side_name"`
+}
+
+func (o AwardName) Value() (driver.Value, error) {
+	return mysql.ValueJson(o)
+}
+func (o *AwardName) Scan(input interface{}) error {
+	return mysql.ScanJson(input, o)
 }
 
 // 无极表信息
@@ -166,46 +182,47 @@ func test(db *gorm.DB, typeID string) {
 	}
 	fmt.Printf("award=%+v\n", award)
 }
-func test02() {
-	a := &Award{
-		Bid:       "smoba",
-		TypeID:    12,
-		IsCustom:  1,
-		AwardType: 0,
-		Name:      "GentleAName",
-	}
-	fmt.Printf("a=%+v\n", a)
-	err := db.Table(Award{}.TableName()).Create(a).Error
-	if err != nil {
-		fmt.Printf("err=%+v\n", err)
-		return
-	}
-	fmt.Printf("a=%+v\n", a)
-	as := make([]Award, 0, 10)
-	a1 := Award{
-		Bid:       "smoba1",
-		TypeID:    12,
-		IsCustom:  1,
-		AwardType: 0,
-		Name:      "ben",
-	}
-	a2 := Award{
-		Bid:       "smoba1",
-		TypeID:    12,
-		IsCustom:  1,
-		AwardType: 0,
-		Name:      "jack",
-	}
-	as = append(as, a1)
-	as = append(as, a2)
-	fmt.Printf("brefor as =%+v\n", as)
-	err = db.Table(Award{}.TableName()).Create(&as).Error
-	if err != nil {
-		fmt.Printf("err222=%+v\n", err)
-		return
-	}
-	fmt.Printf("as=%+v\n", as)
-}
+
+//func test02() {
+//	a := &Award{
+//		Bid:       "smoba",
+//		TypeID:    12,
+//		IsCustom:  1,
+//		AwardType: 0,
+//		Name:      "GentleAName",
+//	}
+//	fmt.Printf("a=%+v\n", a)
+//	err := db.Table(Award{}.TableName()).Create(a).Error
+//	if err != nil {
+//		fmt.Printf("err=%+v\n", err)
+//		return
+//	}
+//	fmt.Printf("a=%+v\n", a)
+//	as := make([]Award, 0, 10)
+//	a1 := Award{
+//		Bid:       "smoba1",
+//		TypeID:    12,
+//		IsCustom:  1,
+//		AwardType: 0,
+//		Name:      "ben",
+//	}
+//	a2 := Award{
+//		Bid:       "smoba1",
+//		TypeID:    12,
+//		IsCustom:  1,
+//		AwardType: 0,
+//		Name:      "jack",
+//	}
+//	as = append(as, a1)
+//	as = append(as, a2)
+//	fmt.Printf("brefor as =%+v\n", as)
+//	err = db.Table(Award{}.TableName()).Create(&as).Error
+//	if err != nil {
+//		fmt.Printf("err222=%+v\n", err)
+//		return
+//	}
+//	fmt.Printf("as=%+v\n", as)
+//}
 
 func test03() {
 	var a []Award
@@ -223,8 +240,15 @@ func test03() {
 
 }
 
-func main() {
-	test03()
+func test06() {
+	as := make([]Award, 0)
+	err := db.Table((&Award{}).TableName()).Find(&as).Error
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println("v2")
+	fmt.Printf("%+v\n", as)
 }
 
 func test04() {

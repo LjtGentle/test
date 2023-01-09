@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"math/rand"
+	"reflect"
 	"strings"
 )
 
@@ -62,6 +63,7 @@ func testSlice() {
 //	PageSize uint32 `json:"page_size"`
 //	Offset   uint32 `json:"-"`
 //}
+
 //
 //func test11() {
 //	str := `{\"filter\":1,\"page\":2,\"page_size\":10}`
@@ -84,7 +86,122 @@ func main() {
 	//fmt_test.Printf("classMap=%+v\n",classMap)
 	//randString()
 	//jsonToStrings(`{"id":632257508,"distribute":{"channel":{"chan":1,"task":16,"stage":57}}}`)
-	test4()
+	test24()
+}
+
+func test24() {
+	fileName := "lordSkill/LordSkill_ChangE.png"
+	fileName = strings.Join(strings.Split(fileName, "/")[1:], "/")
+	ts := strings.Split(fileName, "/")[1:]
+	fmt.Println(ts)
+	fmt.Println(fileName)
+}
+
+type APP struct {
+	AppBusiness map[string]interface{} `json:"app_business"`
+}
+
+func test23() {
+	str := "{\"app_business\":{\"comment\":{},\"message\":{},\"operation-new\":{},\"qq2openid\":{},\"role\":{},\"sluglogin\":{},\"userprofile\":{},\"vote3\":{}}}"
+	app := APP{}
+	err := json.Unmarshal([]byte(str), &app)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Printf("app=%+v\n", app)
+	v, ok := app.AppBusiness["comment"]
+	fmt.Println("v=", v)
+
+	fmt.Println("ok=", ok)
+	if v == nil {
+		fmt.Println("1111")
+	}
+	vm, ok := v.(map[string]interface{})
+	fmt.Printf("ok=%+v,len(vm)=%d\n", ok, len(vm))
+	rv := reflect.ValueOf(v)
+	rt := reflect.TypeOf(v)
+	fmt.Printf("rv.IsNil()=%+v\trv.IsValid()=%+v\n", rv.IsNil(), rv.IsValid())
+	fmt.Printf("rv=%+v\n", rv)
+	fmt.Printf("rt=%+v\n", rt)
+	if rv.IsZero() {
+		fmt.Println("is zero")
+	} else {
+		fmt.Println("not zero")
+	}
+
+	if IsZeroOfUnderlyingType(v) {
+		fmt.Println("zero")
+	} else {
+		fmt.Println("npt zero")
+	}
+}
+
+func IsZeroOfUnderlyingType(x interface{}) bool {
+	return reflect.DeepEqual(x, reflect.Zero(reflect.TypeOf(x)).Interface())
+}
+
+type KV struct {
+	K string `json:"k"`
+	V string `json:"v"`
+}
+
+func test22() {
+	value := "黄忠架起炮台，可以对全图任意位置的敌人进行范围炮击，最多炮击7次\n4208 被动1：每次架起炮台会为自己增加双防\n4209 被动2：无论是普攻还是炮台攻击，黄忠都能为自己增加一定的攻击力和暴击率，炮台期间该效果翻倍\n4210 被动3：黄忠的炮台攻击为范围攻击，周遭的敌人会遭受到正被炮台攻击的敌人伤害的1/2"
+	key := "#F21ABD0C#"
+	kv := KV{
+		K: key,
+		V: value,
+	}
+	data, err := json.Marshal(&kv)
+	if err != nil {
+		fmt.Println("111111")
+		return
+	}
+	fmt.Printf("data=%s\n", string(data))
+	str := string(data)
+	str = strings.ReplaceAll(str, "\n", "\\n")
+	kk := KV{}
+	err = json.Unmarshal([]byte(str), &kk)
+	if err != nil {
+		fmt.Println("2222err=", err)
+		return
+	}
+
+	fmt.Printf("kk=%+v\n", kk)
+
+}
+
+func test21() {
+	str := "{\"sop\":{\"app_business\":{\"comment\":{},\"role\":{},\"message\":{},\"operation-new\":{},\"vote3\":{},\"sluglogin\":{},\"qq2openid\":{},\"userprofile\":{}}}}"
+	jobMap := make(map[string]interface{})
+	err := json.Unmarshal([]byte(str), jobMap)
+	if err != nil {
+		fmt.Println("err=", err)
+		return
+	}
+	fmt.Printf("jobMap=%+v\n", jobMap)
+}
+
+// 结构体对象为nil转json
+func test20() {
+	p := new(PageInfo)
+
+	marshal, err := json.Marshal(nil)
+	if err != nil {
+		fmt.Println("err=", err)
+		return
+	}
+	fmt.Println("marshal=", string(marshal))
+	err = json.Unmarshal(marshal, p)
+	if err != nil {
+		fmt.Println("err2=", err)
+		return
+	}
+	fmt.Println("p=", p)
+	if p == nil {
+		fmt.Println("111111")
+	}
 }
 
 func jsonToStrings(jsonStr string) {

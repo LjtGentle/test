@@ -38,7 +38,13 @@ func test2() {
 }
 
 func main() {
-	test15()
+	test16()
+}
+
+func test16() {
+	gt := []string{"Standard_S1", "Basic"}
+	str := strings.Join(gt, "-")
+	fmt.Printf("str=%s\n", str)
 }
 
 func test15() {
@@ -46,7 +52,6 @@ func test15() {
 	fmt.Printf(specialStr)
 }
 
-//
 func test14() {
 	str := "hhhh\ngggg"
 	str = strings.ReplaceAll(str, "\n", "")

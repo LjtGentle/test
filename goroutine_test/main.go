@@ -163,7 +163,20 @@ func test09() {
 	}
 }
 
+func test10() {
+	es := make([]error, 0, 10)
+	wg := sync.WaitGroup{}
+	for i := 0; i < 10; i++ {
+		wg.Add(1)
+		go func(num int) {
+			defer wg.Done()
+			es = append(es, fmt.Errorf("i=%d", num))
+		}(i)
+	}
+	wg.Wait()
+	fmt.Printf("es=%+v\n", es)
+}
 func main() {
-	test08()
+	test10()
 
 }

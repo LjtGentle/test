@@ -3,11 +3,28 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"reflect"
 	"strconv"
 )
 
 func main() {
-	test2()
+	test3()
+}
+
+// test3 为了测试 str json.Unmarshal ->interface{}，
+// interface{}是slice，给slice的对象多加一个字段
+func test3() {
+	str := "[{\"name\":\"gentle\",\"age\":10}]"
+	var i any
+	err := json.Unmarshal([]byte(str), &i)
+	if err != nil {
+		fmt.Println("json unmarshal err=", err)
+		return
+	}
+	fmt.Printf("i=%+v\n", i)
+	if reflect.Slice == reflect.TypeOf(i).Kind() {
+		fmt.Println("is slice")
+	}
 }
 
 func test2() {

@@ -1,0 +1,58 @@
+{
+  "query": {},
+  "body": {
+    "site_id": 10,
+    "site_name": "王者无心皮肤设计大赛",
+    "bid": "wxpf",
+    "desc": "是一款皮肤设计大赛",
+    "biz_type": "game",
+    "sop_services": [
+      "comment",
+      "role",
+      "sluglogin",
+      "operation-new"
+    ],
+    "sop": {
+      "app_business": {
+        "comment": {
+          "type": 0,
+          "game": "yxzj",
+          "review": 1
+        },
+        "role": {
+          "game_name": "王者荣耀",
+          "type": 1,
+          "qq_appid": "101482157",
+          "wx_appid": "wxa817069bb040f860",
+          "game": "yxzj",
+          "wx_game_appid": "wx95a3a4d7c627e07d",
+          "qq_game_appid": "101515980",
+          "login_sdk": "common",
+          "need_gopenid": 0
+        },
+        "message": {},
+        "operation-new": {
+          "game": "yxzj"
+        },
+        "vote3": {},
+        "sluglogin": {
+          "game_qq_appid": "101515980",
+          "game_wx_appid": "wx95a3a4d7c627e07d",
+          "game": "yxzj",
+          "dm": "moss.woa.com"
+        },
+        "qq2openid": {},
+        "userprofile": {}
+      }
+    },
+    "common": {
+      "type": 1,
+      "wx_appid": "wx95a3a4d7c627e07d",
+      "qq_appid": "101515980",
+      "appid": "101515980",
+      "game": "yxzj",
+      "game_name": "王者荣耀",
+      "game_type": 1
+    }
+  }
+}

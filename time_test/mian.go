@@ -54,21 +54,69 @@ func test3() {
 	flag = st2.After(st1)
 	fmt.Println("flag=", flag)
 
-
 }
 
 func main() {
-	test4()
+	test07()
 
 }
 
+func test07() {
+	var ts int64 = 1669132800
+	t := time.UnixMicro(ts)
+	fmt.Println("t=", t)
+	time := time.Unix(ts, 0)
+	fmt.Println("time=", time)
+}
+
+// 2021-04-08T00:00:00Z 转时间戳
+func test06() {
+	t := time.Now()
+	fmt.Println("t=", t)
+	strTime := "2021-04-08T00:00:00Z"
+	loc, _ := time.LoadLocation("UTC")
+	layout := "2006-01-02T15:04:05Z"
+	theTime, err := time.ParseInLocation("2006-01-02 15:04:05", strTime, loc)
+	if err != nil {
+		fmt.Println("err=", err)
+	}
+	fmt.Println("the=", theTime)
+	u := theTime.Unix()
+	fmt.Println("u=", u)
+
+	t, err = time.Parse(layout, strTime)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println("parse t=", t)
+	t = t.Add(-8 * time.Hour)
+	u = t.In(time.Local).Unix()
+
+	fmt.Println("u=", u)
+	fmt.Println("t=", time.Unix(u, 0))
+}
+
+// 获取距离凌晨的时间
+func test05() {
+	//
+	//now := time.Now()
+	//nextDay := now.AddDate(0, 0, 1)
+	//fmt.Println("now=", now, "\tnextDay=", nextDay)
+	//now := time.Now()
+	//endTime := time.Date(now.Year(), now.Month(), now.Day(), 23, 59, 59, 0, now.Location()).Unix()
+	//fmt.Println("endTime-now=", endTime-now.Unix())
+	now := time.Now()
+	endTime := time.Date(now.Year(), now.Month(), now.Day(), 23, 59, 59, 0, now.Location()).Unix()
+	var dTime time.Duration
+	dTime = time.Duration(endTime-now.Unix()) * time.Second
+	fmt.Println("dTime=", dTime)
+}
 
 func test4() {
 	// 验证 1626940541412 是否是时间戳
 	// 1648608103 现在的时间戳
 	// 1648607913432  id   1648607913 432
 	timeStamp := 1648607913
-	t := time.Unix(int64(timeStamp),0)
-	fmt.Println("t=",t)
+	t := time.Unix(int64(timeStamp), 0)
+	fmt.Println("t=", t)
 }
-

@@ -1,0 +1,36 @@
+{
+  "site_id": 0,
+  "site_name": "sdf",
+  "bid": "sdfs",
+  "desc": "sdf",
+  "biz_type": "game",
+  "sop_services": [
+    "comment"
+  ],
+  "sop_app_id": 0,
+  "sop": {
+    "app_business": {
+      "comment": {
+        "type": 0,
+        "game": "yxzj",
+        "review": 0
+      },
+      "role": {},
+      "message": {},
+      "operation-new": {},
+      "vote3": {},
+      "sluglogin": {},
+      "qq2openid": {},
+      "userprofile": {}
+    }
+  },
+  "common": {
+    "type": 1,
+    "wx_appid": "wx95a3a4d7c627e07d",
+    "qq_appid": "101515980",
+    "appid": "101515980",
+    "game": "yxzj",
+    "game_name": "王者荣耀",
+    "game_type": 1
+  }
+}
