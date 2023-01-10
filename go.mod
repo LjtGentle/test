@@ -3,8 +3,8 @@ module test
 go 1.18
 
 require (
-	git.code.oa.com/gap/base v0.0.9
-	git.code.oa.com/iegm-open/go-http-proxy v0.0.8
+	//git.code.oa.com/gap/base v0.0.9
+	//git.code.oa.com/iegm-open/go-http-proxy v0.0.8
 	github.com/BurntSushi/toml v1.0.0
 	github.com/antchfx/htmlquery v1.2.5
 	github.com/coocood/freecache v1.2.3
