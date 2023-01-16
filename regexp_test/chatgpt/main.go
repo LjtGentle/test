@@ -11,8 +11,43 @@ import (
 const richText2 = "<p>\n  <br/>\n</p>\n<h1>哈哈</h1>\n<h2>笑什么</h2>\n<p>没有笑</p>\n<h1>2022年</h1>\n<h2>12月</h2>\n<p>20号</p>\n<p>\n  <br/>\n</p>"
 
 func main() {
-	test10()
+	test11()
 }
+
+func test11() {
+	doc := getDoc()
+	//获取h标签
+	sections := extractSections(doc)
+	printSections(sections, 0)
+}
+
+// extractSections 递归遍历 HTML 节点，并返回嵌套的 h 标签目录结构
+func extractSections(n *html.Node) []*section {
+	if n.Type == html.ElementNode && n.Data == "h1" || n.Data == "h2" || n.Data == "h3" || n.Data == "h4" || n.Data == "h5" || n.Data == "h6" {
+		return []*section{{Heading: n.FirstChild.Data, SubSections: extractSections(n.NextSibling)}}
+	}
+
+	var sections []*section
+	for c := n.FirstChild; c != nil; c = c.NextSibling {
+		sections = append(sections, extractSections(c)...)
+	}
+
+	return sections
+}
+
+type section struct {
+	Heading     string
+	SubSections []*section
+}
+
+// printSections 打印嵌套的 h 标签目录结构
+func printSections(sections []*section, level int) {
+	for _, s := range sections {
+		fmt.Printf("%s %s\n", strings.Repeat("  ", level), s.Heading)
+		printSections(s.SubSections, level+1)
+	}
+}
+
 func test10() {
 	doc := getDoc()
 	//获取h标签
@@ -36,6 +71,8 @@ func extractHeadings10(n *html.Node, level int) []*Heading {
 	var result []*Heading
 	for c := n.FirstChild; c != nil; c = c.NextSibling {
 		//fmt.Println("1111")
+		fmt.Printf("--nnn---n.Type=%+v,n.Data =%+v\n", n.Type, n.Data)
+		fmt.Printf("--ccc---c.Type=%+v,c.Data =%+v\n", c.Type, c.Data)
 		result = append(result, extractHeadings10(c, level+1)...)
 	}
 
@@ -122,41 +159,7 @@ func extractHeadings09(n *html.Node, level int) *heading09 {
 
 func test08() {
 	/*
-		package main
 
-		import (
-		    "fmt"
-		    "io/ioutil"
-		    "net/http"
-		    "golang.org/x/net/html"
-		)
-
-		type Heading struct {
-		    Level int
-		    Text  string
-		}
-
-		type Node struct {
-		    Heading
-		    Children []*Node
-		}
-
-		func main() {
-		    resp, err := http.Get("https://golang.org")
-		    if err != nil {
-		        panic(err)
-		    }
-		    defer resp.Body.Close()
-
-		    b, err := ioutil.ReadAll(resp.Body)
-		    if err != nil {
-		        panic(err)
-		    }
-
-		    node, err := html.Parse(bytes.NewReader(b))
-		    if err != nil {
-		        panic(err)
-		    }
 
 		    root := &Node{}
 		    current := root

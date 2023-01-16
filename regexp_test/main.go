@@ -13,6 +13,16 @@ import (
 
 func main() {
 	test03()
+	//test08()
+}
+
+func test08() {
+	h := new(HTree)
+	h.No = 1
+	fmt.Printf("1111->%p\n", h)
+	h = new(HTree)
+	h.No = 2
+	fmt.Printf("2222->%p\n", h)
 }
 
 func test04() {
@@ -32,6 +42,8 @@ const richText3 = "<p>\n  <br/>\n</p>\n<h1>哈哈</h1>\n<h2>笑什么</h2>\n<p>�
 const patternH1 = `<h1>([\S\s]*?)</h1>`
 const patternH = `<h[1-6]>(.*?)</h[1-6]>`
 const patterStrong = `<strong>([\S\s]*?)</strong>`
+
+var flag = 0
 
 func test07() {
 	tree := HTree{
@@ -132,6 +144,7 @@ type HData struct {
 	Tag     string
 	No      int
 	Content string
+	Level   int
 }
 
 type HTree struct {
@@ -149,18 +162,6 @@ func test03() {
 	fmt.Printf("result= %+v\n", result)
 	hDatas := make([]HData, 0, len(result))
 	for _, r := range result {
-		//regStrong := regexp.MustCompile(patterStrong)
-		//re := regStrong.FindAllString(r, -1)
-		//if len(re) > 1 {
-		//	fmt.Println("err len=", len(re))
-		//	return
-		//}
-		//re[0] = strings.TrimLeft(re[0], `<strong>`)
-		//re[0] = strings.TrimRight(re[0], `</strong>`)
-		//list = append(list, re[0])
-		//fmt.Println("r=", r)
-		//fmt.Println("content=", r[4:len(r)-5])
-		//fmt.Println("标签=", r[1:3])
 		no, _ := strconv.Atoi(r[2:3])
 		hData := HData{
 			Tag:     r[1:3],
@@ -169,16 +170,13 @@ func test03() {
 		}
 		hDatas = append(hDatas, hData)
 	}
-	//fmt.Printf("lits=%#v\n", list)
-	////fmt.Printf("index str1 =%s\n", richText[352:392])
-	//index := reg.FindAllStringIndex(richText2, -1)
-	//fmt.Printf("index=%+v\n", index)
 	fmt.Printf("hDatas=%+v\n", hDatas)
 
 	hTree := HTree{
 		Child: make([]*HTree, 0),
 		HData: HData{},
 	}
+	// no 对应标签号
 	addChild(&hTree, hDatas, 1)
 	fmt.Printf("hTree=%v+\n", hTree)
 	treeData, err := json.Marshal(hTree)
@@ -186,62 +184,58 @@ func test03() {
 		return
 	}
 	fmt.Printf("treeString=%s\n", string(treeData))
+
 }
 
 // hTree ，hData 是输入也是输出
+// 数字比上一位大，代表节点是上一节点的子节点
+// 数字一样大，节点是上一节点的父节点的子节点
+// 数字比上一位小。需要忘上推，推到有等于的，它们就是兄弟节点
 func addChild(hTree *HTree, hData []HData, no int) ([]HData, int) {
 	index := 0
-	if len(hData) < 2 {
-		return nil, 0
+	if len(hData) < 1 {
+		return hData, 0
 	}
 	fmt.Println("addChild run")
-
+	cHTree := &HTree{
+		Child: nil,
+		HData: HData{},
+	}
+	fmt.Println("cHTree=", cHTree)
 	for i := 0; i < len(hData); i++ {
-		fmt.Println("111111")
-		cHTree := &HTree{
-			Child: nil,
-			HData: HData{},
-		}
-		if hData[i].No == no {
-			fmt.Printf("等于,hData[i]=%+v\n", hData[i])
-			//cHTree = HTree{
-			//	Child: make([]HTree, 0),
-			//	HData: hData[i],
-			//}
+		if hData[i].No == no && flag != 0 {
 			cHTree.HData = hData[i]
-			//// text2 注释了正常
-			//hTree.Child = append(hTree.Child, cHTree)
 			hTree.Child = append(hTree.Child, cHTree)
-			fmt.Printf("++++hTree=%+v\n", hTree)
+			//cHTree = new(HTree)
+		}
+		flag = 1
+		if hData[i].No > no {
+			// 递归
+			icHTree := &HTree{
+				Child: nil,
+				HData: hData[i-1],
+			}
+			_, index = addChild(icHTree, hData[i:], hData[i].No)
+			index = index + i
+			i = index
+			//cHTree.Child = append(cHTree.Child, icHTree)
+			//hTree.Child = append(hTree.Child, cHTree)
+			hTree.Child = append(hTree.Child, icHTree)
+			cHTree = new(HTree)
+			continue
 		}
 		if hData[i].No < no {
 			index = i
-			hTree.Child = append(hTree.Child, cHTree)
+			// todo 回退处理
+			//hTree.Child = append(hTree.Child, cHTree)
 			fmt.Printf("异常出现小于的情况，no=%d,i=%d,hData=%+v\n", no, i, hData[i])
 			break
 		}
-		if hData[i].No > no {
-			// 递归
-			fmt.Printf("大于,hData[i]=%+v\n", hData[i])
-			icHTree := &HTree{
-				Child: nil,
-				HData: hData[i],
-			}
-			_, index = addChild(icHTree, hData[i-1:], hData[i].No)
-			index = index + i
-			i = index
-			fmt.Println("-------index=", index)
-			fmt.Printf("-------icHTree=%+v\n", icHTree)
-
-			cHTree.Child = append(cHTree.Child, icHTree)
-			//text2 没注释正常
-			//hTree.Child = append(hTree.Child, cHTree)
-			fmt.Printf("-------cHTree =%+v\n", cHTree)
-			continue
-		}
 
 	}
-	return hData[index+1:], index
+	treeData, _ := json.Marshal(hTree)
+	fmt.Printf("out of addChild,hTree=%+v\n", string(treeData))
+	return hData[index:], index
 }
 
 func test1() {
