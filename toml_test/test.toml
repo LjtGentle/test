@@ -1,3 +1,15 @@
 [osgame]
-language = ["zh_cn","en_us"]
-osgame_types = [["Standard_S1","Basic"],["Classical_S1","Basic"]]
+language = ["zh_cn", "en_us"]
+osgame_types = [["Standard_S1", "Basic"], ["Classical_S1", "Basic"]]
+
+[test_map.1]
+role = 10
+
+[test_map.2]
+role = 20
+
+[test_map.3]
+role = 30
+
+[test_map.4]
+role = 40

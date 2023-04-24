@@ -1,0 +1,50 @@
+syntax = "proto3";
+package bingogen;
+
+option go_package = "git.woa.com/bingo/bingo/codegenerator/option";
+
+import "google/protobuf/descriptor.proto";
+
+extend google.protobuf.FileOptions {
+    // common
+    string actor_package = 50301; // actor包路径，例如"osserver/gamesvr/account"或者"git.woa.com/osserver/gamesvr/account"
+    string server_name   = 50302; // 进程名，"gamesvr"
+
+    // 生产handler的file option
+    string actor_name      = 50401; // actor名字(带包名)，例如"account.Account"
+    string handler_package = 50402; // handler逻辑处理函数的包路径，"osserver/gamesvr/handler"或者"git.woa.com/osserver/gamesvr/handler"
+    uint32 server_FuncID   = 50403; // 进程functionID
+
+    // async handler的选项
+    string async_package = 50404; // async的actor名字，例如"zone.Zone"
+    bool async_message   = 50405; // 当前文件中的handler是否都是async的
+
+    // stateless handler的选项
+    string stateless_package = 50406; // stateless package
+
+    // 生成main函数的file option
+    string goproj_root = 50501; // go工程名，例如"osserver或者git.woa.com/osserver"
+    string db_plugin   = 50502; // db插件，多个用逗号隔开
+    string remote_log  = 50503; // 远程日志插件，多个用逗号隔开
+    string transport   = 50504; // transport插件，多个用逗号隔开
+    string metrics     = 50505; // 监控插件，多个用逗号隔开
+    string router      = 50506; // 路由插件，多个用逗号隔开
+
+    // svr路由相关
+    bool meta_route     = 50601; // ls收到客户端的消息的时候，是否需要根据PkgHead.meta里面的CltRouteID字段选择svr转发
+    bool uid_as_actorID = 50602; // 使用hdr.uid作为消息中的ActorID
+}
+
+extend google.protobuf.FieldOptions {
+    // 生成数据档的field option
+    int32 primary_key   = 50201; // 表示该field是一个key
+    string databin_path = 50202; // 数据档.bytes文件所在相对路径，根路径由程序指定，默认在bingo/resrecord/gameconfmgr.go初始化时指定
+}
+
+extend google.protobuf.MessageOptions {
+    // 生成handler的message option
+    string recvsvr = 50302; // message的接收者，逗号隔开
+    bool gensafeinit = 50303; // message是否需要生成safeinit初始化方法
+    bool gen_setter     = 50304;    // message是否生成setter
+    bool gen_hash    = 50305;   // message是否生成hash方法
+}

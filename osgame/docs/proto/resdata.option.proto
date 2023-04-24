@@ -1,0 +1,22 @@
+syntax            = "proto3";
+option go_package = "osserver/proto/osproto";
+package resdata;
+
+import "google/protobuf/descriptor.proto";
+
+enum ResOutput {
+    Public = 0;
+    Server = 1;
+}
+
+extend google.protobuf.MessageOptions { ResOutput output = 50001; }
+
+extend google.protobuf.FieldOptions {
+    string count      = 50011;
+    string referCname = 50012;
+    string cname      = 50013;
+    string bind       = 50014; // 指定当前域绑定了哪个枚举
+    bool translate    = 50015; // 指定是否翻译这个域
+}
+
+extend google.protobuf.EnumValueOptions { string keyword_alias = 50021; }

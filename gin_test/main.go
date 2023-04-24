@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,7 +16,11 @@ type Student struct {
 
 func router() {
 	r := gin.Default()
-	r.GET("/get")
+	r.POST("/post", func(c *gin.Context) {
+		name := c.Query("name")
+		age := c.Query("age")
+		fmt.Printf("name=%s,age=%s", name, age)
+	})
 	r.Run(":8080")
 }
 func Get(c *gin.Context, req *Student, rsp *Student) error {

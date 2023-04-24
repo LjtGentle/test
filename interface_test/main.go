@@ -8,7 +8,29 @@ import (
 )
 
 func main() {
-	test3()
+	test4()
+}
+
+type Man struct {
+	Name string
+	Age  int
+}
+
+func test4() {
+	cfg := Man{
+		Name: "111",
+		Age:  12,
+	}
+	t := reflect.TypeOf(cfg)
+	v := reflect.ValueOf(cfg)
+	for i := 0; i < t.NumField(); i++ {
+		if v.Field(i).IsZero() {
+			fmt.Println(111)
+			return
+		}
+
+	}
+	fmt.Println(222)
 }
 
 // test3 为了测试 str json.Unmarshal ->interface{}，

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/antchfx/htmlquery"
 	"golang.org/x/net/html"
+	"net/url"
 	"os"
 	"regexp"
 	"strconv"
@@ -12,8 +13,12 @@ import (
 )
 
 func main() {
+	a := []int{1, 2, 3, 4, 5, 6}
+	fmt.Println("ll=", len(a[len(a)-1:]))
+
 	test03()
 	//test08()
+	//test10()
 }
 
 func test08() {
@@ -38,6 +43,8 @@ const richText = " <p><span style=\"font-size: 12px; font-family: 'Microsoft YaH
 const richText2 = "<p>\n  <br/>\n</p>\n<h1>哈哈</h1>\n<h2>笑什么</h2>\n<p>没有笑</p>\n<h1>2022年</h1>\n<h2>12月</h2>\n<p>20号</p>\n<p>\n  <br/>\n</p>"
 
 const richText3 = "<p>\n  <br/>\n</p>\n<h1>哈哈</h1>\n<h2>笑什么</h2>\n<p>没有笑</p>\n<h1>2022年</h1>\n<h2>12月</h2>\n<p>20号</p>\n<h2>11月</h2>\n<p>\n  <br/>\n</p>"
+
+const richText4 = "<h1>哈哈</h1>\n<h2>笑什么</h2>\n<h2>哈哈哥吗</h2>\n<h3>是啊是啊</h3>\n<h1>2023年</h1>\n<h2>10月</h2>\n<h2>11月</h2>\n<h2>12月</h2>\n<h1>QQ</h1>\n<h2>qq聊天</h2>\n<h1>wx</h1>\n<h2>wx聊天</h2>\n"
 
 const patternH1 = `<h1>([\S\s]*?)</h1>`
 const patternH = `<h[1-6]>(.*?)</h[1-6]>`
@@ -155,35 +162,40 @@ type HTree struct {
 // 正则表达式匹配的目录的情况
 func test03() {
 	reg := regexp.MustCompile(patternH)
-	result := reg.FindAllString(richText3, -1)
+	result := reg.FindAllString(richText4, -1)
 
 	//list := make([]string, 0, len(result))
 	fmt.Printf("result len=%+v\n", len(result))
 	fmt.Printf("result= %+v\n", result)
-	hDatas := make([]HData, 0, len(result))
+	hDatas := make([]*HData, 0, len(result))
 	for _, r := range result {
 		no, _ := strconv.Atoi(r[2:3])
-		hData := HData{
+		hData := &HData{
 			Tag:     r[1:3],
 			Content: r[4 : len(r)-5],
 			No:      no,
 		}
 		hDatas = append(hDatas, hData)
 	}
-	fmt.Printf("hDatas=%+v\n", hDatas)
 
-	hTree := HTree{
-		Child: make([]*HTree, 0),
-		HData: HData{},
-	}
-	// no 对应标签号
-	addChild(&hTree, hDatas, 1)
-	fmt.Printf("hTree=%v+\n", hTree)
-	treeData, err := json.Marshal(hTree)
+	b, err := json.Marshal(hDatas)
 	if err != nil {
 		return
 	}
-	fmt.Printf("treeString=%s\n", string(treeData))
+	fmt.Printf("hDatas=%+v\n", string(b))
+	OneTest(hDatas)
+	//hTree := HTree{
+	//	Child: make([]*HTree, 0),
+	//	HData: HData{},
+	//}
+	//// no 对应标签号
+	//addChild(&hTree, hDatas, 1)
+	//fmt.Printf("hTree=%v+\n", hTree)
+	//treeData, err := json.Marshal(hTree)
+	//if err != nil {
+	//	return
+	//}
+	//fmt.Printf("treeString=%s\n", string(treeData))
 
 }
 
@@ -268,4 +280,98 @@ func test2() {
 	match, _ := regexp.MatchString("^([a-z]+,)*[a-z]+$", selector)
 
 	fmt.Println(match)
+}
+
+// 递归实现方案
+// 后面的标签比自己大则做自己的子孙级别
+// 遇到比自己小或是一样的就停止
+//func logic1(hLevel int, data []HData) *HTree {
+//	hTree := new(HTree)
+//	dataSon := make([]HData, 0, len(data))
+//	index := 0
+//	for i := 0; i < len(data); i++ {
+//		// 小于等于自己的退出
+//		if data[i].Level <= hLevel {
+//			index = i
+//			break
+//		}
+//		// 处理当子孙级
+//		dataSon = append(dataSon, data[i])
+//	}
+//	for i := 0; i < len(dataSon); i++ {
+//
+//	}
+//}
+
+func OneTest(hDatas []*HData) {
+
+	root := new(HTree)
+	//
+	OneLogic(0, hDatas, root)
+	b, err := json.Marshal(root)
+	if err != nil {
+		return
+	}
+	println("data=", string(b))
+}
+
+// pH 是上一级节点的标签 父节点h标签
+// hData 是等待处理的原始目录数据
+// pHtree 是上级处理好的目录结构
+// 返回HTree 是处理好的目录结构
+
+func OneLogic(pH int, hDatas []*HData, pHtree *HTree) (int, []*HData) {
+
+	//hTree := &HTree{
+	//	Child: nil,
+	//	HData: HData{},
+	//}
+	outHData := make([]*HData, 0, len(hDatas))
+	sonTreeSlice := make([]*HTree, 0, len(hDatas))
+	remarkI := 0
+	for i := 0; i < len(hDatas); i++ {
+		// 1. 大于的情况需要做逻辑处理
+		if hDatas[i].No > pH {
+			// a.收集出子集
+			if pH+1 == hDatas[i].No {
+				sonTree := &HTree{
+					Child: nil,
+					HData: *hDatas[i],
+				}
+				pHtree.Child = append(pHtree.Child, sonTree)
+				sonTreeSlice = append(sonTreeSlice, sonTree)
+			} else {
+				// 孙子级别处理
+				oID, oHdata := OneLogic(pH+1, hDatas[i:], sonTreeSlice[len(sonTreeSlice)-1])
+
+				// i需要后移
+				//i = len(hDatas) - len(oHdata)
+				//if len(hDatas)-len(oHdata)-1 > i && len(oHdata) > 1 {
+				//	i = len(hDatas) - len(oHdata) - 1
+				//}
+				i = i + oID
+				//mIndex := len(hDatas) - len(oHdata) - 1
+				fmt.Println("oHdata len=", len(oHdata))
+				fmt.Println("i=", i)
+				remarkI = i
+				continue
+			}
+			remarkI = i
+			continue
+		}
+		// 2. 小于等于的情况直接break
+		remarkI = i
+		break
+	}
+	outHData = append(outHData, hDatas[remarkI:]...)
+	return remarkI, outHData
+}
+
+func test10() {
+	var urlstr = "%E5%A4%8F%E4%BE%AF%E6%83%87"
+	unescape, err := url.QueryUnescape(urlstr)
+	if err != nil {
+		return
+	}
+	fmt.Println("unescape=", unescape)
 }

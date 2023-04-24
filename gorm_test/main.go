@@ -1,15 +1,64 @@
 package main
 
 import (
-	"database/sql/driver"
 	"fmt"
-	"git.code.oa.com/gap/base/mysql"
 	_ "github.com/go-sql-driver/mysql" // mysql驱动
 	"github.com/jinzhu/gorm"
 )
 
 func main() {
-	test08()
+	test06()
+}
+
+var db *gorm.DB
+
+func init() {
+	var err error
+	conStr := "root:123456@(localhost)/ingame_sop?charset=utf8mb4&parseTime=True&loc=Local"
+	db, err = gorm.Open("mysql", conStr)
+	if err != nil {
+		fmt.Printf("init db err=%+v\n", err)
+		panic("init db err")
+	}
+	db = db.Debug()
+}
+
+func test06() {
+	as := make([]Admin, 0)
+	err := db.Model(&Admin{}).Where("type= ?", 3).Where("created_at>now()").Find(&as).Error
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	aa := Admin{}
+	err = db.Model(Admin{}).Where("type= ? ", 3).Where("created_at>now()").First(&aa).Error
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println("nice")
+}
+
+// v1 不支持
+//func test05() {
+//	as := make([]*Admin, 0)
+//	sub := db.Model(&Admin{}).Where("type = 3 and user_id > 0").Order("created_at desc")
+//	if err := db.Table("(?) as items", sub).Group("items.user_id").Find(&as).Error; err != nil {
+//		fmt.Println(err)
+//		return
+//	}
+//	fmt.Println("nice")
+//}
+
+type Admin struct {
+	gorm.Model
+	Type     int  `gorm:"column:type"` // 1 service, 2 app, 3 business, 4 env res
+	ObjectID uint `gorm:"column:object_id"`
+	UserID   uint `gorm:"column:user_id"`
+}
+
+func (m *Admin) TableName() string {
+	return "admin"
 }
 
 func test04() {
@@ -24,19 +73,6 @@ func test04() {
 	fmt.Println("del success")
 }
 
-var db *gorm.DB
-
-func init() {
-	var err error
-	conStr := "root:123456@(localhost)/test?charset=utf8mb4&parseTime=True&loc=Local"
-	db, err = gorm.Open("mysql", conStr)
-	if err != nil {
-		fmt.Printf("init db err=%+v\n", err)
-		panic("init db err")
-	}
-	db = db.Debug()
-}
-
 type Award struct {
 	Id        uint      `gorm:"column:id" json:"id"`
 	Bid       string    `gorm:"column:bid" json:"bid"`
@@ -49,13 +85,6 @@ type Award struct {
 type AwardName struct {
 	MainName string `json:"main_name"`
 	SideName string `json:"side_name"`
-}
-
-func (o AwardName) Value() (driver.Value, error) {
-	return mysql.ValueJson(o)
-}
-func (o *AwardName) Scan(input interface{}) error {
-	return mysql.ScanJson(input, o)
 }
 
 func (m Award) TableName() string {

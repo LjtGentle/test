@@ -176,7 +176,30 @@ func test10() {
 	wg.Wait()
 	fmt.Printf("es=%+v\n", es)
 }
+
+func test11() {
+	//c := sync.Cond{}
+	//c.Broadcast()
+	//c.Wait()
+	//wg := sync.WaitGroup{}
+	//wg.Add(1)
+	//wg.Done()
+	//
+	//av := atomic.Value{}
+	//av.CompareAndSwap()
+	//
+	//p := sync.Pool{}
+	//p.Get()
+	//t := time.Now()
+	//go func() {
+	//	fmt.Println("", t.Sub(time.Now()).Nanoseconds())
+	//}()
+	//time.Sleep(1 * time.Second)
+	dtstatdate := time.Now().Format("20060102")
+	fmt.Println(dtstatdate)
+}
+
 func main() {
-	test10()
+	test11()
 
 }

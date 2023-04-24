@@ -1,0 +1,1851 @@
+syntax = "proto3";
+package ResData;
+import "bingogen.option.proto";
+import "resdata.option.proto";
+import "cltgen.option.proto";
+option go_package = "osserver/proto/resdata";
+
+enum RES_ANONYMOUS
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+
+    RES_FALSE = 0 [(resdata.keyword_alias) = "否" ];
+    RES_TRUE = 1 [(resdata.keyword_alias) = "是" ];
+
+    RES_NULL = 0 [(resdata.keyword_alias) = "无" ];
+    RES_HAVE = 1 [(resdata.keyword_alias) = "有" ];
+
+    RES_CHOOSE_NO = 0 [(resdata.keyword_alias) = "N" ];
+    RES_CHOOSE_YES = 1 [(resdata.keyword_alias) = "Y" ];
+
+    option allow_alias = true;
+}
+
+enum RES_SETTING_LEVEL
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_SETTING_LEVEL_LOW = 0 [(resdata.keyword_alias) = "低"];
+    RES_SETTING_LEVEL_MEDIUM = 1 [(resdata.keyword_alias) = "中"];
+    RES_SETTING_LEVEL_HIGH = 2 [(resdata.keyword_alias) = "高"];
+    RES_SETTING_LEVEL_HD = 3 [(resdata.keyword_alias) = "HD"];
+    RES_SETTING_LEVEL_HDD = 4 [(resdata.keyword_alias) = "HDD"];
+}
+
+enum RES_SETTING_LEVEL_NEW
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_SETTING_LEVEL_1 = 0 [(resdata.keyword_alias) = "设置档位1"];
+    RES_SETTING_LEVEL_2 = 1 [(resdata.keyword_alias) = "设置档位2"];
+    RES_SETTING_LEVEL_3 = 2 [(resdata.keyword_alias) = "设置档位3"];
+    RES_SETTING_LEVEL_4 = 3 [(resdata.keyword_alias) = "设置档位4"];
+    RES_SETTING_LEVEL_5 = 4 [(resdata.keyword_alias) = "设置档位5"];
+}
+
+enum RES_DEVICE_LEVEL
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_DEVICE_LEVEL_LOW = 0 [(resdata.keyword_alias) = "低性能设备"];
+    RES_DEVICE_LEVEL_MEDIUM = 1 [(resdata.keyword_alias) = "中性能设备"];
+    RES_DEVICE_LEVEL_HIGH = 2 [(resdata.keyword_alias) = "高性能设备"];
+    RES_DEVICE_LEVEL_HD = 3 [(resdata.keyword_alias) = "HD性能设备"];
+    RES_DEVICE_LEVEL_HDD = 4 [(resdata.keyword_alias) = "HDD性能设备"];
+}
+
+enum RES_SKIN_QUALITY
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_SKIN_QUALITY_LEGEND = 0 [(resdata.keyword_alias) = "传说皮肤"];
+    RES_SKIN_QUALITY_EPIC = 1 [(resdata.keyword_alias) = "史诗皮肤"];
+}
+
+enum RES_SPECIAL_TIP_POS
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_SPECIAL_TIP_POS_UP = 0 [(resdata.keyword_alias) = "上"];
+    RES_SPECIAL_TIP_POS_DOWN = 1 [(resdata.keyword_alias) = "下"];
+    RES_SPECIAL_TIP_POS_LEFT = 2 [(resdata.keyword_alias) = "左"];
+    RES_SPECIAL_TIP_POS_RIGHT = 3 [(resdata.keyword_alias) = "右"];
+    RES_SPECIAL_TIP_POS_UPLEFT = 4 [(resdata.keyword_alias) = "上左"];
+    RES_SPECIAL_TIP_POS_UPRIGHT = 5 [(resdata.keyword_alias) = "上右"];
+    RES_SPECIAL_TIP_POS_DOWNLEFT = 6 [(resdata.keyword_alias) = "下左"];
+    RES_SPECIAL_TIP_POS_DOWNRIGHT = 7 [(resdata.keyword_alias) = "下右"];
+    RES_SPECIAL_TIP_POS_LAST = 8;
+}
+
+enum RES_OPERATOR_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_OPERATOR_NULL = 0;
+    RES_OPERATOR_PLUS = 1 [(resdata.keyword_alias) = "加"];
+    RES_OPERATOR_MINUS = 2 [(resdata.keyword_alias) = "减"];
+    RES_OPERATOR_MULTIPLY = 3 [(resdata.keyword_alias) = "乘"];
+    RES_OPERATOR_DIVIDE = 4 [(resdata.keyword_alias) = "除"];
+    RES_OPERATOR_LAST = 5;
+}
+
+enum PROJ8_EFFECT_DEGREE_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    PROJ8_EFFECT_DEGREE_TYPE_NEW = 0 [(resdata.keyword_alias) = "羁绊_初窥门径"];
+    PROJ8_EFFECT_DEGREE_TYPE_GOOD = 1 [(resdata.keyword_alias) = "羁绊_驾轻就熟"];
+    PROJ8_EFFECT_DEGREE_TYPE_BETTER = 2 [(resdata.keyword_alias) = "羁绊_融会贯通"];
+    PROJ8_EFFECT_DEGREE_TYPE_EXPERT = 3 [(resdata.keyword_alias) = "羁绊_心领神会"];
+    PROJ8_EFFECT_DEGREE_TYPE_GOD = 4 [(resdata.keyword_alias) = "羁绊_炉火纯青"];
+    PROJ8_EFFECT_DEGREE_TYPE_LAST = 5 [(resdata.keyword_alias) = "最大熟练度数"];
+}
+
+enum SkillTargetRule
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+
+    SkillTargetRuleNull = 0;
+    SkillTargetRuleNearestEnermy = 1 [(resdata.keyword_alias) = "选择最近敌人"];
+    SkillTargetRuleLowerHpEnermy = 2 [(resdata.keyword_alias) = "血量最低敌人"];
+    SkillTargetRuleMyself = 3 [(resdata.keyword_alias) = "自身释放"];
+    SkillTargetRuleMyDirection = 4 [(resdata.keyword_alias) = "自身朝向"];
+    SkillTargetRuleLowerHpFriendly = 5 [(resdata.keyword_alias) = "血量最低友军"];
+    SkillTargetRuleLowerHpFriendlyWithoutSelf = 6 [(resdata.keyword_alias) = "血量最低友军除自己以外"];
+    SkillTargetRuleLowerHpValueEnermy = 7 [(resdata.keyword_alias) = "血量值最低敌人"];
+    SkillTargetRuleLowerHpValueFriendly = 8 [(resdata.keyword_alias) = "血量值最低友军"];
+    SkillTargetRuleLowerHpValueFriendlyWithoutSelf = 9 [(resdata.keyword_alias) = "血量值最低友军除自己以外"];
+    SkillTargetRuleRandomEnemy = 10 [(resdata.keyword_alias) = "随机敌人"];
+    SkillTargetRuleCrowdedEnemy = 11 [(resdata.keyword_alias) = "密集敌人"];
+    SkillTargetRuleCrowdedFriendly = 12 [(resdata.keyword_alias) = "密集友军"];
+    SkillTargetRuleFarthestEnemy = 13 [(resdata.keyword_alias) = "最远敌人"];
+    SkillTargetRuleCurrentEnemy = 14 [(resdata.keyword_alias) = "当前敌人"];
+    SkillTargetRuleMaxDamageEnemy = 15 [(resdata.keyword_alias) = "总攻击力最高敌人"];
+    SkillTargetRuleNearestFriendly = 16 [(resdata.keyword_alias) = "最近友军"];
+    SkillTargetRuleHighestHpRateEnemy = 17 [(resdata.keyword_alias) = "血量比例最高敌人"];
+    SkillTargetRuleHighestHpValueEnemy = 18 [(resdata.keyword_alias) = "血量绝对值最高敌人"];
+}
+
+enum SkillEffectType
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    SkillEffectType_Default = 0;
+    Physical = 1 [(resdata.keyword_alias) = "物理伤害效果"];
+    Magic = 2 [(resdata.keyword_alias) = "魔法伤害效果"];
+    Realy = 3 [(resdata.keyword_alias) = "真实伤害效果"];
+    Control = 4 [(resdata.keyword_alias) = "控制伤害效果"];
+}
+
+enum RES_VALUE_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    TYPE_VALUE = 0 [(resdata.keyword_alias) = "数值"];
+    TYPE_PERCENT = 1 [(resdata.keyword_alias) = "比值"];
+    TYPE_ABSOLUTE = 2 [(resdata.keyword_alias) = "固定值"];
+}
+
+enum CaptainSwitchValueReplaceType
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    ValueReplaceType_Null = 0;
+    ValueReplaceType_Hp = 1;
+    ValueReplaceType_Gold = 2;
+    ValueReplaceType_InheritBuff = 3;
+}
+
+enum PassiveEventType
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    PassiveEventType_Default = 0;
+    TimePassiveEvent = 1 [(resdata.keyword_alias) = "时间触发"];
+    RandomPassiveEvent = 2 [(resdata.keyword_alias) = "随机触发"];
+    EffectPassiveEvent = 3 [(resdata.keyword_alias) = "效果触发"];
+    LifeTimePassiveEvent = 4 [(resdata.keyword_alias) = "生存期时间触发"];
+    LifeRandomPassiveEvent = 5 [(resdata.keyword_alias) = "生存期随机触发"];
+    DeadHurtPassiveEvent = 6 [(resdata.keyword_alias) = "冷却触发"];
+    PermanentEffectPassiveEvent = 7 [(resdata.keyword_alias) = "永久效果触发"];
+    DistancePassiveEvent = 8 [(resdata.keyword_alias) = "距离触发"];
+    AtkSpeedChangePassiveEvent = 9 [(resdata.keyword_alias) = "攻速改变触发"];
+    DisFromActorTOMonsterPassiveEvent = 10 [(resdata.keyword_alias) = "与召唤兽之间的距离触发"];
+    SelectTargetInRequiredDistancePassiveEvent = 11 [(resdata.keyword_alias) = "与友军之间的距离触发"];
+    BeAttackHitPassiveEvent = 12 [(resdata.keyword_alias) = "技能伤害命中触发"];
+    OutOfEnermySightPassiveEvent = 13 [(resdata.keyword_alias) = "脱离敌方视野触发"];
+    NoMovementPassiveEvent = 14 [(resdata.keyword_alias) = "停止移动触发"];
+    EnergyRatioPassiveEvent = 15 [(resdata.keyword_alias) = "能量值区间触发"];
+    ContinuousDamagePassiveEvent = 16 [(resdata.keyword_alias) = "连续伤害触发"];
+    ConditionSwitchPassiveEvent = 17 [(resdata.keyword_alias) = "转换条件触发"];
+    RecordTargetPassiveEvent = 18 [(resdata.keyword_alias) = "记录目标"];
+    HpRatioPassiveEvent = 19 [(resdata.keyword_alias) = "血量值区间触发"];
+    AddBuffToOtherPassiveEvent = 20 [(resdata.keyword_alias) = "对敌人添加BUFF触发"];
+    ChargeValueRatioPassiveEvent = 21 [(resdata.keyword_alias) = "充能区间触发"];
+    CompensateGoldCoinInBattlePassiveEvent = 22 [(resdata.keyword_alias) = "金币最低补偿时触发"];
+    InRiverPassiveEvent = 23 [(resdata.keyword_alias) = "处于河道中触发"];
+    BeTrainedPassiveEvent = 24 [(resdata.keyword_alias) = "被驯化触发"];
+    MountHpChangeEvent = 25 [(resdata.keyword_alias) = "坐骑血量变化触发"];
+    TakeDamagePassiveEvent = 26 [(resdata.keyword_alias) = "造成伤害触发"];
+    BeforeUseSkillPassiveEvent = 27 [(resdata.keyword_alias) = "释放技能时触发"];
+    BeforeRealTakeDamageEvent = 28 [(resdata.keyword_alias) = "造成伤害前触发"];
+    SkillCDEvent = 29 [(resdata.keyword_alias) = "技能CD触发"];
+    ValPropertyChangePassiveEvent = 30 [(resdata.keyword_alias) = "属性改变触发"];
+    ActorDeadPassiveEvent = 31 [(resdata.keyword_alias) = "角色死亡触发"];
+    HpChangePassiveEvent = 32 [(resdata.keyword_alias) = "血量变化"];
+    NormalAttackRecoverMpEvent = 33 [(resdata.keyword_alias) = "普攻回蓝触发"];
+    DamageOrbPassiveEvent = 34 [(resdata.keyword_alias) = "伤害法球触发"];
+    HurtOrbPassiveEvent = 35 [(resdata.keyword_alias) = "受击法球触发"];
+    DodgeBasicAttackEvent = 36 [(resdata.keyword_alias) = "闪避普攻触发"];
+    HurtOrbHPPassiveEvent = 37 [(resdata.keyword_alias) = "受击伤害血量触发"];
+    HurtOrbRandomPassiveEvent = 38 [(resdata.keyword_alias) = "受到伤害随机触发"];
+    HeroPostionEmbattleChangePassiveEvent = 39 [(resdata.keyword_alias) = "英雄布阵位置触发"];
+     ActorGridChangePassiveEvent = 40 [(resdata.keyword_alias) = "角色所在格位改变触发"];
+}
+
+enum PassiveConditionType
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    PassiveConditionType_Default = 0;
+    NoDamagePassiveCondition = 1 [(resdata.keyword_alias) = "未受到伤害"];
+    DamagePassiveCondition = 2 [(resdata.keyword_alias) = "受到伤害"];
+    BeKilledPassiveCondition = 3 [(resdata.keyword_alias) = "被杀死"];
+    KilledPassiveCondition = 4 [(resdata.keyword_alias) = "击杀条件"];
+    HpPassiveCondition = 5 [(resdata.keyword_alias) = "血量条件"];
+    ExitBattlePassiveCondition = 6 [(resdata.keyword_alias) = "脱离战斗条件"];
+    AssistPassiveCondition = 7 [(resdata.keyword_alias) = "助攻条件"];
+    FightStartCondition = 8 [(resdata.keyword_alias) = "开战条件"];
+    ActorReviveCondition = 9 [(resdata.keyword_alias) = "复活条件"];
+    ActorCritCondition = 10 [(resdata.keyword_alias) = "暴击条件"];
+    ActorUpgradeCondition = 11 [(resdata.keyword_alias) = "升级条件"];
+    UseSkillCondition = 12 [(resdata.keyword_alias) = "使用技能条件"];
+    ImmuneDeadHurtCondition = 13 [(resdata.keyword_alias) = "免疫致命伤害条件"];
+    LimitMoveCondition = 14 [(resdata.keyword_alias) = "限制移动条件"];
+    EnterBattlePassiveCondition = 15 [(resdata.keyword_alias) = "进入战斗条件"];
+    RemoveBuffPassiveCondition = 16 [(resdata.keyword_alias) = "移除效果条件"];
+    ActorInGrassCondition = 17 [(resdata.keyword_alias) = "处于草丛中条件"];
+    ExposeCondition = 18 [(resdata.keyword_alias) = "暴露条件"];
+    EpPassiveCondition = 19 [(resdata.keyword_alias) = "能量条件"];
+    HurtRangePassiveCondition = 20 [(resdata.keyword_alias) = "受到伤害区间条件"];
+    NearObstaclePassiveCondition = 21 [(resdata.keyword_alias) = "靠近阻挡条件"];
+    RenewalPassiveCondition = 22 [(resdata.keyword_alias) = "重生条件"];
+    ActorAlivePassiveCondition = 23 [(resdata.keyword_alias) = "存活条件"];
+    HoldBuffPassiveCondition = 24 [(resdata.keyword_alias) = "Buff条件"];
+    BehaviModeSwitchCondition = 25 [(resdata.keyword_alias) = "行为状态切换条件"];
+    MonsterLifeTimeOverCondition = 26 [(resdata.keyword_alias) = "怪物生存时间正常结束条件"];
+    ActorDeadCondition = 27 [(resdata.keyword_alias) = "死亡条件"];
+    SkillLevelUpCondition = 28 [(resdata.keyword_alias) = "技能升级条件"];
+    AddBuffPassiveCondition = 29 [(resdata.keyword_alias) = "添加buff效果条件"];
+    CaptainSwitchPassiveCondition = 30 [(resdata.keyword_alias) = "主控转换条件"];
+    AbnormalMoveCondition = 31 [(resdata.keyword_alias) = "非正常移动条件"];
+    ProtectChangeCondition = 32 [(resdata.keyword_alias) = "护盾伤害条件"];
+    ActorInRiverCondition = 33 [(resdata.keyword_alias) = "处于河道中条件"];
+    HpCrossScopePassiveCondition = 34 [(resdata.keyword_alias) = "血量区间改变条件"];
+    Project8LevelStateChangeCondition = 35 [(resdata.keyword_alias) = "Project8关卡状态改变条件"];
+    SkillHitTriggerCondition = 36 [(resdata.keyword_alias) = "技能命中条件"];
+    Project8FightingCondition = 37 [(resdata.keyword_alias) = "自走棋战斗中条件"];
+    TakeDamagePassiveCondition = 38 [(resdata.keyword_alias) = "造成伤害条件"];
+    AccumulateDamageCondition = 40 [(resdata.keyword_alias) = "累积伤害条件"];
+    BeAttackedPassiveCondition = 41 [(resdata.keyword_alias) = "受到攻击"];
+    NewDamagePassiveCondition = 42 [(resdata.keyword_alias) = "新受到伤害"];
+    PositonChangePassiveCondition = 43 [(resdata.keyword_alias) = "位置变化"];
+    AttackTargetChangePassiveCondition = 44 [(resdata.keyword_alias) = "攻击目标变化"];
+    BattleStatePhaseTypeRacePassiveCondition = 45 [(resdata.keyword_alias) = "战斗回合状态正赛阶段"];
+}
+
+enum ResSkillFuncTypeAddHPCombineEffectType
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    ResSkillFuncTypeAddHPCombineEffectType_Default = 0;
+    SKILL_FUNCTYPEADDHP_EFFECT_MAXHP_PERCENTAGE = 1 [(resdata.keyword_alias) = "最大生命值百分比"];
+    SKILL_FUNCTYPEADDHP_EFFECT_LOSTHP_PERCENTAGE = 2 [(resdata.keyword_alias) = "已损失生命值百分比"];
+    SKILL_FUNCTYPEADDHP_EFFECT_CURRENTHP_PERCENTAGE = 3 [(resdata.keyword_alias) = "当前生命值百分比"];
+    SKILL_FUNCTYPEADDHP_EFFECT_MAXHP_MILLION = 6 [(resdata.keyword_alias) = "最大生命值万分比"];
+}
+
+enum ResSkillCombineControlEffectType
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    SKILL_COMBINE_CONTROLTYPE_NONE = 0;
+    SKILL_COMBINE_CONTROLTYPE_HARD = 1 [(resdata.keyword_alias) = "硬控制"];
+    SKILL_COMBINE_CONTROLTYPE_SOFT = 2 [(resdata.keyword_alias) = "软控制"];
+}
+
+enum RES_SKILLFUNC_OVERLAY_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_SKILLFUNC_OVERLAY_TYPE_Default = 0;
+    RES_SKILLFUNC_OVERLAY_CAMP = 1 [(resdata.keyword_alias) = "技能效果叠加区分阵营"];
+    RES_SKILLFUNC_OVERLAY_PERSON = 2 [(resdata.keyword_alias) = "技能效果叠加区分个人"];
+}
+
+enum RES_SKILLFUNC_OVERLAY_RULE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_SKILLFUNC_OVERLAY_RULE_Default = 0;
+    RES_SKILLFUNC_OVERLAY_FORBID = 1 [(resdata.keyword_alias) = "技能效果叠加禁止"];
+    RES_SKILLFUNC_OVERLAY_CLEAR = 2 [(resdata.keyword_alias) = "技能效果叠加清除"];
+    RES_SKILLFUNC_OVERLAY_REPLACE = 3 [(resdata.keyword_alias) = "技能效果叠加替换"];
+    RES_SKILLFUNC_OVERLAY_UPDATE = 4 [(resdata.keyword_alias) = "技能效果叠加刷新"];
+    RES_SKILLFUNC_OVERLAY_FADE = 5 [(resdata.keyword_alias) = "技能效果叠加衰减"];
+    RES_SKILLFUNC_OVERLAY_EXTEND = 6 [(resdata.keyword_alias) = "技能效果叠加延长"];
+    RES_SKILLFUNC_OVERLAY_DEVAL = 7 [(resdata.keyword_alias) = "技能效果叠加减益"];
+    RES_SKILLFUNC_OVERLAY_FORBID_NEWBUFF = 8 [(resdata.keyword_alias) = "技能效果叠加禁止新BUFF"];
+    RES_SKILLFUNC_OVERLAY_INDEPENDENT = 9 [(resdata.keyword_alias) = "技能效果叠加独立"];
+}
+
+enum RES_SKILLFUNC_CLEAR_RULE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_SKILLFUNC_CLEAR_DEFAULT = 0 [(resdata.keyword_alias) = "技能效果默认清除"];
+    RES_SKILLFUNC_CLEAR_DAMAGE = 1 [(resdata.keyword_alias) = "技能效果伤害清除"];
+    RES_SKILLFUNC_CLEAR_DEAD = 2 [(resdata.keyword_alias) = "技能效果死亡缓存"];
+    RES_SKILLFUNC_CLEAR_SPECIAL = 3 [(resdata.keyword_alias) = "技能效果特殊清除"];
+    RES_SKILLFUNC_CLEAR_EFFECT = 4 [(resdata.keyword_alias) = "技能效果作用清除"];
+    RES_SKILLFUNC_CLEAR_NOTIMMEDIATEREVIVE = 5 [(resdata.keyword_alias) = "技能效果非立即复活清除"];
+}
+
+enum RES_SKILLFUNC_PROTECT_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_SKILLFUNC_PROTECT_TYPE_Default = 0;
+    RES_SKILLFUNC_PROTECT_PHYSHURT = 1 [(resdata.keyword_alias) = "吸收物理伤害"];
+    RES_SKILLFUNC_PROTECT_MAGICHURT = 2 [(resdata.keyword_alias) = "吸收魔法伤害"];
+    RES_SKILLFUNC_PROTECT_ALL = 3 [(resdata.keyword_alias) = "吸收伤害"];
+    RES_SKILLFUNC_PROTECT_ALL_INCLUDE_REALHURT = 4 [(resdata.keyword_alias) = "吸收所有伤害"];
+    RES_SKILLFUNC_PROTECT_CONVERT = 5 [(resdata.keyword_alias) = "伤害转换盾"];
+    RES_SKILLFUNC_PROTECT_EFFECT = 6 [(resdata.keyword_alias) = "效果抵挡盾"];
+    RES_SKILLFUNC_PROTECT_PROPERTY = 7 [(resdata.keyword_alias) = "属性盾"];
+    RES_SKILLFUNC_PROTECT_ENERGY = 8 [(resdata.keyword_alias) = "能量盾"];
+    RES_SKILLFUNC_PROTECT_CHARGE = 9 [(resdata.keyword_alias) = "蓄力盾"];
+    RES_SKILLFUNC_PROTECT_OVER_FLOW_HEMOPHAGIA_CONVERT = 10 [(resdata.keyword_alias) = "吸血溢出转换盾"];
+}
+
+enum RES_SKILLFUNC_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    RES_SKILLFUNC_TYPE_NULL = 0 [(resdata.keyword_alias) = "无"];
+    RES_SKILLFUNC_TYPE_PHYSHURT = 1 [(resdata.keyword_alias) = "物理伤害"];
+    RES_SKILLFUNC_TYPE_MAGICHURT = 2 [(resdata.keyword_alias) = "法术伤害"];
+    RES_SKILLFUNC_TYPE_REALHURT = 3 [(resdata.keyword_alias) = "真实伤害"];
+    RES_SKILLFUNC_TYPE_ADDHP = 4 [(resdata.keyword_alias) = "回复生命值"];
+    RES_SKILLFUNC_TYPE_ADDATKSPD = 5 [(resdata.keyword_alias) = "增加攻击速度"];
+    RES_SKILLFUNC_TYPE_DELATKSPD = 6 [(resdata.keyword_alias) = "减少攻击速度"];
+    RES_SKILLFUNC_TYPE_ADDMOVESPD = 7 [(resdata.keyword_alias) = "增加移动速度"];
+    RES_SKILLFUNC_TYPE_DELMOVESPD = 8 [(resdata.keyword_alias) = "减少移动速度"];
+    RES_SKILLFUNC_TYPE_INCATK = 9 [(resdata.keyword_alias) = "提高攻击力"];
+    RES_SKILLFUNC_TYPE_DECATK = 10 [(resdata.keyword_alias) = "降低攻击力"];
+    RES_SKILLFUNC_TYPE_SUCKBLOOD = 11 [(resdata.keyword_alias) = "吸血"];
+    RES_SKILLFUNC_TYPE_INCDEFEND = 12 [(resdata.keyword_alias) = "增加护甲"];
+    RES_SKILLFUNC_TYPE_DECDEFEND = 13 [(resdata.keyword_alias) = "减少护甲"];
+    RES_SKILLFUNC_TYPE_INCRESIST = 14 [(resdata.keyword_alias) = "增加抗性"];
+    RES_SKILLFUNC_TYPE_DECRESIST = 15 [(resdata.keyword_alias) = "减少抗性"];
+    RES_SKILLFUNC_TYPE_DECSKILLCD = 17 [(resdata.keyword_alias) = "减少技能CD"];
+    RES_SKILLFUNC_TYPE_INCAP = 18 [(resdata.keyword_alias) = "增加法术强度"];
+    RES_SKILLFUNC_TYPE_DECAP = 19 [(resdata.keyword_alias) = "减少法术强度"];
+    RES_SKILLFUNC_TYPE_INCCSRATE = 20 [(resdata.keyword_alias) = "增加暴击率"];
+    RES_SKILLFUNC_TYPE_DECCSRATE = 21 [(resdata.keyword_alias) = "减少暴击率"];
+    RES_SKILLFUNC_TYPE_INCMAXHP = 22 [(resdata.keyword_alias) = "增加最大生命"];
+    RES_SKILLFUNC_TYPE_DECMAXHP = 23 [(resdata.keyword_alias) = "减少最大生命"];
+    RES_SKILLFUNC_TYPE_INCDEFSTRIKE = 24 [(resdata.keyword_alias) = "增加物理穿透"];
+    RES_SKILLFUNC_TYPE_DECDEFSTRIKE = 25 [(resdata.keyword_alias) = "减少物理穿透"];
+    RES_SKILLFUNC_TYPE_INCRESSTRIKE = 26 [(resdata.keyword_alias) = "增加法术穿透"];
+    RES_SKILLFUNC_TYPE_DECRESSTRIKE = 27 [(resdata.keyword_alias) = "减少法术穿透"];
+    RES_SKILLFUNC_TYPE_PROTECT = 28 [(resdata.keyword_alias) = "护盾"];
+    RES_SKILLFUNC_TYPE_ADDMARK = 29 [(resdata.keyword_alias) = "增加技能印记"];
+    RES_SKILLFUNC_TYPE_TRIGGERMARK = 30 [(resdata.keyword_alias) = "触发技能印记"];
+    RES_SKILLFUNC_TYPE_REVIVESOON = 33 [(resdata.keyword_alias) = "迅速复活"];
+    RES_SKILLFUNC_TYPE_CLEARFFECT = 35 [(resdata.keyword_alias) = "驱散净化效果"];
+    RES_SKILLFUNC_TYPE_PHYSHEMO = 36 [(resdata.keyword_alias) = "物理吸血率"];
+    RES_SKILLFUNC_TYPE_MAGICHEMO = 37 [(resdata.keyword_alias) = "法术吸血率"];
+    RES_SKILLFUNC_TYPE_HURTREDUCERATE = 38 [(resdata.keyword_alias) = "伤害免疫率效果"];
+    RES_SKILLFUNC_TYPE_HURTOUTPUTRATE = 41 [(resdata.keyword_alias) = "伤害输出率效果"];
+    RES_SKILLFUNC_TYPE_CTRLREDUCE = 42 [(resdata.keyword_alias) = "韧性率效果"];
+    RES_SKILLFUNC_TYPE_CDREDUCE = 43 [(resdata.keyword_alias) = "冷却缩减效果"];
+    RES_SKILLFUNC_TYPE_ANTICRIT = 44 [(resdata.keyword_alias) = "抗暴率效果"];
+    RES_SKILLFUNC_TYPE_CONDITIONHURTOUT = 45 [(resdata.keyword_alias) = "条件伤害输出率效果"];
+    RES_SKILLFUNC_TYPE_HPCONDITION = 47 [(resdata.keyword_alias) = "生命条件效果"];
+    RES_SKILLFUNC_TYPE_HUDSTYLE = 48 [(resdata.keyword_alias) = "更换血条风格"];
+    RES_SKILLFUNC_TYPE_TARGETEXTRAHURT = 49 [(resdata.keyword_alias) = "目标伤害加成效果"];
+    RES_SKILLFUNC_TYPE_CONTROLEXTRAEFFECT = 52 [(resdata.keyword_alias) = "受控额外伤害率加成"];
+    RES_SKILLFUNC_TYPE_IMMUNEDEADHURT = 55 [(resdata.keyword_alias) = "免疫致命伤害效果"];
+    RES_SKILLFUNC_TYPE_CHANGESKILL = 56 [(resdata.keyword_alias) = "改变技能效果"];
+    RES_SKILLFUNC_TYPE_CRITEFT = 58 [(resdata.keyword_alias) = "改变暴击伤害效果"];
+    RES_SKILLFUNC_TYPE_CPHYARMORHURT_RATE = 60 [(resdata.keyword_alias) = "改变护甲穿透率"];
+    RES_SKILLFUNC_TYPE_CMGCARMORHURT_RATE = 61 [(resdata.keyword_alias) = "改变法术穿透率"];
+    RES_SKILLFUNC_TYPE_RECOVERYGAINEFFECT = 64 [(resdata.keyword_alias) = "回复增益效果"];
+    RES_SKILLFUNC_TYPE_SPEEDUPOUTOFBATTLE = 65 [(resdata.keyword_alias) = "脱离战斗提速效果"];
+    RES_SKILLFUNC_TYPE_DECHURT_RATE = 67 [(resdata.keyword_alias) = "护甲减伤率"];
+    RES_SKILLFUNC_TYPE_REMOVESKILLBUFF = 70 [(resdata.keyword_alias) = "移除技能效果"];
+    RES_SKILLFUNC_TYPE_CHANGESKILLPARAM = 73 [(resdata.keyword_alias) = "改变被动技能参数"];
+    RES_SKILLFUNC_TYPE_CHANGEENERGY = 76 [(resdata.keyword_alias) = "增加能量值"];
+    RES_SKILLFUNC_TYPE_BOUNCEHURT = 83 [(resdata.keyword_alias) = "反弹伤害"];
+    RES_SKILLFUNC_TYPE_BOUNCESKILLEFFECT = 84 [(resdata.keyword_alias) = "伤害触发技能效果"];
+    RES_SKILLFUNC_TYPE_DECREASEREVIVETIME = 85 [(resdata.keyword_alias) = "减少复活时间"];
+    RES_SKILLFUNC_TYPE_ADDGOLD = 86 [(resdata.keyword_alias) = "增加金钱效果"];
+    RES_SKILLFUNC_TYPE_CLEAREP = 93 [(resdata.keyword_alias) = "清空能量值"];
+    RES_SKILLFUNC_TYPE_SHAREHURT = 95 [(resdata.keyword_alias) = "共享伤害"];
+    RES_SKILLFUNC_TYPE_AWAYFROMATTACKERMOVEBUFF = 96 [(resdata.keyword_alias) = "离开攻击者一定范围后清除BUFF"];
+    RES_SKILLFUNC_TYPE_BACKATTACKCSRATE = 97 [(resdata.keyword_alias) = "背后攻击暴击"];
+    RES_SKILLFUNC_TYPE_CONVERTSRATE = 98 [(resdata.keyword_alias) = "暴击率转化暴击伤害"];
+    RES_SKILLFUNC_TYPE_CHANGEATKRANGE = 99 [(resdata.keyword_alias) = "改变射程"];
+    RES_SKILLFUNC_TYPE_HPGOBACK = 100 [(resdata.keyword_alias) = "返还生命值"];
+    RES_SKILLFUNC_TYPE_SHIPPASSIVESKILL = 102 [(resdata.keyword_alias) = "挂上被动"];
+    RES_SKILLFUNC_TYPE_AREAHITBACKHURT = 103 [(resdata.keyword_alias) = "范围反击伤害"];
+    RES_SKILLFUNC_TYPE_INCMAXEP = 104 [(resdata.keyword_alias) = "增加最大能量"];
+    RES_SKILLFUNC_TYPE_DECMAXEP = 105 [(resdata.keyword_alias) = "减少最大能量"];
+    RES_SKILLFUNC_TYPE_CHANGEBESEARCHEDPRIORITY = 106 [(resdata.keyword_alias) = "改变被寻敌优先级"];
+    RES_SKILLFUNC_TYPE_ADDNEWSKILL = 109 [(resdata.keyword_alias) = "增加新的技能"];
+    RES_SKILLFUNC_TYPE_ACTORRENEWAL = 111 [(resdata.keyword_alias) = "角色重生"];
+    RES_SKILLFUNC_TYPE_ADDMAXLIMITVALUE = 112 [(resdata.keyword_alias) = "增加属性上限"];
+    RES_SKILLFUNC_TYPE_STRENGTHENBULLET = 113 [(resdata.keyword_alias) = "强化子弹"];
+    RES_SKILLFUNC_TYPE_HPTRANSFER = 120 [(resdata.keyword_alias) = "生命值转移"];
+    RES_SKILLFUNC_TYPE_ACCUMULATEHURT = 123 [(resdata.keyword_alias) = "累积伤害"];
+    RES_SKILLFUNC_TYPE_DIRECTHURT = 124 [(resdata.keyword_alias) = "直接伤害"];
+    RES_SKILLFUNC_TYPE_IGNORE_ALL_BLOCK = 126 [(resdata.keyword_alias) = "忽略阻挡"];
+    RES_SKILLFUNC_SETMINLIMITVALUE = 128 [(resdata.keyword_alias) = "设置属性下限"];
+    RES_SKILLFUNC_TYPE_SETDYINGREVIVECONTEXT = 129 [(resdata.keyword_alias) = "设置濒死复活参数"];
+    RES_SKILLFUNC_TYPE_IMMUNESKILLEFECT = 133 [(resdata.keyword_alias) = "免疫技能效果"];
+    RES_SKILLFUNC_TYPE_REMOVESKILLBUFFWITHTAG = 134 [(resdata.keyword_alias) = "移除技能效果Tag"];
+    RES_SKILLFUNC_TYPE_CHANGEATTACKDISTANCE = 136 [(resdata.keyword_alias) = "角色近远程切换"];
+    RES_SKILLFUNC_TYPE_CHANGEPROPERTY = 137 [(resdata.keyword_alias) = "更改属性"];
+    RES_SKILLFUNC_TYPE_FAKEBLOODPROPERTY = 138 [(resdata.keyword_alias) = "灰血属性"];
+    RES_SKILLFUNC_TYPE_DAMAGETRANSFER = 139 [(resdata.keyword_alias) = "伤害转移"];
+    RES_SKILLFUNC_TYPE_EXTENDBUFFTIME = 143 [(resdata.keyword_alias) = "延长buff持续时间"];
+    RES_SKILLFUNC_TYPE_DIVIDEDAMAGE = 146 [(resdata.keyword_alias) = "分摊伤害"];
+    RES_SKILLFUNC_TYPE_RECOVERYOTHEREFFECT = 147 [(resdata.keyword_alias) = "对他人恢复增益"];
+    RES_SKILLFUNC_TYPE_SKILLSPEEDUP = 150 [(resdata.keyword_alias) = "技能释放加速"];
+    RES_SKILLFUNC_TYPE_CHARGEVALUE = 151 [(resdata.keyword_alias) = "充能能量"];
+    RES_SKILLFUNC_TYPE_CHECK_MOVE_DISTANCE = 153 [(resdata.keyword_alias) = "检测位移"];
+    RES_SKILLFUNC_TYPE_AVERAGEHURT = 154 [(resdata.keyword_alias) = "平分伤害"];
+    RES_SKILLFUNC_TYPE_DELAYDAMAGE = 156 [(resdata.keyword_alias) = "延迟伤害"];
+    RES_SKILLFUNC_TYPE_SELFHURT = 157 [(resdata.keyword_alias) = "自残伤害"];
+    RES_SKILLFUNC_TYPE_ADDROUNDGOLD = 158 [(resdata.keyword_alias) = "增加回合金币"];
+    RES_SKILLFUNC_TYPE_PJ8EPRATE = 159 [(resdata.keyword_alias) = "Project8更改能量恢复速度"];
+    RES_SKILLFUNC_TYPE_CHANGEATTACKTYPE = 160 [(resdata.keyword_alias) = "改变攻击类型"];
+    RES_SKILLFUNC_TYPE_PJ8CHANGEFINALEP = 161 [(resdata.keyword_alias) = "proj8持续改最终蓝量"];
+    RES_SKILLFUNC_TYPE_ATTAKERDEADREMOVEBUFF = 166 [(resdata.keyword_alias) = "攻击者死亡移除BUFF"];
+    RES_SKILLFUNC_TYPE_PROJECT8_CHANGE_SPLIT_COUNT = 173 [(resdata.keyword_alias) = "改变自走棋普攻分裂次数"];
+    RES_SKILLFUNC_TYPE_PROJECT8_CHANGE_DAMAGE_MP_GET_RATE = 174 [(resdata.keyword_alias) = "改变自走棋攻击回蓝比例"];
+    RES_SKILLFUNC_TYPE_PROJECT8_CHANGE_HURT_MP_GET_RATE = 175 [(resdata.keyword_alias) = "改变自走棋受击回蓝比例"];
+    RES_SKILLFUNC_TYPE_NORMALADDROUNDGOLD = 176 [(resdata.keyword_alias) = "普通增加回合金币"];
+    RES_SKILLFUNC_TYPE_BACKATTACKEDHURTREDUCE = 179 [(resdata.keyword_alias) = "根据受击方向免伤"];
+    RES_SKILLFUNC_TYPE_ACCUMULATEDURATIONHURT = 180 [(resdata.keyword_alias) = "持续期间累积伤害"];
+    RES_SKILLFUNC_TYPE_FILTERBUFFID = 181 [(resdata.keyword_alias) = "过滤BuffId"];
+    RES_SKILLFUNC_TYPE_REALHEMO = 183 [(resdata.keyword_alias) = "真伤吸血率"];
+    RES_SKILLFUNC_TYPE_CHANGEPASSIVE = 190 [(resdata.keyword_alias) = "替换被动"];
+    RES_SKILLFUNC_TYPE_REPLACESKILL = 192 [(resdata.keyword_alias) = "替换技能"];
+    RES_SKILLFUNC_TYPE_CHECK_TURNDIRECTION = 195 [(resdata.keyword_alias) = "检测转向"];
+    RES_SKILLFUNC_TYPE_REMOVE_DESPEED = 196 [(resdata.keyword_alias) = "移除减速"];
+    RES_SKILLFUNC_TYPE_STRIKE_BACK = 198 [(resdata.keyword_alias) = "反击效果"];
+    RES_SKILLFUNC_TYPE_MODIFY_DAMAGE = 199 [(resdata.keyword_alias) = "伤害调整"];
+    RES_SKILLFUNC_TYPE_CONVERT_PROPERTY = 200 [(resdata.keyword_alias) = "属性转换"];
+    RES_SKILLFUNC_TYPE_SHIELD_DEC_RATE = 201 [(resdata.keyword_alias) = "额外减益护盾"];
+    RES_SKILLFUNC_TYPE_KILLMONSTER_DEC_SPAWNCD = 202 [(resdata.keyword_alias) = "击杀加速野怪刷新"];
+    RES_SKILLFUNC_TYPE_ADDSKILLBUFF = 205 [(resdata.keyword_alias) = "添加技能效果"];
+    RES_SKILLFUNC_TYPE_PROJECT8_ADDSPDINMOVING = 208 [(resdata.keyword_alias) = "自走棋移动中增加速度"];
+    RES_SKILLFUNC_TYPE_MAGICHURT_CRITICAL_ENABLE = 210 [(resdata.keyword_alias) = "法术伤害可以暴击"];
+    RES_SKILLFUNC_TYPE_PROJECT8_CHANGE_INIT_ENERGY = 211 [(resdata.keyword_alias) = "自走棋改变初始能量"];
+    RES_SKILLFUNC_TYPE_PROJECT8_TAUNT = 212 [(resdata.keyword_alias) = "自走棋嘲讽"];
+    RES_SKILLFUNC_TYPE_SELF_RECOVER_SELF = 213 [(resdata.keyword_alias) = "自身对自身恢复效果减益"];
+    RES_SKILLFUNC_TYPE_PROJECT8_RECOVER_ENERGY = 214 [(resdata.keyword_alias) = "自走棋回复能量"];
+    RES_SKILLFUNC_TYPE_REALHURT_CRITICAL_ENABLE = 215 [(resdata.keyword_alias) = "真实伤害可以暴击"];
+    RES_SKILLFUNC_TYPE_EXTRA_DURATION_SKILL = 216 [(resdata.keyword_alias) = "延长技能持续时间"];
+    RES_SKILLFUNC_TYPE_ADD_SOURCE_HEAL_RATE = 217 [(resdata.keyword_alias) = "增加额外增益恢复"];
+    RES_SKILLFUNC_TYPE_DEC_SOURCE_HEAL_RATE = 218 [(resdata.keyword_alias) = "减少额外增益恢复"];
+    RES_SKILLFUNC_TYPE_ADD_TARGET_HEAL_RATE = 219 [(resdata.keyword_alias) = "增加对他人恢复增益率"];
+    RES_SKILLFUNC_TYPE_DEC_TARGET_HEAL_RATE = 220 [(resdata.keyword_alias) = "减少对他人恢复增益率"];
+    RES_SKILLFUNC_TYPE_ADD_TRUE_DAMAGE_LIFE_STEAL_RATE = 221 [(resdata.keyword_alias) = "增加真伤吸血"];
+    RES_SKILLFUNC_TYPE_DEC_TRUE_DAMAGE_LIFE_STEAL_RATE = 222 [(resdata.keyword_alias) = "减少真伤吸血"];
+    RES_SKILLFUNC_TYPE_DAMAGE_TRANSFER_SHIELD = 223 [(resdata.keyword_alias) = "伤害转护盾"];
+    RES_SKILLFUNC_TYPE_HURT_TRANSFER_SHIELD = 224 [(resdata.keyword_alias) = "受击转护盾"];
+    RES_SKILLFUNC_TYPE_OVERFLOW_HEAL_TRANSFER_SHIELD = 225 [(resdata.keyword_alias) = "溢出治疗转护盾"];
+    RES_SKILLFUNC_TYPE_CONST_TARGET_OUTPUT_RATE = 226 [(resdata.keyword_alias) = "指定受击者伤害输出率加成"];
+    RES_SKILLFUNC_TYPE_CONST_SOURCE_REDUCE_RATE = 227 [(resdata.keyword_alias) = "指定攻击者伤害减免率加成"];
+    RES_SKILLFUNC_TYPE_SLOT_TYPE_OUTPUT_RATE = 228 [(resdata.keyword_alias) = "伤害来源输出率加成"];
+    RES_SKILLFUNC_TYPE_SLOT_TYPE_REDUCE_RATE = 229 [(resdata.keyword_alias) = "伤害来源减免率加成"];
+    RES_SKILLFUNC_TYPE_DAMAGE_ORB_EFFECT = 230 [(resdata.keyword_alias) = "伤害法球"];
+    RES_SKILLFUNC_TYPE_HURT_ORB_EFFECT = 231 [(resdata.keyword_alias) = "受击法球"];
+    RES_SKILLFUNC_TYPE_SKILL_ATTACK_RANGE = 232 [(resdata.keyword_alias) = "改变攻击距离"];
+    RES_SKILLFUNC_TYPE_ADD_HIT_AVOID_RATE = 233 [(resdata.keyword_alias) = "增加闪避率"];
+    RES_SKILLFUNC_TYPE_DEC_HIT_AVOID_RATE = 234 [(resdata.keyword_alias) = "减少闪避率"];
+    RES_SKILLFUNC_TYPE_ADD_HIT_RATE = 235 [(resdata.keyword_alias) = "增加命中率"];
+    RES_SKILLFUNC_TYPE_DEC_HIT_RATE = 236 [(resdata.keyword_alias) = "减少命中率"];
+    RES_SKILLFUNC_TYPE_DAMAGE_BLOCK = 237 [(resdata.keyword_alias) = "伤害格挡"];
+    RES_SKILLFUNC_TYPE_LOW_PRIORITY_TARGET = 238 [(resdata.keyword_alias) = "低优先级目标"];
+    RES_SKILLFUNC_TYPE_TARGET_OUTPUT_RATE = 239 [(resdata.keyword_alias) = "受击者的伤害输出率加成"];
+    RES_SKILLFUNC_TYPE_CHANGE_INCMAXEP = 240 [(resdata.keyword_alias) = "Project8仅增加最大能量"];
+    RES_SKILLFUNC_TYPE_CHANGE_DECMAXEP = 241 [(resdata.keyword_alias) = "Project8仅减少最大能量"];
+    RES_SKILLFUNC_TYPE_ADD_HEAL_DEBUFF_RATE = 242 [(resdata.keyword_alias) = "增加额外减益恢复"];
+    RES_SKILLFUNC_TYPE_DEC_HEAL_DEBUFF_RATE = 243 [(resdata.keyword_alias) = "减少额外减益恢复"];
+    RES_SKILLFUNC_TYPE_CHANGE_REATHURT_RATE = 244 [(resdata.keyword_alias) = "其他伤害转换为真实伤害的比率"];
+    RES_SKILLFUNC_TYPE_DAMAGE_ORB_EFFECT_ONLY_ONCE = 245 [(resdata.keyword_alias) = "伤害法球次数限制"];
+    RES_SKILLFUNC_TYPE_DAMAGE_ORB_EFFECT_SELECTED_BUFF_ID = 246 [(resdata.keyword_alias) = "伤害法球指定buff触发限制"];
+    RES_SKILLFUNC_TYPE_DAMAGE_ORB_EFFECT_HAS_HURT = 247 [(resdata.keyword_alias) = "伤害法球检测伤害触发"];
+	RES_SKILLFUNC_TYPE_NEW_CHANGE_PROPERTY = 248 [(resdata.keyword_alias) = "新改变属性"];
+    RES_SKILLFUNC_TYPE_SLOT_TYPE_PROBABILITY_OUTPUT_RATE = 249 [(resdata.keyword_alias) = "伤害来源输出率按概率加成"];
+	RES_SKILLFUNC_TYPE_STEAL_HP_ACCORDING_HURT = 250 [(resdata.keyword_alias) = "根据已受伤害偷取生命值"];
+    RES_SKILLFUNC_TYPE_CERTAIN_CRIT = 251 [(resdata.keyword_alias) = "必定暴击"];
+    RES_SKILLFUNC_TYPE_HEAL_ORB = 252 [(resdata.keyword_alias) = "治疗法球"];
+    RES_SKILLFUNC_TYPE_SHIELD_ORB = 253 [(resdata.keyword_alias) = "护盾法球"];
+	RES_SKILLFUNC_TYPE_TARGET_STAR_DAMAGE = 254 [(resdata.keyword_alias) = "基于目标星级增伤"];
+    RES_SKILLFUNC_TYPE_DEADLY_DAMAGE = 255 [(resdata.keyword_alias) = "致死伤害"];
+	RES_SKILLFUNC_TYPE_SHIELD_ADD_RATE = 256 [(resdata.keyword_alias) = "额外增益护盾"];
+	RES_SKILLFUNC_TYPE_PROPERTY_TRANSFORM_EXTRA_DAMAGE = 257 [(resdata.keyword_alias) = "属性转换成额外伤害"];
+	RES_SKILLFUNC_TYPE_SKILL_DAMAGE_ATTENUATION_TO_SAME_TARGET = 258 [(resdata.keyword_alias) = "技能伤害同一目标衰减"];
+	RES_SKILLFUNC_TYPE_HURT_ORB_EFFECT_ONLY_ONCE_EACH_TARGET = 259 [(resdata.keyword_alias) = "受击法球按目标次数限制"];
+	RES_SKILLFUNC_TYPE_RELATIVE_DIVIDE_DAMAGE = 260 [(resdata.keyword_alias) = "羁绊分摊伤害"];
+    RES_SKILLFUNC_TYPE_EXTRA_DAMAGE = 261 [(resdata.keyword_alias) = "额外伤害"];
+	RES_SKILLFUNC_TYPE_CHANGE_PROPERTY_UPPER_LIMIT = 262 [(resdata.keyword_alias) = "修改属性上限"];
+    RES_SKILLFUNC_TYPE_DELAYDAMAGE_MODIFYCONVERTRATE = 263 [(resdata.keyword_alias) = "改变转化率的延迟伤害"];
+    RES_SKILLFUNC_TYPE_CHANGE_BUFF_OVERLAYMAX = 264 [(resdata.keyword_alias) = "改变Buff层数上限"];
+	RES_SKILLFUNC_TYPE_CHANGE_PROPERTY_BASE_VALUE = 265 [(resdata.keyword_alias) = "修改属性基础值"];
+    RES_SKILLFUNC_TYPE_SHIELD_RELATIVE_ORB = 266 [(resdata.keyword_alias) = "护盾法球羁绊来源"];
+    RES_SKILLFUNC_TYPE_HEAL_RELATIVE_ORB = 267 [(resdata.keyword_alias) = "治疗法球羁绊来源"];
+    RES_SKILLFUNC_TYPE_LAST = 268;
+}
+
+enum RES_SCENE_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_SCENE_TYPE_Default = 0;
+    RES_SCENE_TYPE_WANGZHEXIAGU = 1 [(resdata.keyword_alias) = "场景类型王者峡谷"];
+}
+
+enum RES_FUNCEFT_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_FUNCEFT_NONE = 0;
+    RES_FUNCEFT_PHYATKPT = 1 [(resdata.keyword_alias) = "物理攻击力"];
+    RES_FUNCEFT_MGCATKPT = 2 [(resdata.keyword_alias) = "法术攻击力"];
+    RES_FUNCEFT_PHYDEFPT = 3 [(resdata.keyword_alias) = "物理防御力"];
+    RES_FUNCEFT_MGCDEFPT = 4 [(resdata.keyword_alias) = "法术防御力"];
+    RES_FUNCEFT_MAXHP = 5 [(resdata.keyword_alias) = "最大生命"];
+    RES_FUNCEFT_CRITRATE = 6 [(resdata.keyword_alias) = "暴击率"];
+    RES_FUNCEFT_PHYARMORHURT = 7 [(resdata.keyword_alias) = "物理防御穿透"];
+    RES_FUNCEFT_MGCARMORHURT = 8 [(resdata.keyword_alias) = "法术防御穿透"];
+    RES_FUNCEFT_PHYVAMP = 9 [(resdata.keyword_alias) = "物理吸血"];
+    RES_FUNCEFT_MGCVAMP = 10 [(resdata.keyword_alias) = "法术吸血"];
+    RES_FUNCEFT_ANTICRIT = 11 [(resdata.keyword_alias) = "抗暴率"];
+    RES_FUNCEFT_CRITEFT = 12 [(resdata.keyword_alias) = "暴击效果"];
+    RES_FUNCEFT_MOVESPD = 13 [(resdata.keyword_alias) = "移速"];
+    RES_FUNCEFT_CTRLREDUCE = 14 [(resdata.keyword_alias) = "韧性"];
+    RES_FUNCEFT_ATKSPD = 15 [(resdata.keyword_alias) = "攻速"];
+    RES_FUNCEFT_CDREDUCE = 16 [(resdata.keyword_alias) = "冷却缩减"];
+    RES_FUNCEFT_HitRate = 17 [(resdata.keyword_alias) = "命中率"];
+    RES_FUNCEFT_HitRateAvoid = 18 [(resdata.keyword_alias) = "闪避率"];
+    RES_PROPERTY_HURTREDUCERATE = 19 [(resdata.keyword_alias) = "伤害免疫率"];
+    RES_PROPERTY_HURTOUTPUTRATE = 20 [(resdata.keyword_alias) = "伤害输出率"];
+    RES_PROPERTY_MAXEP = 21 [(resdata.keyword_alias) = "最大能量"];
+    RES_PROPERTY_PHYARMORHURT_RATE = 22 [(resdata.keyword_alias) = "物理防御穿透率"];
+    RES_PROPERTY_MGCARMORHURT_RATE = 23 [(resdata.keyword_alias) = "法术防御穿透率"];
+    RES_PROPERTY_RECOVERYGAINEFFECT = 24 [(resdata.keyword_alias) = "额外增益恢复"];
+    RES_PROPERTY_RECOVERYOTHEREFFECT = 25 [(resdata.keyword_alias) = "对他人恢复增益率"];
+    RES_PROPERTY_REALVAMP = 26 [(resdata.keyword_alias) = "真伤吸血"];
+    RES_PROPERTY_HEAL_DEBUFF_RATE = 27 [(resdata.keyword_alias) = "额外减益恢复"];
+    RES_PROPERTY_INIT_MAGIC = 28 [(resdata.keyword_alias) = "初始法力"];
+	RES_PROPERTY_HURT_CRITEFFECT_ENHANCE = 29 [(resdata.keyword_alias) = "暴击伤害易伤"];
+	RES_PROPERTY_HURT_CRITEFFECT_WEAKEN = 30 [(resdata.keyword_alias) = "暴击伤害减伤"];
+    RES_FUNCEFT_VALUE_LAST = 31 [(resdata.keyword_alias) = "Max"];
+}
+
+enum RES_FUNCEFT_EXTEND_TYPE
+{
+    // 注意不要跟RES_FUNCEFT_TYPE的值冲突
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    RES_FUNCEFT_EXTEND_TYPE_NONE = 0;
+    RES_FUNCEFT_START = 100;
+    RES_FUNCEFT_ATKRANGE = 101 [(resdata.keyword_alias) = "攻击范围"];
+}
+
+enum RES_FUNCEFT_VALUE_TYPE
+{
+    // 注意不要跟RES_FUNCEFT_TYPE的值冲突
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    RES_FUNCEFT_VALUE_TYPE_NONE = 0;
+    RES_FUNCEFT_VALUE_TYPE_NUMBER = 1 [(resdata.keyword_alias) = "整数"];
+    RES_FUNCEFT_VALUE_TYPE_PERCENTAGE = 2 [(resdata.keyword_alias) = "百分比"];
+    RES_FUNCEFT_VALUE_TYPE_BASIS_POINT = 3 [(resdata.keyword_alias) = "万分比"];
+    RES_FUNCEFT_VALUE_TYPE_ONE_PLUS_PERCENTAGE = 4 [(resdata.keyword_alias) = "一加百分比"];
+}
+
+enum RES_GLOBAL_CONF_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_GLOBAL_CONF_TYPE_NULL = 0;
+	RES_GLOBAL_CONF_TYPE_TD_HERO_POSSESS_EQUIP_COUNT = 1 [(resdata.keyword_alias) = "TD单个英雄最多装备个数"];
+	RES_GLOBAL_CONF_TYPE_PLAYER_QUIT_HP = 8 [(resdata.keyword_alias) = "玩家退出血量"];
+	RES_GLOBAL_CONF_TYPE_TD_DEAD_EFFECT_BUFF_ID = 9 [(resdata.keyword_alias) = "TD死亡特效ID"];
+	RES_GLOBAL_CONF_TYPE_RACE_INIT = 12 [(resdata.keyword_alias) = "战斗回合正赛初始行为等待时长"];
+	RES_GLOBAL_CONF_TYPE_RACE_LORD = 13 [(resdata.keyword_alias) = "战斗回合正赛领主行为等待时长"];
+	RES_GLOBAL_CONF_TYPE_RACE_EQUIP = 14 [(resdata.keyword_alias) = "战斗回合正赛装备行为等待时长"];
+	RES_GLOBAL_CONF_TYPE_RACE_RELATIVE = 15 [(resdata.keyword_alias) = "战斗回合正赛职业行为等待时长"];
+	RES_GLOBAL_CONF_TYPE_RACE_ASSASSIN = 16 [(resdata.keyword_alias) = "战斗回合正赛刺客行为等待时长"];
+	RES_GLOBAL_CONF_TYPE_RACE_CHESS = 17 [(resdata.keyword_alias) = "战斗回合正赛棋子行为等待时长"];
+	RES_GLOBAL_CONF_TYPE_PROJ8_FORMATION_DROP_EFFECT1 = 20 [(resdata.keyword_alias) = "自走棋布阵放下特效1"];
+	RES_GLOBAL_CONF_TYPE_PROJ8_FORMATION_DROP_EFFECT2 = 21 [(resdata.keyword_alias) = "自走棋布阵放下特效2"];
+	RES_GLOBAL_CONF_TYPE_BATTLE_ROUND_STATE_PREPARE_TELEPORTATION = 43 [(resdata.keyword_alias) = "战斗回合状态准备传送时长"];
+	RES_GLOBAL_CONF_TYPE_BATTLE_ROUND_STATE_SETTLE_DURATION = 44 [(resdata.keyword_alias) = "战斗回合状态结算阶段时长"];
+	RES_GLOBAL_CONF_TYPE_BATTLE_ROUND_STATE_LOCK_DURATION = 45 [(resdata.keyword_alias) = "战斗回合状态锁定阶段时长"];
+	RES_GLOBAL_CONF_TYPE_TD_FORBID_COLLISION_BUFF_ID = 46 [(resdata.keyword_alias) = "TD屏蔽碰撞效果ID"];
+	RES_GLOBAL_CONF_TYPE_PROJ8_BASE_EQUIP_SCORE = 47 [(resdata.keyword_alias) = "自走棋基础装备分数"];
+	RES_GLOBAL_CONF_TYPE_PROJ8_ADVANCE_EQUIP_SCORE = 48 [(resdata.keyword_alias) = "自走棋合成装备分数"];
+	RES_GLOBAL_CONF_TYPE_WATCH_PLAYER_OPPONENT_SLOT_HERO_MESH_SCALE = 49 [(resdata.keyword_alias) = "观看玩家对手备战区棋子缩放"];
+	RES_GLOBAL_CONF_TYPE_TD_DRAG_HERO_HEIGHT = 51 [(resdata.keyword_alias) = "TD拖拽英雄悬空高度"];
+	RES_GLOBAL_CONF_TYPE_TD_EQUIPMENT_ICON_STATE_SHOW_TIME = 52 [(resdata.keyword_alias) = "自走棋装备icon状态显示时间"];
+	RES_GLOBAL_CONF_TYPE_TD_EQUIPMENT_ICON_TRIGGER_SHOW_TIME = 53 [(resdata.keyword_alias) = "自走棋装备icon触发显示时间"];
+	RES_GLOBAL_CONF_TYPE_CONTROL_SHOW_THRESHOLD = 58 [(resdata.keyword_alias) = "控制条显示时间阈值"];
+	RES_GLOBAL_CONF_TYPE_HOST_BLOOD_TRIGGER_THRESHOLD = 59 [(resdata.keyword_alias) = "自己触发大额扣血表现阈值"];
+	RES_GLOBAL_CONF_TYPE_TEAMMATE_BLOOD_TRIGGER_THRESHOLD = 60 [(resdata.keyword_alias) = "队友触发大额扣血表现阈值"];
+	RES_GLOBAL_CONF_TYPE_ARMY_BLOOD_TRIGGER_THRESHOLD = 61 [(resdata.keyword_alias) = "敌人触发大额扣血表现阈值"];
+	RES_GLOBAL_CONF_TYPE_OPEN_CHECK_FPS_SHAKE = 62 [(resdata.keyword_alias) = "是否开启检测帧率抖动开关"];
+	RES_GLOBAL_CONF_TYPE_OPEN_CHECK_FPS_SHAKE_REVERTPARAM = 63 [(resdata.keyword_alias) = "检测帧率抖动还原参数"];
+	RES_GLOBAL_CONF_TYPE_OPEN_CHECK_FPS_SHAKE_FREQUENCY = 64 [(resdata.keyword_alias) = "检测帧率抖动频率"];
+	RES_GLOBAL_CONF_TYPE_LOW_MEMORY_DEVICE_PARTICLE_USE_LOW = 65 [(resdata.keyword_alias) = "低内存设备粒子是否一律使用低配"];
+	RES_GLOBAL_CONF_TYPE_LOW_MEMORY_STRATEGY = 66 [(resdata.keyword_alias) = "低内存设备策略是否启用"];
+	RES_GLOBAL_CONF_TYPE_HD_RENDER_PARTICLE_DOWN_TRIGGER_NUM = 67 [(resdata.keyword_alias) = "高画质下触发粒子降配的粒子数量"];
+	RES_GLOBAL_CONF_TYPE_NONE_HD_RENDER_PARTICLE_DOWN_TRIGGER_NUM = 68 [(resdata.keyword_alias) = "非高画质下触发粒子降配的粒子数量"];
+	RES_GLOBAL_CONF_TYPE_PARTICLE_TRIGGER_LEVEL_OFFSET_VALUE = 69 [(resdata.keyword_alias) = "特效渲染层级值"];
+	RES_GLOBAL_CONF_TYPE_HDRPARTICLE_RATIO = 70 [(resdata.keyword_alias) = "HDR影响特效强度系数"];
+    RES_GLOBAL_CONF_TYPE_MIN_CONTINUOUS_WIN_COUNT_BROCAST = 77 [(resdata.keyword_alias) = "最小连胜次数播报"];
+    RES_GLOBAL_CONF_TYPE_PREBEGIN_SHOWTIME = 78 [(resdata.keyword_alias) = "战前表演总时间"];
+    RES_GLOBAL_CONF_TYPE_OVER_TIME_SPEED = 79 [(resdata.keyword_alias) = "加时赛速度"];
+    RES_GLOBAL_CONF_TYPE_SETTLE_BUFF = 80 [(resdata.keyword_alias) = "战斗结束BUFF"];
+    RES_GLOBAL_CONF_TYPE_SETTLE_DAMAGE_CHARGE = 81 [(resdata.keyword_alias) = "结算战斗伤害吸能时间"];
+    RES_GLOBAL_CONF_TYPE_SETTLE_AHEAD_TELEPORT = 82 [(resdata.keyword_alias) = "结算提前传送时间"];
+    RES_GLOBAL_CONF_TYPE_SETTLE_NOT_ADD_EQUIPEFFECT_WHENFIGHTING = 83 [(resdata.keyword_alias) = "战斗中穿戴装备不即时生效"];
+    RES_GLOBAL_CONF_TYPE_PREBEGIN_LORD_SHOWTIME = 84 [(resdata.keyword_alias) = "战前领主表演时间"];
+	RES_GLOBAL_CONF_TYPE_LORD_GROUND_Y = 85 [(resdata.keyword_alias) = "领主地表高度"];
+}
+
+enum RES_COMPARE_OPERATOR_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_COMPARE_OPERATOR_TYPE_NULL = 0;
+    RES_COMPARE_OPERATOR_TYPE_LESS = 1 [(resdata.keyword_alias) = "小于"];
+    RES_COMPARE_OPERATOR_TYPE_LESS_EQUAL = 2 [(resdata.keyword_alias) = "小于等于"];
+    RES_COMPARE_OPERATOR_TYPE_EQUAL = 3 [(resdata.keyword_alias) = "等于"];
+    RES_COMPARE_OPERATOR_TYPE_BIGGER = 4 [(resdata.keyword_alias) = "大于"];
+    RES_COMPARE_OPERATOR_TYPE_BIGGER_EQUAL = 5 [(resdata.keyword_alias) = "大于等于"];
+    RES_COMPARE_OPERATOR_TYPE_OverFlow = 6 [(resdata.keyword_alias) = "溢出"];
+    RES_COMPARE_OPERATOR_TYPE_LAST = 7;
+}
+
+enum RES_HERO_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_HERO_TYPE_Default = 0;
+    RES_HEROTYPE_ATTACK = 1 [(resdata.keyword_alias) = "输出"];
+    RES_HEROTYPE_ALLAROUND = 2 [(resdata.keyword_alias) = "全能"];
+    RES_HEROTYPE_DEFENSE = 3 [(resdata.keyword_alias) = "生存"];
+    RES_HEROTYPE_AID = 4 [(resdata.keyword_alias) = "辅助"];
+}
+
+enum RES_HERO_JOB
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_HEROJOB_NULL = 0;
+    RES_HEROJOB_TANK = 1 [(resdata.keyword_alias) = "坦克"];
+    RES_HEROJOB_SOLDIER = 2 [(resdata.keyword_alias) = "战士"];
+    RES_HEROJOB_ASSASSIN = 3 [(resdata.keyword_alias) = "刺客"];
+    RES_HEROJOB_MASTER = 4 [(resdata.keyword_alias) = "法师"];
+    RES_HEROJOB_ARCHER = 5 [(resdata.keyword_alias) = "射手"];
+    RES_HEROJOB_AID = 6 [(resdata.keyword_alias) = "职业辅助"];
+    RES_HEROJOB_LAST = 7;
+}
+
+enum RES_ATTACKDISTANCE_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_ATTACKDISTANCE_TYPE_Default = 0;
+    RES_ATTACKDISTANCE_TYPE_MELEE = 1 [(resdata.keyword_alias) = "普攻近战类型"];
+    RES_ATTACKDISTANCE_TYPE_REMOTE = 2 [(resdata.keyword_alias) = "普攻远程类型"];
+}
+
+enum RES_MONSTER_GRADE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_MONSTER_GRADE_Default = 0;
+    RES_MONSTER_GRADE_NORMAL = 1 [(resdata.keyword_alias) = "普通怪"];
+    RES_MONSTER_GRADE_CHEST = 2 [(resdata.keyword_alias) = "宝箱怪"];
+    RES_MONSTER_GRADE_ADVANCED = 3 [(resdata.keyword_alias) = "高级怪"];
+}
+
+enum RES_RANDOM_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_RANDOM_TYPE_NONE = 0 [(resdata.keyword_alias) = "不随机"];
+    RES_RANDOM_TYPE_NORMAL = 1 [(resdata.keyword_alias) = "完全随机"];
+    RES_RANDOM_TYPE_UNIQUE = 2 [(resdata.keyword_alias) = "去重随机"];
+    RES_RANDOM_TYPE_REPUNIQUE = 3 [(resdata.keyword_alias) = "反复去重随机"];
+}
+
+enum RES_ATKSPEED_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_ATKSPEED_TYPE_Default = 0;
+    RES_ATKSPEED_TYPE_HIGH = 1 [(resdata.keyword_alias) = "高攻速"];
+}
+
+enum RES_DROP_PROBABILITY_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_DROP_PROBABILITY_TYPE_Default = 0;
+    RES_PROBABILITY_THREE = 3 [(resdata.keyword_alias) = "3概率"];
+    RES_PROBABILITY_TEN = 10 [(resdata.keyword_alias) = "10概率"];
+    RES_PROBABILITY_FIFTY = 50 [(resdata.keyword_alias) = "50概率"];
+    RES_PROBABILITY_HUNDRED = 100 [(resdata.keyword_alias) = "100概率"];
+    RES_PROBABILITY_SETTLE = 101 [(resdata.keyword_alias) = "结算概率"];
+}
+
+enum RES_LOGIC_OPERATION_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_LOGIC_OPERATION_AND = 0 [(resdata.keyword_alias) = "与"];
+    RES_LOGIC_OPERATION_OR = 1 [(resdata.keyword_alias) = "或"];
+}
+
+enum RES_GAME_TASK_ACHIEVE_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    ACHIEVE = 0 [(resdata.keyword_alias) = "正达成"];
+    OBSTRUCT = 1 [(resdata.keyword_alias) = "反达成"];
+}
+
+enum RES_HERO_RECOMMEND_POSITION
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_HERO_RECOMMEND_POSITION_T_FRONT = 0 [(resdata.keyword_alias) = "推荐前排"];
+    RES_HERO_RECOMMEND_POSITION_T_CENTER = 1 [(resdata.keyword_alias) = "推荐中排"];
+    RES_HERO_RECOMMEND_POSITION_T_TAIL = 2 [(resdata.keyword_alias) = "推荐后排"];
+}
+
+enum RESTRICT_TYPE
+{
+    option (cltgen.csharp_enum) = true;
+    
+    None = 0 [(resdata.keyword_alias) = "无"];
+    Dizzy = 1 [(resdata.keyword_alias) = "晕眩"];
+    SlowDown = 2 [(resdata.keyword_alias) = "减速"];
+    Taunt = 3 [(resdata.keyword_alias) = "嘲讽"];
+    Fear = 4 [(resdata.keyword_alias) = "恐惧"];
+    Frozen = 5 [(resdata.keyword_alias) = "冰冻"];
+    Floating = 6 [(resdata.keyword_alias) = "击飞"];
+    Slient = 7 [(resdata.keyword_alias) = "沉默"];
+    Stone = 8 [(resdata.keyword_alias) = "石化"];
+    CustomType1 = 9 [(resdata.keyword_alias) = "加速、CD减短"];
+    CustomType2 = 10 [(resdata.keyword_alias) = "加速"];
+    CustomType3 = 11 [(resdata.keyword_alias) = "回血"];
+    CustomType4 = 12 [(resdata.keyword_alias) = "生命增加、CD减短"];
+    CustomType5 = 13 [(resdata.keyword_alias) = "输出增加、攻击减速"];
+    CustomType6 = 14 [(resdata.keyword_alias) = "生命回复、输出增加"];
+    CustomType7 = 15 [(resdata.keyword_alias) = "暴君×1：每2秒回复1%生命"];
+    CustomType8 = 16 [(resdata.keyword_alias) = "暴君×2：推塔伤害提升"];
+    CustomType9 = 17 [(resdata.keyword_alias) = "暴君×3：增加30%伤害"];
+    CustomType10 = 18 [(resdata.keyword_alias) = "回复生命与法力"];
+    CustomType11 = 19 [(resdata.keyword_alias) = "获得主宰之怒"];
+    CustomType12 = 20 [(resdata.keyword_alias) = "全队经验增加"];
+    CustomType13 = 21 [(resdata.keyword_alias) = "获得腥红石像之力"];
+    CustomType14 = 22 [(resdata.keyword_alias) = "获得蔚蓝石像之力"];
+    CustomType15 = 23 [(resdata.keyword_alias) = "全队增加经验和金币"];
+    CustomType16 = 24 [(resdata.keyword_alias) = "隐身"];
+    CustomType17 = 25 [(resdata.keyword_alias) = "获得大火球"];
+    CustomType18 = 26 [(resdata.keyword_alias) = "获得多发火球"];
+    CustomType19 = 27 [(resdata.keyword_alias) = "CD减短"];
+    CustomType20 = 28 [(resdata.keyword_alias) = "免疫控制技能"];
+    CustomType21 = 29 [(resdata.keyword_alias) = "伤害降低"];
+    CustomType22 = 30 [(resdata.keyword_alias) = "濒死"];
+    CustomType23 = 31 [(resdata.keyword_alias) = "自定义类型23"];
+    CustomType24 = 32 [(resdata.keyword_alias) = "自定义类型24"];
+    CustomType25 = 33 [(resdata.keyword_alias) = "自定义类型25"];
+    CustomType26 = 34 [(resdata.keyword_alias) = "自定义类型26"];
+    CustomType27 = 35 [(resdata.keyword_alias) = "自定义类型27"];
+    CustomType28 = 36 [(resdata.keyword_alias) = "自定义类型28"];
+    CustomType29 = 37 [(resdata.keyword_alias) = "自定义类型29"];
+    CustomType30 = 38 [(resdata.keyword_alias) = "自定义类型30"];
+    CustomType31 = 39 [(resdata.keyword_alias) = "自定义类型31"];
+    CustomType32 = 40 [(resdata.keyword_alias) = "自定义类型32"];
+    CustomType33 = 41 [(resdata.keyword_alias) = "自定义类型33"];
+    CustomType34 = 42 [(resdata.keyword_alias) = "自定义类型34"];
+    CustomType35 = 43 [(resdata.keyword_alias) = "自定义类型35"];
+    CustomType36 = 44 [(resdata.keyword_alias) = "自定义类型36"];
+    CustomType37 = 45 [(resdata.keyword_alias) = "自定义类型37"];
+    CustomType38 = 46 [(resdata.keyword_alias) = "自定义类型38"];
+    CustomType39 = 47 [(resdata.keyword_alias) = "自定义类型39"];
+    CustomType40 = 48 [(resdata.keyword_alias) = "自定义类型40"];
+    CustomType41 = 49 [(resdata.keyword_alias) = "增加物理攻击"];
+    CustomType42 = 50 [(resdata.keyword_alias) = "增加法术攻击"];
+    CustomType43 = 51 [(resdata.keyword_alias) = "增加物理防御"];
+    CustomType44 = 52 [(resdata.keyword_alias) = "增加法术防御"];
+    CustomType45 = 53 [(resdata.keyword_alias) = "增加最大生命值"];
+    Immobilize = 54 [(resdata.keyword_alias) = "定身"];
+    Oppression = 55 [(resdata.keyword_alias) = "压制"];
+    Towing = 56 [(resdata.keyword_alias) = "牵引"];
+    Disarm = 57 [(resdata.keyword_alias) = "缴械"];
+    CanNotSelect = 58 [(resdata.keyword_alias) = "无法选中"];
+    CanNotControl = 59 [(resdata.keyword_alias) = "霸体"];
+    Reviving = 60 [(resdata.keyword_alias) = "正在复活"];
+    GoldenBody = 61 [(resdata.keyword_alias) = "金身"];
+    PhysicalImmunity = 62 [(resdata.keyword_alias) = "物理免疫"];
+    HurtImmunity = 63 [(resdata.keyword_alias) = "伤害免疫"];
+    AddAtkSpd = 64 [(resdata.keyword_alias) = "增加攻速"];
+}
+
+enum HORIZON_METHOD
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    HORIZON_DISABLE = 0 [(resdata.keyword_alias) = "全部禁用"];
+    HORIZON_FUNC_FOW_REAL = 1 [(resdata.keyword_alias) = "基于网格计算的真实迷雾功能"];
+    HORIZON_FUNC_FOW_DISTANCE = 2 [(resdata.keyword_alias) = "基于距离计算的假迷雾"];
+    HORIZON_FUNC_FOW_RENDER = 4 [(resdata.keyword_alias) = "迷雾渲染"];
+    HORIZON_DISABLE_WITH_MARK = 8 [(resdata.keyword_alias) = "启用标记禁用迷雾"];
+    HORIZON_FOW_WITHOUT_RENDER = 9 [(resdata.keyword_alias) = "全部启用"];
+    HORIZON_FOW_DISTANCE = 10 [(resdata.keyword_alias) = "假迷雾"];
+    HORIZON_FOW = 13 [(resdata.keyword_alias) = "真实迷雾"];
+}
+
+enum HERO_DAMAGE_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    HERO_DAMAGE_TYPE_Default = 0;
+    HERO_DAMAGE_TYPE_AD = 1 [(resdata.keyword_alias) = "物理"];
+    HERO_DAMAGE_TYPE_AP = 2 [(resdata.keyword_alias) = "法术"];
+    HERO_DAMAGE_TYPE_ADAP = 3 [(resdata.keyword_alias) = "双修"];
+}
+
+
+enum RES_CALL_MONSTER_ADD_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_CALL_MONSTER_ADD_TYPE_Default = 0;
+    RES_CALL_MONSTER_ADD_ATTACK = 1 [(resdata.keyword_alias) = "仅攻击力加成"];
+    RES_CALL_MONSTER_ADD_MAGIC = 2 [(resdata.keyword_alias) = "仅法术强度加成"];
+    RES_CALL_MONSTER_ADD_ATTACK_AND_MAGIC = 3 [(resdata.keyword_alias) = "攻击力法术加成"];
+    RES_CALL_MONSTER_ADD_DEFENCE = 4 [(resdata.keyword_alias) = "仅防御力加成"];
+    RES_CALL_MONSTER_ADD_SEPERATELY = 8 [(resdata.keyword_alias) = "各属性各自加成"];
+    RES_CALL_MONSTER_ADD_FULLSEPERATELY = 16 [(resdata.keyword_alias) = "各属性最大值各自加成"];
+}
+
+enum RES_ENTERTAINMENT_MAP_SUB_TYPE
+{
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_NULL = 0;
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_CHAOS_BATTLE = 1 [(resdata.keyword_alias) = "娱乐地图子类型大乱斗"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_FIRE_HOLE = 2 [(resdata.keyword_alias) = "娱乐地图子类型火坑"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_DOUBLESTARS = 3 [(resdata.keyword_alias) = "娱乐地图子类型双星物语"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_RUNNING = 4 [(resdata.keyword_alias) = "娱乐地图子类型跑酷模式"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_FOG = 5 [(resdata.keyword_alias) = "娱乐地图子类型迷雾模式"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_CLONE = 6 [(resdata.keyword_alias) = "娱乐地图子类型克隆大作战"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_UNLIMIT = 7 [(resdata.keyword_alias) = "娱乐地图子类型无限乱斗"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_ANONYMOUS = 8 [(resdata.keyword_alias) = "娱乐地图子类型实战练习"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_FIVECAMP = 9 [(resdata.keyword_alias) = "娱乐地图子类型五军之战"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_COOPERATION = 10 [(resdata.keyword_alias) = "娱乐地图子类型合作模式"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_BATTLEROYALE = 11 [(resdata.keyword_alias) = "娱乐地图子类型大逃杀"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_BATTLEROYALE_REVIVE = 12 [(resdata.keyword_alias) = "娱乐地图子类型大逃杀无限复活"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_BATTLEROYALE_CLONE = 13 [(resdata.keyword_alias) = "娱乐地图子类型大逃杀克隆模式"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_PROJECT8 = 14 [(resdata.keyword_alias) = "娱乐地图子类型自走棋模式"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_SHORTBREAK = 15 [(resdata.keyword_alias) = "娱乐地图子类型短小快模式"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_PROJECT8_2 = 16 [(resdata.keyword_alias) = "娱乐地图子类型自走棋双人模式"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_PROJECT8_3 = 17 [(resdata.keyword_alias) = "娱乐地图子类型自走棋大乱斗模式"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_PROJECT8_4 = 18 [(resdata.keyword_alias) = "娱乐地图子类型自走棋新手关"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_MONSTER = 19 [(resdata.keyword_alias) = "娱乐地图子类型变身大作战"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_SOLDIER = 20 [(resdata.keyword_alias) = "娱乐地图子类型小小兵大作战"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_PROJECT9 = 21 [(resdata.keyword_alias) = "娱乐地图子类型IMBA"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_PROJECT8_5 = 22 [(resdata.keyword_alias) = "娱乐地图子类型自走棋快棋模式"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_PROJECT8_BOUNTYMATCH = 23 [(resdata.keyword_alias) = "娱乐地图子类型自走棋赏金赛模式"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_CHAOS_BATTLE_AI = 24 [(resdata.keyword_alias) = "娱乐地图子类型大乱斗人机挑战"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_TEST_HERO = 25 [(resdata.keyword_alias) = "娱乐地图子类型英雄测试模式"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_ZHONGYUAN_POLANG = 26 [(resdata.keyword_alias) = "娱乐地图子类型中元节破浪"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_COMBINEGAME = 27 [(resdata.keyword_alias) = "娱乐地图子类型组合玩法"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_EARLYTEST = 28 [(resdata.keyword_alias) = "娱乐地图子类型先行体验"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_MACHINE = 29 [(resdata.keyword_alias) = "娱乐地图子类型机关竞赛"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_ALLSPORT = 30 [(resdata.keyword_alias) = "娱乐地图子类型全民电竞"];
+    RES_ENTERTAINMENT_MAP_SUB_TYPE_LAST = 31;
+}
+
+enum RES_MULTI_GAME_PICK_RULE
+{
+    RES_MULTI_GAME_PICK_RULE_NORMAL = 0 [(resdata.keyword_alias) = "默认选将模式"];
+    RES_MULTI_GAME_PICK_RULE_RANDOM = 1 [(resdata.keyword_alias) = "随机选将模式"];
+    RES_MULTI_GAME_PICK_RULE_CLONE = 2 [(resdata.keyword_alias) = "克隆选将模式"];
+    RES_MULTI_GAME_PICK_RULE_BANPICK = 3 [(resdata.keyword_alias) = "BP选将模式"];
+    RES_MULTI_GAME_PICK_RULE_MULTI = 4 [(resdata.keyword_alias) = "多选选将模式"];
+    RES_MULTI_GAME_PICK_RULE_MULTI_SELFPICK = 5 [(resdata.keyword_alias) = "有限召唤多选选将模式"];
+    RES_MULTI_GAME_PICK_RULE_TRAINING = 6 [(resdata.keyword_alias) = "训练关选将模式"];
+    RES_MULTI_GAME_NOPICK = 7 [(resdata.keyword_alias) = "跳过选将模式"];
+    RES_MULTI_GAME_PICK_RULE_AI_TRAINING = 8 [(resdata.keyword_alias) = "人机练习选将模式"];
+    RES_MULTI_GAME_PICK_RULE_LAST = 9;
+}
+
+enum RES_SPEEDADJUST_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_SPEEDADJUST_SPEEDUP = 0 [(resdata.keyword_alias) = "加速阶段"];
+    RES_SPEEDADJUST_SPEEDDOWN = 1 [(resdata.keyword_alias) = "减速阶段"];
+}
+
+
+enum RES_DEV_FUNC_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_DEV_FUNC_TYPE_Default = 0;
+    RES_DEV_FUNC_ON = 1 [(resdata.keyword_alias) = "启用"];
+    RES_DEV_FUNC_OFF = 0 [(resdata.keyword_alias) = "禁止"];
+    RES_DEV_FUNC_IGNORE = 10 [(resdata.keyword_alias) = "默认"];
+    option allow_alias = true;
+}
+
+
+enum RES_QUESTION_CHOOSE_RULE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_QUESTION_CHOOSE_RULE_INVALID = 0;
+    RES_QUESTION_CHOOSE_RULE_SEQ = 1 [(resdata.keyword_alias) = "顺序"];
+    RES_QUESTION_CHOOSE_RULE_RANDOM = 2 [(resdata.keyword_alias) = "随机"];
+    RES_QUESTION_CHOOSE_RULE_WEIGHT = 3 [(resdata.keyword_alias) = "权重"];
+    RES_QUESTION_CHOOSE_RULE_RANDOMSOME = 4 [(resdata.keyword_alias) = "随机某数量"];
+    RES_QUESTION_CHOOSE_RULE_LAST = 5;
+}
+
+enum RES_PERFEFT_USE_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_PERFEFT_USE_ALLUSE = 0 [(resdata.keyword_alias) = "特效全部可用"];
+    RES_PERFEFT_USE_NOUSE = 1 [(resdata.keyword_alias) = "特效全部不可用"];
+    RES_PERFEFT_USE_LISTUSE = 2 [(resdata.keyword_alias) = "特效列表可用"];
+    RES_PERFEFT_USE_LISTNOUSE = 3 [(resdata.keyword_alias) = "特效列表不可用"];
+    RES_PERFEFT_USE_LAST = 4;
+}
+
+enum RES_HUD3D_COLOR_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_HUD3D_COLOR_NORMAL = 0 [(resdata.keyword_alias) = "默认颜色"];
+    RES_HUD3D_COLOR_HP = 1 [(resdata.keyword_alias) = "血条彩色化"];
+    RES_HUD3D_COLOR_NAME = 2 [(resdata.keyword_alias) = "名字彩色化"];
+}
+
+enum RES_ENTERAINMENT_SUBTYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_ENTERAINMENT_BATTLETYPE_NULL = 0;
+    RES_PROJECT8_BATTLETYPE_1V1 = 1 [(resdata.keyword_alias) = "对战类型_PROJ8单排"];
+    RES_PROJECT8_BATTLETYPE_2V2 = 2 [(resdata.keyword_alias) = "对战类型_PROJ8双排"];
+    RES_PROJECT8_BATTLETYPE_FASTMODE = 3 [(resdata.keyword_alias) = "对战类型_RROJ8快棋模式"];
+    RES_PROJECT8_BATTLETYPE_1V1_MATCH = 4 [(resdata.keyword_alias) = "对战类型_PROJ8单排匹配"];
+    RES_PROJECT8_BATTLETYPE_2V2_MATCH = 5 [(resdata.keyword_alias) = "对战类型_PROJ8双排匹配"];
+    RES_PROJECT8_BATTLETYPE_BOUNTY = 6 [(resdata.keyword_alias) = "对战类型_PROJ8天元赛"];
+}
+
+enum RES_USABLE_HERO_CREATE_METHOD
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_USABLE_HERO_CREATE_METHOD_BY_ACNT = 0 [(resdata.keyword_alias) = "使用玩家可用英雄"];
+    RES_USABLE_HERO_CREATE_METHOD_BY_DESK_RANDOM = 1 [(resdata.keyword_alias) = "使用Desk随机英雄"];
+    RES_USABLE_HERO_CREATE_METHOD_BY_PREBPHERO_POOL = 2 [(resdata.keyword_alias) = "使用预选英雄池"];
+}
+
+enum RES_PROJ8_RECOMMEND_DIFFICULTY_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_PROJ8_RECOMMEND_DIFFICULTY_TYPE_LOW = 0 [(resdata.keyword_alias) = "Projec8阵容难度低"];
+    RES_PROJ8_RECOMMEND_DIFFICULTY_TYPE_MIDDLE = 1 [(resdata.keyword_alias) = "Projec8阵容难度中"];
+    RES_PROJ8_RECOMMEND_DIFFICULTY_TYPE_HIGH = 2 [(resdata.keyword_alias) = "Projec8阵容难度高"];
+}
+
+enum RES_PROJ8_RECOMMEND_ARRANGE_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_PROJ8_RECOMMEND_ARRANGE_TYPE_GUIDE = 0 [(resdata.keyword_alias) = "Projec8新手推荐"];
+    RES_PROJ8_RECOMMEND_ARRANGE_TYPE_OFFICIAL = 1 [(resdata.keyword_alias) = "Projec8官方推荐"];
+    RES_PROJ8_RECOMMEND_ARRANGE_TYPE_HOT = 2 [(resdata.keyword_alias) = "Projec8热门推荐"];
+}
+
+enum RES_BATTLE_ENERGY_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    RES_BATTLE_ENERGY_TYPE_NO_ENERGY = 0 [(resdata.keyword_alias) = "无消耗"];
+    RES_BATTLE_ENERGY_TYPE_ENERGY = 1 [(resdata.keyword_alias) = "能量"];
+    RES_BATTLE_ENERGY_TYPE_NONE = 2;
+}
+
+enum RES_ALTERNATIVE_SKIN_RES_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_ALTERNATIVE_SKIN_RES_TYPE_PARTICLE_AND_SOUND = 0 [(resdata.keyword_alias) = "特效和声音"];
+    RES_ALTERNATIVE_SKIN_RES_TYPE_ONLY_PARTICLE = 1 [(resdata.keyword_alias) = "仅特效"];
+    RES_ALTERNATIVE_SKIN_RES_TYPE_ONLY_SOUND = 2 [(resdata.keyword_alias) = "仅声音"];
+}
+
+// enum RES_PROJECT8_CAMP_TYPE
+// {
+//     option (cltgen.gamecore_enum) = true;
+//     option (cltgen.csharp_enum) = true;
+    
+//     RES_PROJECT8_CAMP_TYPE_NOCAMP = 0 [(resdata.keyword_alias) = "自走棋无阵营"];
+//     RES_PROJECT8_CAMP_TYPE_BEGIN = 100 [(resdata.keyword_alias) = "自走棋缺省阵营"];
+//     RES_PROJECT8_CAMP_TYPE_CHANGCHENG = 101 [(resdata.keyword_alias) = "自走棋长城"];
+//     RES_PROJECT8_CAMP_TYPE_CHANGAN = 102 [(resdata.keyword_alias) = "自走棋长安"];
+//     RES_PROJECT8_CAMP_TYPE_XUANYONG = 103 [(resdata.keyword_alias) = "自走棋玄雍"];
+//     RES_PROJECT8_CAMP_TYPE_HAIDU = 104 [(resdata.keyword_alias) = "自走棋海都"];
+//     RES_PROJECT8_CAMP_TYPE_YAOTIAN = 105 [(resdata.keyword_alias) = "自走棋尧天"];
+//     RES_PROJECT8_CAMP_TYPE_JIXIA = 106 [(resdata.keyword_alias) = "自走棋稷下"];
+//     RES_PROJECT8_CAMP_TYPE_FUSANG = 107 [(resdata.keyword_alias) = "自走棋扶桑"];
+//     RES_PROJECT8_CAMP_TYPE_MOZHONG = 108 [(resdata.keyword_alias) = "自走棋魔种"];
+//     RES_PROJECT8_CAMP_TYPE_SANXIANZHE = 109 [(resdata.keyword_alias) = "自走棋三贤者"];
+//     RES_PROJECT8_CAMP_TYPE_SIMEI = 110 [(resdata.keyword_alias) = "自走棋四美"];
+//     RES_PROJECT8_CAMP_TYPE_XUANYONG2 = 111 [(resdata.keyword_alias) = "自走棋玄雍2"];
+//     RES_PROJECT8_CAMP_TYPE_YAOTIAN2 = 112 [(resdata.keyword_alias) = "自走棋尧天2"];
+//     RES_PROJECT8_CAMP_TYPE_CHANGAN2 = 113 [(resdata.keyword_alias) = "自走棋长安2"];
+//     RES_PROJECT8_CAMP_TYPE_TEAMOFSTAR = 114 [(resdata.keyword_alias) = "自走棋星之队"];
+//     RES_PROJECT8_CAMP_TYPE_RILUO = 115 [(resdata.keyword_alias) = "自走棋日落圣殿"];
+//     RES_PROJECT8_CAMP_TYPE_MAXCAMP = 116;
+// }
+
+// enum RES_PROJECT8_CAREER_TYPE
+// {
+//     option (cltgen.gamecore_enum) = true;
+//     option (cltgen.csharp_enum) = true;
+    
+//     RES_PROJECT8_CAREER_TYPE_NOCAREER = 0 [(resdata.keyword_alias) = "自走棋无职业"];
+//     RES_PROJECT8_CAREER_TYPE_QUEEN = 1 [(resdata.keyword_alias) = "自走棋女帝"];
+//     RES_PROJECT8_CAREER_TYPE_KING = 2 [(resdata.keyword_alias) = "自走棋君主"];
+//     RES_PROJECT8_CAREER_TYPE_ELEMENT = 3 [(resdata.keyword_alias) = "自走棋元素使"];
+//     RES_PROJECT8_CAREER_TYPE_MASTER = 4 [(resdata.keyword_alias) = "自走棋法师"];
+//     RES_PROJECT8_CAREER_TYPE_HERCULES = 5 [(resdata.keyword_alias) = "自走棋力士"];
+//     RES_PROJECT8_CAREER_TYPE_SOLDIER = 6 [(resdata.keyword_alias) = "自走棋战士"];
+//     RES_PROJECT8_CAREER_TYPE_ASSASSIN = 7 [(resdata.keyword_alias) = "自走棋刺客"];
+//     RES_PROJECT8_CAREER_TYPE_ARMORER = 8 [(resdata.keyword_alias) = "自走棋枪械师"];
+//     RES_PROJECT8_CAREER_TYPE_ARCHER = 9 [(resdata.keyword_alias) = "自走棋射手"];
+//     RES_PROJECT8_CAREER_TYPE_CUREAID = 10 [(resdata.keyword_alias) = "自走棋医师"];
+//     RES_PROJECT8_CAREER_TYPE_SHIELD = 11 [(resdata.keyword_alias) = "自走棋盾卫"];
+//     RES_PROJECT8_CAREER_TYPE_MECHANISM = 12 [(resdata.keyword_alias) = "自走棋机关"];
+//     RES_PROJECT8_CAREER_TYPE_SWORDMAN = 13 [(resdata.keyword_alias) = "自走棋剑舞者"];
+//     RES_PROJECT8_CAREER_TYPE_DANCINGGIRL = 14 [(resdata.keyword_alias) = "自走棋舞姬"];
+//     RES_PROJECT8_CAREER_TYPE_BOMBER = 15 [(resdata.keyword_alias) = "自走棋火药大师"];
+//     RES_PROJECT8_CAREER_TYPE_YUANSU2 = 16 [(resdata.keyword_alias) = "自走棋元素2"];
+//     RES_PROJECT8_CAREER_TYPE_GUN = 17 [(resdata.keyword_alias) = "自走棋枪械师2"];
+//     RES_PROJECT8_CAREER_TYPE_MARKSMAN = 18 [(resdata.keyword_alias) = "自走棋射手2"];
+//     RES_PROJECT8_CAREER_TYPE_HEALER = 19 [(resdata.keyword_alias) = "自走棋医师2"];
+//     RES_PROJECT8_CAREER_TYPE_SWORDER = 20 [(resdata.keyword_alias) = "自走棋剑舞者2"];
+//     RES_PROJECT8_CAREER_TYPE_MAGIC2 = 21 [(resdata.keyword_alias) = "自走棋魔导师2"];
+//     RES_PROJECT8_CAREER_TYPE_MAXCAREER = 22;
+// }
+
+enum RES_PROJECT8_EQUIP_ONLY_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_PROJECT8_EQUIP_ONLY_TYPE_DEFAULT = 0;
+    RES_PROJECT8_EQUIP_ONLY_TYPE_EQUIP_ONLY = 1 [(resdata.keyword_alias) = "装备唯一"];
+    RES_PROJECT8_EQUIP_ONLY_TYPE_GOD_ONLY = 2 [(resdata.keyword_alias) = "神器唯一"];
+    RES_PROJECT8_EQUIP_ONLY_TYPE_HAIDU_ONLY = 3 [(resdata.keyword_alias) = "海都唯一"];
+}
+
+
+enum RES_PROJECT8_N_SELECT_ONE_OP_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+
+    RES_PROJECT8_N_SELECT_ONE_OP_TYPE_DEFAULT = 0;
+    RES_PROJECT8_N_SELECT_ONE_OP_TYPE_TREASURE = 1;
+    RES_PROJECT8_N_SELECT_ONE_OP_TYPE_TALENT = 2;
+    RES_PROJECT8_N_SELECT_ONE_OP_TYPE_LORD_SKILL_CHOOSE = 3;
+}
+
+enum RES_PROJECT8_JIXIABOX_STATE_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_PROJECT8_JIXIABOX_STATE_DEFAULT = 0;
+    RES_PROJECT8_JIXIABOX_STATE_CREATE = 1;
+    RES_PROJECT8_JIXIABOX_STATE_REMOVE = 2;
+    RES_PROJECT8_JIXIABOX_STATE_UPDATE = 3;
+    RES_PROJECT8_JIXIABOX_STATE_SELFOPENATMAX = 4;
+    RES_PROJECT8_JIXIABOX_STATE_OPENBYCLICKED = 5;
+}
+
+enum RES_PROJECT8_EQUIP_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_PROJECT8_EQUIP_TYPE_NONE = 0 [(resdata.keyword_alias) = "棋子装备无类别"];
+    RES_PROJECT8_EQUIP_TYPE_DAMAGE = 1 [(resdata.keyword_alias) = "棋子装备物理攻击类"];
+    RES_PROJECT8_EQUIP_TYPE_ABILITY = 2 [(resdata.keyword_alias) = "棋子装备法术攻击类"];
+    RES_PROJECT8_EQUIP_TYPE_DEFENSE = 3 [(resdata.keyword_alias) = "棋子装备防御类"];
+    RES_PROJECT8_EQUIP_TYPE_OTHER = 4 [(resdata.keyword_alias) = "棋子装备其他类"];
+    RES_PROJECT8_EQUIP_TYPE_LAST = 5;
+}
+
+enum RES_PROJECT8_TALENT_CONDITION
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_PROJECT8_TALENT_CONDITION_NONE = 0 [(resdata.keyword_alias) = "棋子天赋无达成条件"];
+    RES_PROJECT8_TALENT_CONDITION_HEROS = 1 [(resdata.keyword_alias) = "棋子天赋达成条件指定英雄"];
+}
+
+enum RES_PROJECT8_TALENT_PROMOTE_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_PROJECT8_TALENT_PROMOTE_TYPE_NONE = 0 [(resdata.keyword_alias) = "棋子天赋无加成"];
+    RES_PROJECT8_TALENT_PROMOTE_TYPE_STATIC = 1 [(resdata.keyword_alias) = "棋子天赋固定加成"];
+    RES_PROJECT8_TALENT_PROMOTE_TYPE_HEROS = 2 [(resdata.keyword_alias) = "棋子天赋加成指定英雄"];
+    RES_PROJECT8_TALENT_PROMOTE_TYPE_RELATIVE = 3 [(resdata.keyword_alias) = "棋子天赋加成指定羁绊"];
+    RES_PROJECT8_TALENT_PROMOTE_TYPE_ALL = 4 [(resdata.keyword_alias) = "棋子天赋加成全体英雄"];
+}
+
+enum RES_PROJECT8_BUFF_SELECT_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_PROJECT8_BUFF_SELECT_TYPE_Default = 0;
+    RES_PROJECT8_BUFF_SELECT_TYPE_SELF_GROUP = 1 [(resdata.keyword_alias) = "本方同组"];
+    RES_PROJECT8_BUFF_SELECT_TYPE_SELF_ALL = 2 [(resdata.keyword_alias) = "本方全员"];
+    RES_PROJECT8_BUFF_SELECT_TYPE_ENEMY_ALL = 3 [(resdata.keyword_alias) = "敌方全员"];
+    RES_PROJECT8_BUFF_SELECT_TYPE_SELF_GROUP_MOST_EQUIP = 4 [(resdata.keyword_alias) = "本方同组装备最多"];
+    RES_PROJECT8_BUFF_SELECT_TYPE_SELF_LORD = 5 [(resdata.keyword_alias) = "本方领主"];
+    RES_PROJECT8_BUFF_SELECT_TYPE_SELF_ALL_HERO = 6 [(resdata.keyword_alias) = "本方英雄"];
+    RES_PROJECT8_BUFF_SELECT_TYPE_ENEMY_ALL_HERO = 7 [(resdata.keyword_alias) = "敌方英雄"];
+}
+
+enum RES_GAMESVR_PLAT_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_GAMESVR_PLAT_NULL = 0 [(resdata.keyword_alias) = "微赛事_无效平台"];
+    RES_GAMESVR_PLAT_MQQ = 1 [(resdata.keyword_alias) = "微赛事_手Q平台"];
+    RES_GAMESVR_PLAT_WEIXIN = 2 [(resdata.keyword_alias) = "微赛事_微信平台"];
+    RES_GAMESVR_PLAT_GUEST = 3 [(resdata.keyword_alias) = "微赛事_游客平台"];
+    RES_GAMESVR_PLAT_FACEBOOK = 4 [(resdata.keyword_alias) = "微赛事_Facebook平台"];
+    RES_GAMESVR_PLAT_GAME_CENTER = 5 [(resdata.keyword_alias) = "微赛事_GameCenter平台"];
+    RES_GAMESVR_PLAT_GOOGLE = 6 [(resdata.keyword_alias) = "微赛事_GooglePlay平台"];
+}
+
+enum RES_TRIAL_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_TRIAL_TYPE_INVALID = 0;
+    RES_TRIAL_TYPE_HERO = 1 [(resdata.keyword_alias) = "英雄试炼"];
+    RES_TRIAL_TYPE_NORMAL = 2 [(resdata.keyword_alias) = "普通试炼"];
+    RES_TRIAL_TYPE_ADVANCED = 3 [(resdata.keyword_alias) = "高级试炼"];
+    RES_TRIAL_TYPE_LAST = 4;
+}
+
+enum RES_PROJECT8_TALENT_BUFF_SELECT_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_PROJECT8_TALENT_BUFF_SELECT_TYPE_Default = 0;
+    RES_PROJECT8_TALENT_BUFF_SELECT_TYPE_SELF_PLAYER = 1 [(resdata.keyword_alias) = "己方玩家"];
+    RES_PROJECT8_TALENT_BUFF_SELECT_TYPE_SELF_CAREER_TANK = 2 [(resdata.keyword_alias) = "己方职业为坦克"];
+    RES_PROJECT8_TALENT_BUFF_SELECT_TYPE_SELF_CAREER_AD = 3 [(resdata.keyword_alias) = "己方职业为射手"];
+    RES_PROJECT8_TALENT_BUFF_SELECT_TYPE_SELF_CAREER_AID = 4 [(resdata.keyword_alias) = "己方职业为辅助"];
+    RES_PROJECT8_TALENT_BUFF_SELECT_TYPE_SELF_CAREER_AP = 5 [(resdata.keyword_alias) = "己方职业为法师"];
+    RES_PROJECT8_TALENT_BUFF_SELECT_TYPE_SELF_CAREER_SOLDER = 6 [(resdata.keyword_alias) = "己方职业为战士"];
+    RES_PROJECT8_TALENT_BUFF_SELECT_TYPE_SELF_CAREER_ASSASSIN = 7 [(resdata.keyword_alias) = "己方职业为刺客"];
+    RES_PROJECT8_TALENT_BUFF_SELECT_TYPE_SELF_CAMP_MAX = 8 [(resdata.keyword_alias) = "人数最多阵营"];
+    RES_PROJECT8_TALENT_BUFF_SELECT_TYPE_SELF_ALL = 9 [(resdata.keyword_alias) = "己方所有"];
+    RES_PROJECT8_TALENT_BUFF_SELECT_TYPE_ENEMY_ALL = 10 [(resdata.keyword_alias) = "敌方所有"];
+    RES_PROJECT8_TALENT_BUFF_SELECT_TYPE_SELF_PLAYER_ROUND = 11 [(resdata.keyword_alias) = "己方玩家，每回合插拔Effect"];
+}
+
+enum RES_PROJECT8_MATCH_GRADE_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_PROJECT8_MATCH_GRADE_TYPE_Default = 0;
+    RES_PROJECT8_MATCH_GRADE_TYPE_LOW = 1 [(resdata.keyword_alias) = "PROJECT8匹配低段"];
+    RES_PROJECT8_MATCH_GRADE_TYPE_MIDDLE = 2 [(resdata.keyword_alias) = "PROJECT8匹配中段"];
+    RES_PROJECT8_MATCH_GRADE_TYPE_HIGH = 3 [(resdata.keyword_alias) = "PROJECT8匹配高段"];
+    RES_PROJECT8_MATCH_GRADE_TYPE_TOP = 4 [(resdata.keyword_alias) = "PROJECT8匹配顶段"];
+    RES_PROJECT8_MATCH_GRADE_TYPE_ALL = 5 [(resdata.keyword_alias) = "PROJECT8匹配全段位"];
+}
+
+enum RES_GAMEOVER_COND_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_GAMEOVER_COND_TYPE_Default = 0;
+    RES_GAMEOVER_COND_TYPE_LEFT_HPRATIO = 1 [(resdata.keyword_alias) = "proj8剩余血量百分比"];
+    RES_GAMEOVER_COND_TYPE_MAX_LEFT_HPRATIO = 2 [(resdata.keyword_alias) = "proj8不高于剩余血量百分比"];
+    RES_GAMEOVER_COND_TYPE_REVEASERANK_ROUNDNUM = 3 [(resdata.keyword_alias) = "proj8倒数排名回合数"];
+    RES_GAMEOVER_COND_TYPE_FILTER_HERO_STAR_NUM = 4 [(resdata.keyword_alias) = "proj8英雄星级个数"];
+    RES_GAMEOVER_COND_TYPE_ONE_ROUND_KILLHEROMAXNUM = 5 [(resdata.keyword_alias) = "proj8单回合击杀英雄最大个数"];
+    RES_GAMEOVER_COND_TYPE_ONE_HERO_KILLHEROMAXNUM = 6 [(resdata.keyword_alias) = "proj8单英雄累计击杀敌人最大个数"];
+    RES_GAMEOVER_COND_TYPE_ONE_ROUND_OBTAIN_EQUIP_MAX_NUM = 7 [(resdata.keyword_alias) = "proj8单回合获得装备最大个数"];
+    RES_GAMEOVER_COND_TYPE_TOTAL_EQUIP_NUM = 8 [(resdata.keyword_alias) = "proj8累计装备个数"];
+    RES_GAMEOVER_COND_TYPE_GOLD_NUM = 9 [(resdata.keyword_alias) = "proj8结束金钱"];
+    RES_GAMEOVER_COND_TYPE_ONE_ROUND_MAX_HURT = 10 [(resdata.keyword_alias) = "proj8单回合最大输出"];
+    RES_GAMEOVER_COND_TYPE_MAX_ACCU_WINROUND_NUM = 11 [(resdata.keyword_alias) = "proj8最高连胜回合数"];
+    RES_GAMEOVER_COND_TYPE_WIN_ROUND_NUM = 12 [(resdata.keyword_alias) = "proj8胜利回合数"];
+    RES_GAMEOVER_COND_TYPE_RANK = 13 [(resdata.keyword_alias) = "proj8结算排名"];
+    RES_GAMEOVER_COND_TYPE_WIN_ATLEAST_ROUND_NUM = 14 [(resdata.keyword_alias) = "proj8胜利至少回合数"];
+    RES_GAMEOVER_COND_TYPE_TOTAL_REFRESH_NUM = 15 [(resdata.keyword_alias) = "proj8总刷新次数"];
+    RES_GAMEOVER_COND_TYPE_TOTAL_MAX_HURTED = 16 [(resdata.keyword_alias) = "proj8单回合最大承伤"];
+    RES_GAMEOVER_COND_TYPE_TOTAL_MAX_HEAL = 17 [(resdata.keyword_alias) = "proj8单回合最大治疗量"];
+    RES_GAMEOVER_COND_TYPE_LAST = 18 [(resdata.keyword_alias) = "proj8达成条件最大类型"];
+}
+
+enum RES_HERO_ABILITY_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_HERO_ABILITY_NULL = 0;
+    RES_HERO_ABILITY_HURT_TO_HERO = 1 [(resdata.keyword_alias) = "英雄能力_对英雄总伤害"];
+    RES_HERO_ABILITY_MONEY_TRANSFORM = 2 [(resdata.keyword_alias) = "英雄能力_经济转化"];
+    RES_HERO_ABILITY_HURT_TOKEN = 3 [(resdata.keyword_alias) = "英雄能力_承受伤害"];
+    RES_HERO_ABILITY_HURT_TOKEN_NO_DEATH = 4 [(resdata.keyword_alias) = "英雄能力_没死承伤"];
+    RES_HERO_ABILITY_MONEY_TOTAL = 5 [(resdata.keyword_alias) = "英雄能力_总经济"];
+    RES_HERO_ABILITY_MONEY_TOTAL_FROM_JUNGLE = 6 [(resdata.keyword_alias) = "英雄能力_野怪经济"];
+    RES_HERO_ABILITY_LAST_HIT = 7 [(resdata.keyword_alias) = "英雄能力_补刀"];
+    RES_HERO_ABILITY_KILL = 8 [(resdata.keyword_alias) = "英雄能力_击杀"];
+    RES_HERO_ABILITY_DEATH = 9 [(resdata.keyword_alias) = "英雄能力_死亡"];
+    RES_HERO_ABILITY_ASSIST = 10 [(resdata.keyword_alias) = "英雄能力_助攻"];
+    RES_HERO_ABILITY_BATTLE = 11 [(resdata.keyword_alias) = "英雄能力_参团率"];
+    RES_HERO_ABILITY_CONTROL = 12 [(resdata.keyword_alias) = "英雄能力_控制时长"];
+    RES_HERO_ABILITY_HEAL = 13 [(resdata.keyword_alias) = "英雄能力_治疗量"];
+    RES_HERO_ABILITY_HURT_TO_ORGAN = 14 [(resdata.keyword_alias) = "英雄能力_对防御塔伤害"];
+}
+
+enum RES_PERFEFT_SPECTIME_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_PERFEFT_SPECTIME_NULL = 0;
+    RES_PERFEFT_SPECTIME_CURWEEK = 1 [(resdata.keyword_alias) = "绑定当周生效"];
+    RES_PERFEFT_SPECTIME_LAST = 2;
+}
+
+enum RES_EP_STATE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_EP_STATE_DEFAULT = 0 [(resdata.keyword_alias) = "默认状态"];
+    RES_EP_STATE_ENTER_MAX = 1 [(resdata.keyword_alias) = "达到MAX"];
+    RES_EP_STATE_ENTER_ZERO = 2 [(resdata.keyword_alias) = "达到ZERO"];
+    RES_EP_STATE_LEAVE_LAST = 3 [(resdata.keyword_alias) = "离开MAX"];
+}
+
+enum RES_HONOR_CHALLENGE_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_HONOR_CHALLENGE_NULL = 0;
+    RES_HONOR_CHALLENGE_RANK = 1 [(resdata.keyword_alias) = "排位赛荣誉挑战"];
+    RES_HONOR_CHALLENGE_MASTER = 2 [(resdata.keyword_alias) = "巅峰赛荣誉挑战"];
+    RES_HONOR_CHALLENGE_LAST = 3;
+}
+
+enum RES_GUIDE_INTRO_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_GUIDE_INTRO_TYPE_NULL = 0 [(resdata.keyword_alias) = ""];
+    RES_GUIDE_INTRO_TYPE_IMAGE = 1 [(resdata.keyword_alias) = "图片介绍框"];
+    RES_GUIDE_INTRO_TYPE_VIDEO = 2 [(resdata.keyword_alias) = "视频介绍框"];
+    RES_GUIDE_INTRO_TYPE_TEXT = 3 [(resdata.keyword_alias) = "文本介绍框"];
+}
+
+enum RES_SKILL_TAG
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_SKILL_TAG_NULL = 0 [(resdata.keyword_alias) = ""];
+    RES_SKILL_TAG_LIBAI_ULTIMATE_SKILL_HIT = 1 [(resdata.keyword_alias) = "李白大招命中"];
+    RES_SKILL_TAG_YINGZHENG_ULTIMATE_SKILL_HIT = 2 [(resdata.keyword_alias) = "嬴政大招命中"];
+    RES_SKILL_TAG_YINGZHENG_DISARM_SKILL_HIT = 3 [(resdata.keyword_alias) = "嬴政二技能命中"];
+}
+
+enum RES_TEAM_RANGE_RULE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_TEAM_RANGE_RULE_NULL = 0 [(resdata.keyword_alias) = "无组队规则"];
+    RES_TEAM_RANGE_RULE_RANK_SMALLGRADE = 1 [(resdata.keyword_alias) = "组队规则排位赛小段位"];
+    RES_TEAM_RANGE_RULE_AUTOCHESS_SINGLE_BIGGRADE = 2 [(resdata.keyword_alias) = "组队规则自走棋单人大段位"];
+    RES_TEAM_RANGE_RULE_SIMPLE_GRADE = 3 [(resdata.keyword_alias) = "组队规则简单段位门槛"];
+    RES_TEAM_RANGE_RULE_DIFFICULTY = 4 [(resdata.keyword_alias) = "组队规则通关难度"];
+    RES_TEAM_RANGE_RULE_LAST = 5;
+}
+
+enum RES_CHESS_BOUNTYMATCH_LEVEL
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_CHESS_BOUNTYMATCH_LEVEL_Default = 0;
+    RES_CHESS_BOUNTYMATCH_LEVEL_1 = 1 [(resdata.keyword_alias) = "初级场"];
+    RES_CHESS_BOUNTYMATCH_LEVEL_2 = 2 [(resdata.keyword_alias) = "中级场"];
+    RES_CHESS_BOUNTYMATCH_LEVEL_3 = 3 [(resdata.keyword_alias) = "高级场"];
+    RES_CHESS_BOUNTYMATCH_LEVEL_4 = 4 [(resdata.keyword_alias) = "王者场"];
+}
+
+enum RES_PROJECT8_DRAW_ITEM_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_PROJECT8_DRAW_ITEM_TYPE_NULL = 0 [(resdata.keyword_alias) = ""];
+    RES_PROJECT8_DRAW_ITEM_TYPE_HERO = 1 [(resdata.keyword_alias) = "轮抽物品-英雄"];
+    RES_PROJECT8_DRAW_ITEM_TYPE_EQUIP = 2 [(resdata.keyword_alias) = "轮抽物品-装备"];
+    RES_PROJECT8_DRAW_ITEM_TYPE_TALENT = 3 [(resdata.keyword_alias) = "轮抽物品-天赋"];
+    RES_PROJECT8_DRAW_ITEM_TYPE_COIN = 4 [(resdata.keyword_alias) = "轮抽物品-金币"];
+    RES_PROJECT8_DRAW_ITEM_TYPE_CHEST = 5 [(resdata.keyword_alias) = "轮抽物品-宝箱"];
+}
+
+enum RES_GENERAL_SHOP_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_GENERAL_SHOP_TYPE_Default = 0;
+    RES_GENERAL_SHOP_TYPE_AUTOCHESS = 1;
+}
+
+enum RES_IN_BATTLE_OPEN_FUNC_PARAM_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_IN_BATTLE_OPEN_FUNC_PARAM_TYPE_PROBABILITY = 0 [(resdata.keyword_alias) = "根据概率开启"];
+    RES_IN_BATTLE_OPEN_FUNC_PARAM_TYPE_TIME = 1 [(resdata.keyword_alias) = "根据时间段开启"];
+    RES_IN_BATTLE_OPEN_FUNC_PARAM_TYPE_LAST = 2;
+}
+
+enum RES_IN_BATTLE_OPEN_FUNC_BIT
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_IN_BATTLE_OPEN_FUNC_BIT_TEAM_EFFECT = 0 [(resdata.keyword_alias) = "开启局内组队特效"];
+    RES_IN_BATTLE_OPEN_FUNC_BIT_PLACE_FLAG = 1 [(resdata.keyword_alias) = "开启局内插旗"];
+    RES_IN_BATTLE_OPEN_FUNC_BIT_YEAR_MONSTER_RUN = 2 [(resdata.keyword_alias) = "开启跑跑年兽"];
+    RES_IN_BATTLE_OPEN_FUNC_BIT_FIRE_CRACKER = 3 [(resdata.keyword_alias) = "开启局内鞭炮"];
+    RES_IN_BATTLE_OPEN_FUNC_BIT_BET_ON = 4 [(resdata.keyword_alias) = "开启局内押注"];
+    RES_IN_BATTLE_OPEN_FUNC_BIT_FILLING = 5 [(resdata.keyword_alias) = "开启局内加注"];
+    RES_IN_BATTLE_OPEN_FUNC_BIT_YEAR_MONSTER_KUN = 6 [(resdata.keyword_alias) = "开启抢鲲年兽"];
+    RES_IN_BATTLE_OPEN_FUNC_BIT_FRAME_EXTEND = 7 [(resdata.keyword_alias) = "开启FRAMEEXTEND"];
+    RES_IN_BATTLE_OPEN_FUNC_BIT_55_EFFECT = 8 [(resdata.keyword_alias) = "五五开黑节局内氛围"];
+    RES_IN_BATTLE_OPEN_FUNC_BIT_PAINT = 9 [(resdata.keyword_alias) = "开启局内涂鸦"];
+    RES_IN_BATTLE_OPEN_FUNC_BIT_LAST = 10;
+}
+
+enum RES_IN_BATTLE_ACNT_FUNC_BIT
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_IN_BATTLE_ACNT_FUNC_BIT_FRIENDCARD_SKILL = 0 [(resdata.keyword_alias) = "开启局内激活朋友卡玩家特有技能"];
+    RES_IN_BATTLE_ACNT_FUNC_BIT_OPEN_FRAME_EXTEND = 1 [(resdata.keyword_alias) = "玩家开放探索阶段"];
+    RES_IN_BATTLE_ACNT_FUNC_BIT_BEFOR_QUITTIME_QUIT = 2 [(resdata.keyword_alias) = "玩家可以在规定时间前提前退出"];
+    RES_IN_BATTLE_ACNT_FUNC_BIT_HEROPRACTICE_SKILLJUDGE = 3 [(resdata.keyword_alias) = "局内技巧判定"];
+    RES_IN_BATTLE_ACNT_FUNC_BIT_HEROPRACTICE_SHOW = 4 [(resdata.keyword_alias) = "局内觉悟演示"];
+    RES_IN_BATTLE_ACNT_FUNC_BIT_HEROPRACTICE_TEACHING = 5 [(resdata.keyword_alias) = "局内大局观教学"];
+    RES_IN_BATTLE_ACNT_FUNC_BIT_LAST = 6;
+}
+
+enum RES_GRAY_FUNC_BIT
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_GRAY_FUNC_BIT_HEROPRACTICE_SKILLJUDGE = 0 [(resdata.keyword_alias) = "技巧判定"];
+    RES_GRAY_FUNC_BIT_HEROPRACTICE_SHOW = 1 [(resdata.keyword_alias) = "觉悟演示"];
+    RES_GRAY_FUNC_BIT_HEROPRACTICE_TEACHING = 2 [(resdata.keyword_alias) = "大局观教学"];
+    RES_GRAY_FUNC_BIT_LAST = 3;
+}
+
+enum RES_IN_BATTLE_ACNT_FUNC_PARAM_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_IN_BATTLE_ACNT_FUNC_PARAM_TYPE_TIME = 0 [(resdata.keyword_alias) = "玩家功能时间段开启"];
+    RES_IN_BATTLE_ACNT_FUNC_PARAM_TYPE_LAST = 1;
+}
+
+enum RES_WEALMULTIOPT_OPTTYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_WEALMULTIOPT_OPTTYPE_Default = 0;
+    RES_WEALMULTIOPT_OPT_COUPONSFILL = 1 [(resdata.keyword_alias) = "多时累计活动_点券充值"];
+    RES_WEALMULTIOPT_OPT_LAST = 2;
+}
+
+enum RES_WEALMULTIOPT_TIMETYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_WEALMULTIOPT_TIMETYPE_Default = 0;
+    RES_WEALMULTIOPT_TIME_DAY = 1 [(resdata.keyword_alias) = "多时累计活动_天"];
+    RES_WEALMULTIOPT_TIME_WEEK = 2 [(resdata.keyword_alias) = "多时累计活动_周"];
+    RES_WEALMULTIOPT_TIME_MONTH = 3 [(resdata.keyword_alias) = "多时累计活动_月"];
+    RES_WEALMULTIOPT_TIME_LAST = 4;
+}
+
+enum RES_LOADING_CHAT_CONTENT_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_LOADING_CHAT_CONTENT_TYPE_LOADING_RANDOM = 0 [(resdata.keyword_alias) = "loading随机"];
+    RES_LOADING_CHAT_CONTENT_TYPE_LOADING_CONDITION = 1 [(resdata.keyword_alias) = "loading条件触发"];
+    RES_LOADING_CHAT_CONTENT_TYPE_THUMBSUP_RANDOM = 2 [(resdata.keyword_alias) = "局内点赞随机"];
+    RES_LOADING_CHAT_CONTENT_TYPE_THUMBSUP_CONDITION = 3 [(resdata.keyword_alias) = "局内点赞条件触发"];
+    RES_LOADING_CHAT_CONTENT_TYPE_SHOWOFF_RANDOM = 4 [(resdata.keyword_alias) = "局内炫耀随机"];
+    RES_LOADING_CHAT_CONTENT_TYPE_SHOWOFF_CONDITION = 5 [(resdata.keyword_alias) = "局内炫耀条件触发"];
+}
+
+enum RES_ALBUM_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_ALBUM_TYPE_INVALID = 0;
+    RES_ALBUM_TYPE_HERO = 1 [(resdata.keyword_alias) = "英雄图鉴"];
+    RES_ALBUM_TYPE_CAMP = 2 [(resdata.keyword_alias) = "势力图鉴"];
+    RES_ALBUM_TYPE_LAST = 3;
+}
+
+enum RES_HERO_FAVOR_GIFT_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_HERO_FAVOR_GIFT_INVALID = 0;
+    RES_HERO_FAVOR_GIFT_NORMAL = 1 [(resdata.keyword_alias) = "普通英雄礼物"];
+    RES_HERO_FAVOR_GIFT_SPECIAL = 2 [(resdata.keyword_alias) = "特殊英雄礼物"];
+    RES_HERO_FAVOR_GIFT_LAST = 3;
+}
+
+enum RES_DROP_RELATION_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_DROP_RELATION_TYPE_INVALID = 0;
+    RES_DROP_RELATION_TYPE_USE_HERO = 1 [(resdata.keyword_alias) = "使用指定英雄"];
+    RES_DROP_RELATION_TYPE_SAME_CAMP = 2 [(resdata.keyword_alias) = "同阵营英雄"];
+    RES_DROP_RELATION_TYPE_ENEMY_CAMP = 3 [(resdata.keyword_alias) = "敌对阵营英雄"];
+    RES_DROP_RELATION_TYPE_APPEAR = 4 [(resdata.keyword_alias) = "对局中英雄"];
+    RES_DROP_RELATION_TYPE_LAST = 5;
+}
+
+enum RES_HERO_RELATION_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_HERO_RELATION_TYPE_NORMAL = 0 [(resdata.keyword_alias) = "普通关系"];
+    RES_HERO_RELATION_TYPE_INTIMACY = 1 [(resdata.keyword_alias) = "亲密关系"];
+    RES_HERO_RELATION_TYPE_HOSTILE = 2 [(resdata.keyword_alias) = "敌对关系"];
+}
+
+enum RES_HERO_GENDER
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_HERO_GENDER_MALE = 0 [(resdata.keyword_alias) = "男性"];
+    RES_HERO_GENDER_FEMALE = 1 [(resdata.keyword_alias) = "女性"];
+}
+
+enum RES_HEROFAVORITEM_SUB_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_HEROFAVORITEM_SUB_TYPE_NULL = 0;
+    RES_HEROFAVORITEM_SUB_TYPE_SPEC_HERO_ITEM = 1 [(resdata.keyword_alias) = "指定英雄信物"];
+}
+
+enum RES_HERO_STORY_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_HERO_STORY_TYPE_NULL = 0 [(resdata.keyword_alias) = ""];
+    RES_HERO_STORY_TYPE_FRIENDSHIP = 1 [(resdata.keyword_alias) = "情谊故事"];
+    RES_HERO_STORY_TYPE_STORY = 2 [(resdata.keyword_alias) = "剧情故事"];
+}
+
+enum RES_HERO_STORY_CARD_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_HERO_STORY_CARD_NULL = 0 [(resdata.keyword_alias) = ""];
+    RES_HERO_STORY_CARD_BIG = 1 [(resdata.keyword_alias) = "大卡"];
+    RES_HERO_STORY_CARD_SMALL = 2 [(resdata.keyword_alias) = "小卡"];
+}
+
+enum RES_PROJECT8_ABILITY_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_PROJECT8_ABILITY_TYPE_FIXED_CELL = 0 [(resdata.keyword_alias) = "固定站位"];
+    RES_PROJECT8_ABILITY_TYPE_TERMINATOR_LOCK = 1 [(resdata.keyword_alias) = "终结锁定"];
+    RES_PROJECT8_ABILITY_TYPE_FREE_USE_SKILL = 2 [(resdata.keyword_alias) = "免费释放技能"];
+    RES_PROJECT8_ABILITY_TYPE_JUMP_BACK_AFTER_BATTLE = 3 [(resdata.keyword_alias) = "开战跳后排"];
+    RES_PROJECT8_ABILITY_TYPE_CLONE_HERO = 4 [(resdata.keyword_alias) = "克隆英雄标记"];
+    RES_PROJECT8_ABILITY_TYPE_IGNOR_HURT_RECOVER_FORBID_FLAG = 5 [(resdata.keyword_alias) = "忽略禁止受击回蓝的标志"];
+    RES_PROJECT8_ABILITY_TYPE_IGNOR_COLLISION_WHEN_MOVE = 6 [(resdata.keyword_alias) = "移动时忽略碰撞"];
+    RES_PROJECT8_ABILITY_TYPE_IGNOR_ATTACk_RECOVER_FORBID_FLAG = 7 [(resdata.keyword_alias) = "忽略禁止攻击回蓝的标志"];
+    RES_PROJECT8_ABILITY_TYPE_FORBID_WEAREQUIP = 8 [(resdata.keyword_alias) = "禁止穿装备"];
+    RES_PROJECT8_ABILITY_TYPE_LAST = 9 [(resdata.keyword_alias) = "最大值"];
+}
+
+enum RES_PROJECT8_AUCTION_UNLOCK_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_PROJECT8_AUCTION_UNLOCK_TYPE_Default = 0;
+    RES_PROJECT8_AUCTION_UNLOCK_TYPE_AUCTION_ITEM = 1 [(resdata.keyword_alias) = "拍卖品解锁"];
+    RES_PROJECT8_AUCTION_UNLOCK_TYPE_PLAYER = 2 [(resdata.keyword_alias) = "拍卖玩家解锁"];
+}
+
+enum RES_PROJECT8_DROP_PROBILITY_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_PROJECT8_DROP_PROBILITY_TYPE_RANDOM_LOCAL = 0 [(resdata.keyword_alias) = "随机概率"];
+    RES_PROJECT8_DROP_PROBILITY_TYPE_RANDOM_GLOBAL = 1 [(resdata.keyword_alias) = "整体概率"];
+}
+
+enum RES_PROJECT8_CUSTOM_ROOM_SET_INDEX
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_PROJECT8_CUSTOM_ROOM_SET_INDEX_BAN_PICK = 0 [(resdata.keyword_alias) = "BanPick"];
+    // RES_PROJECT8_CUSTOM_ROOM_SET_INDEX_GM_FOREVER_BATTLE_MODE = 32 [(resdata.keyword_alias) = "GM无限战斗模式"];
+    // RES_PROJECT8_CUSTOM_ROOM_SET_INDEX_GM_FAST_CHOOSE_LORD = 33 [(resdata.keyword_alias) = "GM快速选领主"];
+    // RES_PROJECT8_CUSTOM_ROOM_SET_INDEX_GM_UNLIMITED_CHOOSE_LORD = 34 [(resdata.keyword_alias) = "GM选领主无限时长"];
+    RES_PROJECT8_CUSTOM_ROOM_SET_INDEX_GM_FAST_EXCHANGE_CARD = 35 [(resdata.keyword_alias) = "GM快速换牌"];
+    RES_PROJECT8_CUSTOM_ROOM_SET_INDEX_GM_ALLOW_TEST_LORD = 36 [(resdata.keyword_alias) = "GM允许使用测试领主"];
+    RES_PROJECT8_CUSTOM_ROOM_SET_INDEX_GM_SKIP_EXTRA_FIGHT_TIME = 37 [(resdata.keyword_alias) = "GM跳过加时赛"];
+    RES_PROJECT8_CUSTOM_ROOM_SET_INDEX_GM_SKIP_EXCHANGE_CARD = 38 [(resdata.keyword_alias) = "GM跳过换牌"];
+    RES_PROJECT8_CUSTOM_ROOM_SET_INDEX_GM_SKIP_AUCTION = 39 [(resdata.keyword_alias) = "GM跳过拍卖"];
+    RES_PROJECT8_CUSTOM_ROOM_SET_INDEX_GM_FAST_AUCTION = 40 [(resdata.keyword_alias) = "GM快速拍卖"];
+    RES_PROJECT8_CUSTOM_ROOM_SET_INDEX_GM_FAST_PREPARETIME = 41;
+    RES_PROJECT8_CUSTOM_ROOM_SET_INDEX_START_ROUND_BIT_1 = 42 [(resdata.keyword_alias) = "开始回合第1位"];
+    RES_PROJECT8_CUSTOM_ROOM_SET_INDEX_START_ROUND_BIT_2 = 43 [(resdata.keyword_alias) = "开始回合第2位"];
+    RES_PROJECT8_CUSTOM_ROOM_SET_INDEX_START_ROUND_BIT_3 = 44 [(resdata.keyword_alias) = "开始回合第3位"];
+    RES_PROJECT8_CUSTOM_ROOM_SET_INDEX_START_ROUND_BIT_4 = 45 [(resdata.keyword_alias) = "开始回合第4位"];
+
+    RES_PROJECT8_CUSTOM_ROOM_SET_INDEX_LAST = 64;
+}
+
+enum RES_PROJECT8_ROUND_STATE_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_PROJECT8_ROUND_STATE_TYPE_NULL          = 0 [(resdata.keyword_alias) = "无效回合状态"];
+    RES_PROJECT8_ROUND_STATE_TYPE_BEGIN         = 1 [(resdata.keyword_alias) = "开局回合状态"];
+    RES_PROJECT8_ROUND_STATE_TYPE_BATTLE        = 2 [(resdata.keyword_alias) = "战斗回合状态"];
+    RES_PROJECT8_ROUND_STATE_TYPE_EXCHANGE_CARD = 3 [(resdata.keyword_alias) = "换牌回合状态"];
+    RES_PROJECT8_ROUND_STATE_TYPE_AUCTION       = 4 [(resdata.keyword_alias) = "拍卖回合状态"];
+    RES_PROJECT8_ROUND_STATE_TYPE_LORD_REWARD   = 5 [(resdata.keyword_alias) = "领主奖励回合状态"];
+    RES_PROJECT8_ROUND_STATE_TYPE_CHOOSE_LORD   = 6 [(resdata.keyword_alias) = "选择领主回合状态"];
+    RES_PROJECT8_ROUND_STATE_TYPE_BOSS_BATTLE   = 7 [(resdata.keyword_alias) = "BOSS战斗回合状态"];
+    RES_PROJECT8_ROUND_STATE_TYPE_GRAB_AWARD    = 8 [(resdata.keyword_alias) = "争夺赛回合状态"];
+    RES_PROJECT8_ROUND_STATE_TYPE_PRE_BEGIN    = 9 [(resdata.keyword_alias) = "开始回合状态"];
+    RES_PROJECT8_ROUND_STATE_TYPE_CHOOSE_REWARD    = 10 [(resdata.keyword_alias) = "寻宝回合状态"];
+    RES_PROJECT8_ROUND_STATE_TYPE_AIRDROP_AWARD    = 11 [(resdata.keyword_alias) = "全局投放回合状态"];
+}
+
+enum RES_FORMULA_CALCULATE_EXTRA_TYPE {
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+
+    RES_FORMULA_CALCULATE_EXTRA_TYPE_NULL = 0;
+    RES_FORMULA_CALCULATE_EXTRA_TYPE_SOURCE_MAX_HP = 1 [(resdata.keyword_alias) = "攻击方最大生命值"];
+    RES_FORMULA_CALCULATE_EXTRA_TYPE_SOURCE_LOSE_HP = 2 [(resdata.keyword_alias) = "攻击方已损失生命值"];
+    RES_FORMULA_CALCULATE_EXTRA_TYPE_SOURCE_CURRENT_HP = 3 [(resdata.keyword_alias) = "攻击方当前生命值"];
+    RES_FORMULA_CALCULATE_EXTRA_TYPE_SOURCE_MAX_ENERGY = 4 [(resdata.keyword_alias) = "攻击方能量上限"];
+    RES_FORMULA_CALCULATE_EXTRA_TYPE_SOURCE_ARMOR = 5 [(resdata.keyword_alias) = "攻击方物理防御"];
+    RES_FORMULA_CALCULATE_EXTRA_TYPE_SOURCE_MAGIC_RESIST = 6 [(resdata.keyword_alias) = "攻击方法术防御"];
+    RES_FORMULA_CALCULATE_EXTRA_TYPE_SOURCE_ABILITY_POWER = 7 [(resdata.keyword_alias) = "攻击方法术强度"];
+    RES_FORMULA_CALCULATE_EXTRA_TYPE_SOURCE_CURRENT_SHIELD = 8 [(resdata.keyword_alias) = "攻击方当前护盾值"];
+    RES_FORMULA_CALCULATE_EXTRA_TYPE_SOURCE_ATTACK_DAMAGE = 9 [(resdata.keyword_alias) = "攻击方物理攻击力"];
+    RES_FORMULA_CALCULATE_EXTRA_TYPE_TARGET_MAX_HP = 11 [(resdata.keyword_alias) = "受击方最大生命值"];
+    RES_FORMULA_CALCULATE_EXTRA_TYPE_TARGET_LOSE_HP = 12 [(resdata.keyword_alias) = "受击方已损失生命值"];
+    RES_FORMULA_CALCULATE_EXTRA_TYPE_TARGET_CURRENT_HP = 13 [(resdata.keyword_alias) = "受击方当前生命值"];
+    RES_FORMULA_CALCULATE_EXTRA_TYPE_TARGET_MAX_ENERGY = 14 [(resdata.keyword_alias) = "受击方能量上限"];
+    RES_FORMULA_CALCULATE_EXTRA_TYPE_TARGET_ARMOR = 15 [(resdata.keyword_alias) = "受击方物理防御"];
+    RES_FORMULA_CALCULATE_EXTRA_TYPE_TARGET_MAGIC_RESIST = 16 [(resdata.keyword_alias) = "法受击方术防御"];
+    RES_FORMULA_CALCULATE_EXTRA_TYPE_TARGET_ABILITY_POWER = 17 [(resdata.keyword_alias) = "受击方法术强度"];
+    RES_FORMULA_CALCULATE_EXTRA_TYPE_TARGET_CURRENT_SHIELD = 18 [(resdata.keyword_alias) = "受击方当前护盾值"];
+    RES_FORMULA_CALCULATE_EXTRA_TYPE_TARGET_ATTACK_DAMAGE = 19 [(resdata.keyword_alias) = "受击方物理攻击力"];
+    RES_FORMULA_CALCULATE_EXTRA_TYPE_TARGET_LOSE_HP_PERCENT = 20 [(resdata.keyword_alias) = "受击方损失生命值比例"];
+    RES_FORMULA_CALCULATE_EXTRA_TYPE_LAST = 21;
+}
+
+enum RES_GRAB_AWARD_GLOBAL_TYPE{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_GRAB_AWARD_GLOBAL_TYPE_NULL = 0;
+    RES_GRAB_AWARD_GLOBAL_TYPE_SCENE_ID = 1 [(resdata.keyword_alias) = "争夺赛地图"];
+    RES_GRAB_AWARD_GLOBAL_TYPE_INTERVAL_TIME = 2 [(resdata.keyword_alias) = "投掷时间间隔"];
+    RES_GRAB_AWARD_GLOBAL_TYPE_DROP_TIME = 3 [(resdata.keyword_alias) = "奖励掉落时间"];
+    RES_GRAB_AWARD_GLOBAL_TYPE_DROP_PARAM = 4 [(resdata.keyword_alias) = "下落参数"];
+}
+
+enum BUFF_EFFECT_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    BUFF_EFFECT_TYPE_NEUTRAL = 0 [(resdata.keyword_alias) = "中性效果"];
+    BUFF_EFFECT_TYPE_POSITIVE = 1 [(resdata.keyword_alias) = "正面效果"];
+    BUFF_EFFECT_TYPE_NEGATIVE = 2 [(resdata.keyword_alias) = "负面效果"];
+    BUFF_EFFECT_TYPE_DAMAGE = 3 [(resdata.keyword_alias) = "伤害效果"];
+    BUFF_EFFECT_TYPE_CONTROL_1 = 4 [(resdata.keyword_alias) = "一级控制效果"];
+    BUFF_EFFECT_TYPE_CONTROL_2 = 5 [(resdata.keyword_alias) = "二级控制效果"];
+    BUFF_EFFECT_TYPE_CONTROL_3 = 6 [(resdata.keyword_alias) = "三级控制效果"];
+    BUFF_EFFECT_TYPE_CONTROL_4 = 7 [(resdata.keyword_alias) = "四级控制效果"];
+    BUFF_EFFECT_TYPE_LAST = 8;
+    BUFF_EFFECT_TYPE_ERROR_1 = 9 [(resdata.keyword_alias) = "控制效果"];
+    BUFF_EFFECT_TYPE_ERROR_2 = 10 [(resdata.keyword_alias) = "永久效果"];
+}
+
+
+enum BUFF_SHOW_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    BUFF_SHOW_TYPE_NULL = 0;
+    BUFF_SHOW_TYPE_SKILL_BAR = 1 [(resdata.keyword_alias) = "技能条计数器"];
+    BUFF_SHOW_TYPE_SKILL_ICON = 2 [(resdata.keyword_alias) = "技能图标计数器"];
+}
+
+
+enum CUSTOM_COIN_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    option (cltgen.bp_export) = true;
+    option (cltgen.uninode_enum) = true;
+    CUSTOM_COIN_TYPE_CHANGAN = 0 [(resdata.keyword_alias) = "长安代币"];
+}
+
+enum RELATIVE_MOD_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+	RELATIVE_MOD_TYPE_NONE = 0 [(resdata.keyword_alias) = "无"];
+	RELATIVE_MOD_TYPE_CHANGAN_MOD1 = 1 [(resdata.keyword_alias) = "长安改获得代币"];
+    RELATIVE_MOD_TYPE_RULE_MOD1 = 2 [(resdata.keyword_alias) = "统治者装备共享同阵营"];
+    RELATIVE_MOD_TYPE_SANFEN_MOD1 = 3 [(resdata.keyword_alias) = "三分之地英雄buff加倍"];
+    RELATIVE_MOD_TYPE_SANFEN_MOD2 = 4 [(resdata.keyword_alias) = "三分之地buff共享同阵营"];
+    RELATIVE_MOD_TYPE_RULE_MOD2 = 5 [(resdata.keyword_alias) = "统治者装备包含一件神装"];
+    RELATIVE_MOD_TYPE_EXTRA_STAR_LEADER_MOD = 6 [(resdata.keyword_alias) = "星之队额外队长"];
+    RELATIVE_MOD_TYPE_CHANGAN_MOD2 = 7[(resdata.keyword_alias) = "长安币可刷新商店"];
+}
+
+enum GAME_CORE_ERROR_CODE
+{
+	option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+	GAME_CORE_ERROR_CODE_NONE = 0;
+	GAME_CORE_ERROR_CODE_QUIT_BATTLE_FAILED = 1 [(resdata.keyword_alias) = "有效玩家小于2人，禁止投降"];
+}
+
+enum BUFF_SUB_EFFECT_TYPE_MASK
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    BUFF_SUB_EFFECT_TYPE_MASK_NULL = 0;
+    BUFF_SUB_EFFECT_TYPE_MASK_1 = 16 [(resdata.keyword_alias) = "不能驱散净化"];
+    BUFF_SUB_EFFECT_TYPE_MASK_2 = 1 [(resdata.keyword_alias) = "禁锢"];
+    BUFF_SUB_EFFECT_TYPE_MASK_3 = 2 [(resdata.keyword_alias) = "沉默"];
+    BUFF_SUB_EFFECT_TYPE_MASK_4 = 8 [(resdata.keyword_alias) = "缴械"];
+    BUFF_SUB_EFFECT_TYPE_MASK_5 = 10 [(resdata.keyword_alias) = "混乱"];
+    BUFF_SUB_EFFECT_TYPE_MASK_6 = 15 [(resdata.keyword_alias) = "晕眩"];
+    BUFF_SUB_EFFECT_TYPE_MASK_7 = 31 [(resdata.keyword_alias) = "压制"];
+    BUFF_SUB_EFFECT_TYPE_MASK_8 = 2079 [(resdata.keyword_alias) = "击飞"];
+    BUFF_SUB_EFFECT_TYPE_MASK_9 = 1952 [(resdata.keyword_alias) = "免疫"];
+    BUFF_SUB_EFFECT_TYPE_MASK_10 = 1968 [(resdata.keyword_alias) = "强效免疫"];
+    BUFF_SUB_EFFECT_TYPE_MASK_11 = 64 [(resdata.keyword_alias) = "免伤"];
+    BUFF_SUB_EFFECT_TYPE_MASK_12 = 80 [(resdata.keyword_alias) = "强效免伤"];
+    BUFF_SUB_EFFECT_TYPE_MASK_13 = 2016 [(resdata.keyword_alias) = "无敌"];
+    BUFF_SUB_EFFECT_TYPE_MASK_14 = 10224 [(resdata.keyword_alias) = "强效无敌"];
+    BUFF_SUB_EFFECT_TYPE_MASK_15 = 4112 [(resdata.keyword_alias) = "木桩"];
+}
+
+enum RES_PROJECT8_DROP_PROBABILITY_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_PROJECT8_DROP_PROBABILITY_TYPE_NULL = 0 [(resdata.keyword_alias) = ""];
+    RES_PROJECT8_DROP_PROBABILITY_MINCNT = 1 [(resdata.keyword_alias) = "掉落下限"];
+}
+
+enum RES_PROJECT8_DROP_CONDITION_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_PROJECT8_DROP_CONDITION_TYPE_NULL = 0 [(resdata.keyword_alias) = ""];
+    RES_PROJECT8_DROP_CONDITION_TYPE_SHOP_LEVEL = 1 [(resdata.keyword_alias) = "掉落条件-商店等级"];
+    RES_PROJECT8_DROP_CONDITION_TYPE_CHESS_STAR = 2 [(resdata.keyword_alias) = "掉落条件-棋子星级"];
+    RES_PROJECT8_DROP_CONDITION_TYPE_NOT_DUPLICATE = 3 [(resdata.keyword_alias) = "掉落条件-不可重复"];
+    RES_PROJECT8_DROP_CONDITION_TYPE_MAXCNT = 4 [(resdata.keyword_alias) = "掉落条件-单局上限限制"];
+    RES_PROJECT8_DROP_CONDITION_TYPE_RELATIVE = 5 [(resdata.keyword_alias) = "掉落条件-羁绊等级"];
+}
+
+enum RES_BATTLE_FLOAT_TEXT_ID
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_BATTLE_FLOAT_TEXT_ID_Default = 0;
+    RES_BATTLE_FLOAT_TEXT_ID_ImmunityControl = 1 [(resdata.keyword_alias) = "免控"];
+    RES_BATTLE_FLOAT_TEXT_ID_MISS = 2 [(resdata.keyword_alias) = "闪避"];
+}
+
+enum RES_PROJECT8_SKILL_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_PROJECT8_SKILL_TYPE_Default = 0;
+    RES_PROJECT8_SKILL_TYPE_BREAK_CELL = 1 [(resdata.keyword_alias) = "打破站位"];
+    RES_PROJECT8_SKILL_TYPE_TERMINATOR = 2 [(resdata.keyword_alias) = "终结目标"];
+}
+
+enum RES_PROJECT8_LORDSKILL_PHASE_TYPE
+{
+    option (cltgen.gamecore_enum) = true;
+    option (cltgen.csharp_enum) = true;
+    
+    RES_PROJECT8_LORDSKILL_PHASE_TYPE_Default = 0;
+    BATTLE_PREPARE       = 1   [ (resdata.keyword_alias) = "备战阶段"];
+    BATTLE_LOCK          = 2   [ (resdata.keyword_alias) = "锁定阶段"];
+    BATTLE_TELEPORTATION = 4   [ (resdata.keyword_alias) = "传送阶段"];
+    BATTLE_RACE          = 8   [ (resdata.keyword_alias) = "正赛阶段"];
+    BATTLE_OVERTIME      = 16  [ (resdata.keyword_alias) = "加时赛阶段"];
+    BATTLE_SETTLE        = 32  [ (resdata.keyword_alias) = "结算阶段"];
+    BATTLE_RESET         = 64  [ (resdata.keyword_alias) = "重置阶段"];
+    BATTLE_POSTPREPARE   = 128 [ (resdata.keyword_alias) = "战后整理阶段"];
+    BATTLE_END           = 256 [ (resdata.keyword_alias) = "回合完成阶段"];
+    BATTLE_BOSSAWARD     = 512 [ (resdata.keyword_alias) = "BOSS奖励阶段"];
+    BATTLE_ONLY          = 24  [ (resdata.keyword_alias) = "仅战斗阶段"];
+    BATTLE_ALL_PREPARE   = 129  [ (resdata.keyword_alias) = "战前战后阶段"];
+    BATTLE_ANY           = 255 [ (resdata.keyword_alias) = "常规任意阶段"];
+    MAX                  = 513 [ (resdata.keyword_alias) = "自走棋领主技能使用时机最大值"];
+}

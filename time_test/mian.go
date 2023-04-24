@@ -7,6 +7,17 @@ import (
 	"time"
 )
 
+func main() {
+	test08()
+
+}
+
+func test08() {
+	t := time.Now()
+	ss := t.Format("20060102")
+	fmt.Println(ss)
+}
+
 func test() {
 	//当前时间戳
 	t := time.Now().Unix()
@@ -53,11 +64,6 @@ func test3() {
 	fmt.Println("flag=", flag)
 	flag = st2.After(st1)
 	fmt.Println("flag=", flag)
-
-}
-
-func main() {
-	test07()
 
 }
 

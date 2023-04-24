@@ -1,12 +1,12 @@
 package main
 
 import (
-	"database/sql/driver"
 	"encoding/json"
 	"fmt"
-	"git.code.oa.com/gap/base/mysql"
+	gormV1 "github.com/jinzhu/gorm"
 	gMysql "gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/schema"
 	"os"
 	"time"
 )
@@ -14,17 +14,47 @@ import (
 var db *gorm.DB
 
 func main() {
-	test06()
+	test07()
 }
 
 func init() {
 	var err error
-	conStr := "root:123456@(localhost)/test?charset=utf8mb4&parseTime=True&loc=Local"
-	db, err = gorm.Open(gMysql.Open(conStr), &gorm.Config{})
+	conStr := "root:123456@(localhost)/ingame_sop?charset=utf8mb4&parseTime=True&loc=Local"
+	db, err = gorm.Open(gMysql.Open(conStr), &gorm.Config{NamingStrategy: schema.NamingStrategy{
+		SingularTable: true,
+	}})
 	if err != nil {
 		panic(err)
 	}
 	db = db.Debug()
+}
+
+func test07() {
+	as := make([]Admin, 0)
+	//sub := db.Model(&Admin{}).Where("type = 3 and user_id > 0").Order("created_at desc")
+	//if err := db.Table("(?) as items", sub).Group("items.user_id").Find(&as).Error; err != nil {
+	//	fmt.Println(err)
+	//	return
+	//}
+	if err := db.Model(&Admin{}).
+		Where("type = ? and object_id = ? and created_at >= now() ", 2, 20).
+		Find(&as).Error; err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println("nice")
+}
+
+type Admin struct {
+	gormV1.Model
+	Type     int  `gorm:"column:type"` // 1 service, 2 app, 3 business, 4 env res
+	ObjectID uint `gorm:"column:object_id"`
+	UserID   uint `gorm:"column:user_id"`
+}
+
+func (m *Admin) TableName() string {
+	return "admin"
 }
 
 type Award struct {
@@ -43,13 +73,6 @@ func (m Award) TableName() string {
 type AwardName struct {
 	MainName string `json:"main_name"`
 	SideName string `json:"side_name"`
-}
-
-func (o AwardName) Value() (driver.Value, error) {
-	return mysql.ValueJson(o)
-}
-func (o *AwardName) Scan(input interface{}) error {
-	return mysql.ScanJson(input, o)
 }
 
 // 无极表信息
@@ -145,16 +168,6 @@ type SchemaFieldOutput struct {
 }
 
 type SchemaFieldSet []*SchemaField
-
-// Value
-func (o SchemaFieldSet) Value() (driver.Value, error) {
-	return mysql.ValueJson(o)
-}
-
-// Scan
-func (o *SchemaFieldSet) Scan(input interface{}) error {
-	return mysql.ScanJson(input, o)
-}
 
 // Find
 //func (o SchemaFieldSet) Find(id string) *SchemaField {

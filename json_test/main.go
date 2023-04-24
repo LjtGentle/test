@@ -3,10 +3,268 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/spf13/cast"
 	"math/rand"
 	"reflect"
+	"strconv"
 	"strings"
 )
+
+func main() {
+	//test_map2()
+	//testSlice()
+	//test5()
+	//classMap := make(map[int]string)
+	//add(classMap,1,"7")
+	//add(classMap,1,"8")
+	//add(classMap,2,"4")
+	//fmt_test.Printf("classMap=%+v\n",classMap)
+	//randString()
+	//jsonToStrings(`{"id":632257508,"distribute":{"channel":{"chan":1,"task":16,"stage":57}}}`)
+	test32()
+}
+
+func test32() {
+	jsonStr := `[
+    {
+        "hero_id": 155,
+        "time": 1650902400
+    },
+    {
+        "hero_id": 521,
+        "time": 1668009600
+    },
+    {
+        "hero_id": 162,
+        "time": 1665244800
+    },
+    {
+        "hero_id": 534,
+        "time": 1668009600
+    },
+    {
+        "hero_id": 548,
+        "time": 1668009600
+    },
+    {
+        "hero_id": 110,
+        "time": 1669132800
+    },
+    {
+        "hero_id": 186,
+        "time": 1664380800
+    },
+    {
+        "hero_id": 163,
+        "time": -62135596800
+    },
+    {
+        "hero_id": 148,
+        "time": 1668009600
+    },
+    {
+        "hero_id": 192,
+        "time": 1668009600
+    },
+    {
+        "hero_id": 106,
+        "time": 1663776000
+    },
+    {
+        "hero_id": 112,
+        "time": 1669132800
+    },
+    {
+        "hero_id": 544,
+        "time": 1669132800
+    },
+    {
+        "hero_id": 515,
+        "time": 1664380800
+    },
+    {
+        "hero_id": 199,
+        "time": 1668009600
+    },
+    {
+        "hero_id": 111,
+        "time": 1669132800
+    },
+    {
+        "hero_id": 527,
+        "time": 1664380800
+    },
+    {
+        "hero_id": 107,
+        "time": 1663776000
+    },
+    {
+        "hero_id": 194,
+        "time": 1668009600
+    },
+    {
+        "hero_id": 184,
+        "time": 1668528000
+    },
+    {
+        "hero_id": 156,
+        "time": 1669132800
+    },
+    {
+        "hero_id": 507,
+        "time": 1668009600
+    },
+    {
+        "hero_id": 105,
+        "time": 1663776000
+    },
+    {
+        "hero_id": 195,
+        "time": 1668614400
+    },
+    {
+        "hero_id": 130,
+        "time": 1668528000
+    },
+    {
+        "hero_id": 119,
+        "time": 1669132800
+    },
+    {
+        "hero_id": 169,
+        "time": 1665244800
+    },
+    {
+        "hero_id": 149,
+        "time": 1665244800
+    },
+    {
+        "hero_id": 139,
+        "time": 1668009600
+    },
+    {
+        "hero_id": 108,
+        "time": 1663776000
+    },
+    {
+        "hero_id": 109,
+        "time": 1669305600
+    }
+]`
+	type Hero struct {
+		HeroId int   `json:"hero_id"`
+		Time   int64 `json:"time"`
+	}
+	hs := make([]*Hero, 0)
+	err := json.Unmarshal([]byte(jsonStr), &hs)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	heroMap := make(map[int]int, 0)
+	for _, v := range hs {
+		if nums, ok := heroMap[v.HeroId]; ok {
+			nums++
+			heroMap[v.HeroId] = nums
+		} else {
+			heroMap[v.HeroId] = 1
+		}
+	}
+	fmt.Println(heroMap)
+}
+
+func test31() {
+	ss := "1"
+	i := cast.ToInt(ss)
+	fmt.Println(i)
+}
+
+func test30() {
+	key := "%s_%s_%s_%s"
+	a := "aa"
+	b := "bb"
+	c := "cc"
+	d := 10
+	key = fmt.Sprintf(key, a, b, c, strconv.Itoa(d))
+	fmt.Println("1111->key=", key)
+	//key = fmt.Sprintf(key, c, d)
+	//fmt.Println("222->key=", key)
+}
+
+func test29() {
+	str := "[{\"battle\":{\"Name\":\"新手必备三分攻略\",\"LordID\":[0,0,0],\"EarlyHeroes\":[{\"HeroID\":1112,\"Position\":44,\"Level\":2,\"EquipIDs\":[21106,21107,21101],\"IsCenter\":true},{\"HeroID\":1072,\"Position\":15,\"Level\":2,\"EquipIDs\":[21121,22124,21110],\"IsCenter\":true},{\"HeroID\":1412,\"Position\":35,\"Level\":2},{\"HeroID\":1282,\"Position\":14,\"Level\":2},{\"HeroID\":1272,\"Position\":34,\"Level\":2}],\"FinalHeroes\":[{\"HeroID\":1232,\"Position\":15,\"Level\":2,\"EquipIDs\":[21121,22124,21110,31109],\"IsCenter\":true},{\"HeroID\":1122,\"Position\":48,\"Level\":2,\"EquipIDs\":[51101,21106,21107],\"IsCenter\":true},{\"HeroID\":5232,\"Position\":41,\"Level\":2},{\"HeroID\":1902,\"Position\":35,\"Level\":2},{\"HeroID\":1062,\"Position\":34,\"Level\":2},{\"HeroID\":1112,\"Position\":44,\"Level\":2},{\"HeroID\":1072,\"Position\":16,\"Level\":2},{\"HeroID\":1412,\"Position\":25,\"Level\":2},{\"HeroID\":1282,\"Position\":14,\"Level\":2},{\"HeroID\":1272,\"Position\":24,\"Level\":2}],\"ID\":\"107\",\"NewComer\":true,\"PreferredEquips\":[21121,22124,21110,31109,51101]},\"desc\":\"test\",\"main_job\":{\"1\":[\"1232\",\"1072\"],\"2\":[\"1282\"],\"4\":[\"5232\",\"1902\",\"1062\",\"1412\",\"1272\"],\"5\":[\"1122\",\"1112\"]},\"chess_relative\":[{\"fetterID\":\"41\",\"len\":8,\"hero_ids\":[\"1232\",\"1902\",\"1062\",\"1112\",\"1072\",\"1412\",\"1282\",\"1272\"]},{\"fetterID\":\"4\",\"len\":2,\"hero_ids\":[\"5232\",\"1902\"]},{\"fetterID\":\"6\",\"len\":2,\"hero_ids\":[\"1072\",\"1282\"]},{\"fetterID\":\"17\",\"len\":2,\"hero_ids\":[\"1122\",\"1112\"]},{\"fetterID\":\"5\",\"len\":1,\"hero_ids\":[\"1232\"]},{\"fetterID\":\"7\",\"len\":1,\"hero_ids\":[\"1412\"]},{\"fetterID\":\"12\",\"len\":1,\"hero_ids\":[\"1122\"]},{\"fetterID\":\"16\",\"len\":1,\"hero_ids\":[\"1272\"]},{\"fetterID\":\"21\",\"len\":1,\"hero_ids\":[\"1062\"]},{\"fetterID\":\"22\",\"len\":1,\"hero_ids\":[\"1282\"]},{\"fetterID\":\"35\",\"len\":1,\"hero_ids\":[\"1122\"]},{\"fetterID\":\"38\",\"len\":1,\"hero_ids\":[\"5232\"]},{\"fetterID\":\"42\",\"len\":1,\"hero_ids\":[\"1232\"]}]}]"
+	var strMap []map[string]interface{}
+	err := json.Unmarshal([]byte(str), &strMap)
+	if err != nil {
+		fmt.Println("json unmarshal err=", err)
+		return
+	}
+	fmt.Printf("strMap[battle]=%+v\n", strMap[0]["battle"])
+	fmt.Printf("strMap[battle] type =%T\n", strMap[0]["battle"])
+}
+
+func test28() {
+	l := lengthOfLongestSubstring("aab")
+	fmt.Println(l)
+}
+
+func lengthOfLongestSubstring(s string) int {
+	sub, tempStr := "", ""
+	// key runeValue value index
+	strMap := make(map[byte]int)
+	for right := 0; right < len(s); right++ {
+		if index, ok := strMap[s[right]]; ok {
+			//出现了重复
+			if len(tempStr) > len(sub) {
+				sub = tempStr
+			}
+			strMap = make(map[byte]int)
+			right = index
+			tempStr = ""
+			continue
+		}
+		strMap[s[right]] = right
+		tempStr += string(s[right])
+	}
+	if len(tempStr) > len(sub) {
+		sub = tempStr
+	}
+	return len(sub)
+}
+
+func test27() {
+	input := make(map[int]int)
+	fmt.Println("11111")
+	v, err := json.Marshal(input)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(string(v))
+}
+
+func test26() {
+	testMap := make(map[string]string)
+	testMap["a"] = "A"
+	fmt.Printf("----%s----%d--\n", testMap["b"], len(testMap["b"]))
+}
+
+func test25() {
+	// 测试struct 字段比string少
+	type Man struct {
+		Name string `json:"name"`
+		Age  int    `json:"age"`
+	}
+	ss := "{\"name\":\"ben\",\"age\":10,\"addr\":\"sz\"}"
+
+	var m Man
+	err := json.Unmarshal([]byte(ss), &m)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println("m=", m)
+}
 
 func test_map() {
 	tmap := make(map[string]interface{})
@@ -74,20 +332,6 @@ func testSlice() {
 //	}
 //
 //}
-
-func main() {
-	//test_map2()
-	//testSlice()
-	//test5()
-	//classMap := make(map[int]string)
-	//add(classMap,1,"7")
-	//add(classMap,1,"8")
-	//add(classMap,2,"4")
-	//fmt_test.Printf("classMap=%+v\n",classMap)
-	//randString()
-	//jsonToStrings(`{"id":632257508,"distribute":{"channel":{"chan":1,"task":16,"stage":57}}}`)
-	test24()
-}
 
 func test24() {
 	fileName := "lordSkill/LordSkill_ChangE.png"

@@ -1,61 +1,82 @@
 package main
 
-type Translate struct {
-	Records []Record `json:"Records"`
-}
-type Record struct {
-	Key         string `json:"Key"`
-	Translation string `json:"Translation"`
-}
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"osgame/logic"
+)
 
-var conRecord string = "{\"Key\":\"##\",\"Translation\":\"123\"}"
+type St struct {
+	Name string `json:"name"`
+	Age  int    `json:"age"`
+}
 
 func main() {
-	//url := "https://tiem-cdn.qq.com/osgame/data/Standard_S1/Basic/test_ResSkillCfgInfo.zh_cn.lang.json"
-	//getReader, err := http.Get(url)
+	//st := St{
+	//	Name: "目标数量：[\"3\"]/[\"4\"]/[\"5\"]\n回复生命值：[119190p1q1]/[119191p1q1]/[119192p1q1]\\n法术伤害：[119100p1q1]/[119101p1q1]/[119102p1q1]",
+	//	Age:  18,
+	//}
+	//b, err := json.Marshal(st)
 	//if err != nil {
-	//	fmt.Printf("http get err=%+v\n", err)
 	//	return
 	//}
-	//defer getReader.Body.Close()
-	//readByte, err := ioutil.ReadAll(getReader.Body)
-	//if err != nil {
-	//	fmt.Printf("ioutil.ReadAll err=%+v\n", err)
-	//	return
-	//}
-	//var t Translate
-	//err = json.Unmarshal(readByte, &t)
-	//if err != nil {
-	//	fmt.Printf("readbyte json unmarshal")
-	//	return
-	//}
-	//var rec Record
-	//err = json.Unmarshal([]byte(conRecord), &rec)
-	//if err != nil {
-	//	fmt.Printf("conRecord json unmarshal")
-	//	return
-	//}
-	//fmt.Println(rec)
-	////fmt.Printf("t=%+v\n", t)
-	////
+	//fmt.Println("b=", string(b))
+	//h := "#hhh#"
+	//v := "目标数量：[\"3\"]/[\"4\"]/[\"5\"]\\n回复生命值：[119190p1q1]/[119191p1q1]/[119192p1q1]\\\\n法术伤害：[119100p1q1]/[119101p1q1]/[119102p1q1]"
+	//v = strings.ReplaceAll(v, "\"", "\\\"")
+	//str := "{\"name\":\"#hhh#\",\"age\":18}"
+	//str = strings.ReplaceAll(str, h, v)
 	//
-	//fmt.Println("len=", len(t.Records))
-	//for _, v := range t.Records {
-	//	var ttt Record
-	//	v.Translation = strings.ReplaceAll(v.Translation, "\n", "")
-	//	v.Translation = strings.ReplaceAll(v.Translation, "\"", "")
-	//	iconRecord := strings.ReplaceAll(conRecord, "##", v.Translation)
-	//	err = json.Unmarshal([]byte(iconRecord), &ttt)
-	//	if err != nil {
-	//		fmt.Println(iconRecord)
-	//		fmt.Printf("key=%s,json unmarshal err=%+v\n", v.Key, err)
-	//		return
-	//	}
+	//err = json.Unmarshal([]byte(str), &st)
+	//if err != nil {
+	//	fmt.Println(err)
+	//	return
 	//}
-	//fmt.Println("success")
-
+	//fmt.Printf("st=%+v\n", st)
+	test()
 }
 
-func test1() {
-	//
+func test() {
+	osGameTypes := [][]string{{"Standard_S1", "Basic"}}
+	basic := [][]string{{"Basic", "Public"}}
+	fmt.Println("osGameTypes=", osGameTypes)
+	fmt.Println("basic=", basic)
+
+	dir, err := os.Getwd()
+	if err != nil {
+		fmt.Println("err=", err)
+		return
+	}
+	fmt.Println("path=", dir)
+	f, err := os.Open("./ProtobufDatabin.zip")
+	if err != nil {
+		fmt.Println("err=", err)
+		return
+	}
+	defer f.Close()
+	fi, err := f.Stat()
+	if err != nil {
+		fmt.Println("err=", err)
+		return
+	}
+	bin, err := logic.UpdateDataBin(f, fi.Size(), "zh_cn")
+	if err != nil {
+		fmt.Println("err=", err)
+		return
+	}
+	fmt.Println("success")
+	wf, err := os.OpenFile("look.json", os.O_CREATE|os.O_WRONLY, 0666)
+	if err != nil {
+		fmt.Println("err=", err)
+		return
+	}
+	defer wf.Close()
+	writer := bufio.NewWriter(wf)
+	_, err = writer.WriteString(bin[0])
+	if err != nil {
+		fmt.Println("err=", err)
+		return
+	}
+	fmt.Println("bin=", len(bin))
 }

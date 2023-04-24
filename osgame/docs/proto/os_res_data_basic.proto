@@ -1,0 +1,39 @@
+syntax = "proto3";
+package ResData;
+import "resdata.option.proto";
+import "cltgen.option.proto";
+option go_package = "osserver/proto/resdata";
+
+//####数据档头####
+message DataBinHeader {
+    option (cltgen.gamecore_type) = true;
+    string contentHash            = 1;
+    uint32 rowCount               = 2;
+    uint32 bodyLength             = 3;
+}
+
+message DataBinBytes {
+    option (cltgen.gamecore_type) = true;
+    string hash                   = 1;
+    repeated bytes records        = 2;
+    ResDataRegistry registry    = 3;
+}
+
+message ResDataRegistry {
+    option (cltgen.gamecore_type) = true;
+    message MultiIndices { repeated uint32 Index = 2; }
+
+    repeated uint32 Primaries          = 1;
+    map<uint32, MultiIndices> Partials = 2;
+}
+
+message I18N {
+    option (cltgen.gamecore_type) = true;
+    option (cltgen.csharp_type)   = true;
+    message Record {
+        string Key          = 1;
+        string Translation  = 2;
+    }
+    repeated Record Records = 1;
+}
+//####数据档头####

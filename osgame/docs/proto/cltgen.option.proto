@@ -1,0 +1,36 @@
+syntax = "proto3";
+package cltgen;
+option go_package = "osserver/proto/osproto";
+
+import "google/protobuf/descriptor.proto";
+
+enum RandAccessMode {
+    NotAllowed = 0;
+    Editor     = 1;
+    Runtime    = 2;
+}
+
+extend google.protobuf.MessageOptions {
+    string pk                    = 70001;
+    repeated string index        = 70002;
+    RandAccessMode random_access = 70003;
+    bool gen_default             = 70004;
+    bool gamecore_cpp2cs         = 70011;
+    bool gamecore_type           = 70012;
+    bool csharp_type             = 70013;
+    bool system_databin          = 70014;
+    bool gamecore_databin        = 70015;
+    bool cpp2cs_transfer         = 70016;
+}
+
+extend google.protobuf.EnumOptions {
+    bool gamecore_enum = 90001;
+    bool csharp_enum   = 90002;
+    bool flags         = 90003;
+    bool bp_export     = 90004;
+    bool uninode_enum  = 90005;
+}
+
+extend google.protobuf.EnumValueOptions { 
+    string uninode_enum_alias = 70091; 
+}
